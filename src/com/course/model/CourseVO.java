@@ -1,7 +1,9 @@
 package com.course.model;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Arrays;
 
 public class CourseVO implements Serializable {
 	private Integer cNo;//課程編號
@@ -9,7 +11,7 @@ public class CourseVO implements Serializable {
 	private String cName;//課程名稱
 	private Integer cPrice;
 	private Integer cState;
-	private Timestamp cShelfDate;//上架時間
+	private Date cShelfDate;//上架日期
 	private String cIntroduction;//課程介紹
 	private Integer cType;
 	private Integer quantity;//購買人數
@@ -22,7 +24,7 @@ public class CourseVO implements Serializable {
 		super();
 	}
 
-	public CourseVO(Integer cNo, Integer dNo, String cName, Integer cPrice, Integer cState, Timestamp cShelfDate,
+	public CourseVO(Integer cNo, Integer dNo, String cName, Integer cPrice, Integer cState, Date cShelfDate,
 			String cIntroduction, Integer cType, Integer quantity, byte[] cPic, String cDescription,
 			Integer cTotalPeople, Integer cTotalScore) {
 		super();
@@ -82,11 +84,11 @@ public class CourseVO implements Serializable {
 		this.cState = cStatue;
 	}
 
-	public Timestamp getcShelfDate() {
+	public Date getcShelfDate() {
 		return cShelfDate;
 	}
 
-	public void setcShelfDate(Timestamp cShelfDate) {
+	public void setcShelfDate(Date cShelfDate) {
 		this.cShelfDate = cShelfDate;
 	}
 
@@ -144,6 +146,14 @@ public class CourseVO implements Serializable {
 
 	public void setcTotalScore(Integer cTotalScore) {
 		this.cTotalScore = cTotalScore;
+	}
+
+	@Override
+	public String toString() {
+		return "CourseVO [cNo=" + cNo + ", dNo=" + dNo + ", cName=" + cName + ", cPrice=" + cPrice + ", cState="
+				+ cState + ", cShelfDate=" + cShelfDate + ", cIntroduction=" + cIntroduction + ", cType=" + cType
+				+ ", quantity=" + quantity + ", cPic=" + Arrays.toString(cPic) + ", cDescription=" + cDescription
+				+ ", cTotalPeople=" + cTotalPeople + ", cTotalScore=" + cTotalScore + "]";
 	}
 
 }
