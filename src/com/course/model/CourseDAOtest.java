@@ -38,7 +38,8 @@ public class CourseDAOtest {
 		// 新增測試
 		CourseVO course = new CourseVO(cNo, dNo, cName, cPrice, cState, cShelfDate, cIntroduction, cType, quantity,
 				cPic, cDescription, cTotalPeople, cTotalScore);
-
+		CourseDAO_interface dao = new CourseJDBCDAO();
+		dao.insert(course);
 		// 單一查詢結果測試
 //		CourseDAO_interface dao = new CourseJDBCDAO();
 //		CourseVO course= dao.findBy_cNO(cNo);
