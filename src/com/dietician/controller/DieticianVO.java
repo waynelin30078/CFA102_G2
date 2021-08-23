@@ -155,7 +155,7 @@ public class DieticianVO {
 	}
 
 	public Integer getdState() {
-		return dState;
+		return dState; 
 	}
 
 	public void setdState(Integer dState) {
