@@ -6,17 +6,17 @@ import java.sql.Timestamp;
 import java.util.Arrays;
 
 public class CourseVO implements Serializable {
-	private Integer cNo;//課程編號
-	private Integer dNo;//講師編號
-	private String cName;//課程名稱
+	private Integer cNo;// 課程編號
+	private Integer dNo;// 講師編號
+	private String cName;// 課程名稱
 	private Integer cPrice;
 	private Integer cState;
-	private Date cShelfDate;//上架日期
-	private String cIntroduction;//課程介紹
+	private Date cShelfDate;// 上架日期
+	private String cIntroduction;// 課程介紹
 	private Integer cType;
-	private Integer quantity;//購買人數
-	private byte[] cPic;//預覽圖
-	private String cDescription;//預覽介紹
+	private Integer quantity;// 購買人數
+	private byte[] cPic;// 預覽圖
+	private String cDescription;// 預覽介紹
 	private Integer cTotalPeople;
 	private Integer cTotalScore;
 
@@ -24,7 +24,7 @@ public class CourseVO implements Serializable {
 		super();
 	}
 
-	public CourseVO(Integer cNo, Integer dNo, String cName, Integer cPrice, Integer cState, Date cShelfDate,
+	public CourseVO(Integer cNo, Integer dNo, String cName, Integer cPrice, Integer cState, java.util.Date cShelfDate2,
 			String cIntroduction, Integer cType, Integer quantity, byte[] cPic, String cDescription,
 			Integer cTotalPeople, Integer cTotalScore) {
 		super();
@@ -33,15 +33,15 @@ public class CourseVO implements Serializable {
 		this.cName = cName;
 		this.cPrice = cPrice;
 		this.cState = cState;
-		this.cShelfDate = cShelfDate;
-		this.cIntroduction=cIntroduction;
-		this.cType=cType;
-		this.quantity=quantity;
-		this.cPic=cPic;
-		this.cDescription=cDescription;
-		this.cTotalPeople=cTotalPeople;
-		this.cTotalScore=cTotalScore;
-		
+		this.cShelfDate = (Date) cShelfDate2;
+		this.cIntroduction = cIntroduction;
+		this.cType = cType;
+		this.quantity = quantity;
+		this.cPic = cPic;
+		this.cDescription = cDescription;
+		this.cTotalPeople = cTotalPeople;
+		this.cTotalScore = cTotalScore;
+
 	}
 
 	public Integer getcNo() {
