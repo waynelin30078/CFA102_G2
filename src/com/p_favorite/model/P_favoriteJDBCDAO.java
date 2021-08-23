@@ -248,17 +248,17 @@ public class P_favoriteJDBCDAO implements P_favoriteDAO_interface {
 
 		// GET_FAVORITE_STMT
 		List<P_favoriteVO> list = dao.getAll_favorite(1);
-		for (P_favoriteVO afavorite : list) {
-			System.out.print(afavorite.getmNo() + ",");
-			System.out.print(afavorite.getpNo());
+		for (P_favoriteVO aP_favorite : list) {
+			System.out.print(aP_favorite.getmNo() + ",");
+			System.out.print(aP_favorite.getpNo());
 			System.out.println();
 		}
 		System.out.println("--------------------------");
 		// GET_ALL_STMT
 		List<P_favoriteVO> listAll = dao.getAll();
-		for (P_favoriteVO afavorite : listAll) {
-			System.out.print(afavorite.getmNo() + ",");
-			System.out.print(afavorite.getpNo());
+		for (P_favoriteVO aP_favorite : listAll) {
+			System.out.print(aP_favorite.getmNo() + ",");
+			System.out.print(aP_favorite.getpNo());
 			System.out.println();
 		}		
 	}
