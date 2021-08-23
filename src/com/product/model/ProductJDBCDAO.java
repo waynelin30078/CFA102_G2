@@ -14,7 +14,6 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 	String userid = "David";
 	String passwd = "123456";
 
-<<<<<<< HEAD
 	private static final String INSERT_STMT = "INSERT INTO product (pNo, categoryName, pName, pPrice, pInfo, pQuantity, pOnDate, pOffDate, pImage1, pImage2, pImage3,"
 			+ "pRatingsQuantity, pTotalRatings, pState) VALUES (null, ?, ?, ?, ?, ?, now(), default, ?, ?, ?, ?, ?, default)";
 	private static final String UPDATE = "UPDATE product set categoryName=?, pName=?, pPrice=?, pInfo=?, pQuantity=?, pOnDate=?, pOffDate=?, pImage1=?, pImage2=?, pImage3=?,"
@@ -25,19 +24,6 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 	private static final String GET_ALL_STMT = "SELECT pNo, categoryName, pName, pPrice, pInfo, pQuantity, pOnDate, pOffDate, pImage1, pImage2, pImage3,"
 			+ " pRatingsQuantity, pTotalRatings, pState FROM product order by pNo";
 
-=======
-	// ·s¼W°Ó«~
-	private static final String INSERT_STMT = "INSERT INTO product (pNo,categoryName,pName,pPrice,pInfo,pQuantity,pOnDate,pOffDate,pImage1,pImage2,pImage3,pRatingsQuantity,pTotalRatings,pState) VALUES (null, ?, ?, ?, ?, ?, now(), default, ?, ?, ?, ?, ?, default)";
-	// §ó·s°Ó«~
-	private static final String UPDATE = "UPDATE product set categoryName=?, pName=?, pPrice=?, pInfo=?, pQuantity=?, pOnDate=now(), pOffDate=?, pImage1=?, pImage2=?, pImage3=?, pRatingsQuantity=?, pTotalRatings=?, pState=? where pNo =?";
-	// §R°£°Ó«~
-	private static final String DELETE = "DELETE FROM product where pNo =?";
-	// ¬d¸ß°Ó«~
-	private static final String GET_ONE_STMT = "SELECT * FROM product where pNo =?";
-	private static final String GET_ALL_STMT = "SELECT * FROM product order by pNo";
-
-	@Override
->>>>>>> 5e65e2a63fa68753dfd6d99f79f9d1255ce54f0b
 	public void insert(ProductVO productVO) {
 
 		Connection con = null;
@@ -98,18 +84,12 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
-<<<<<<< HEAD
 
-=======
-			
-			
->>>>>>> 5e65e2a63fa68753dfd6d99f79f9d1255ce54f0b
 			pstmt.setString(1, productVO.getCategoryName());
 			pstmt.setString(2, productVO.getpName());
 			pstmt.setInt(3, productVO.getpPrice());
 			pstmt.setString(4, productVO.getpInfo());
 			pstmt.setInt(5, productVO.getpQuantity());
-<<<<<<< HEAD
 			pstmt.setTimestamp(6, productVO.getpOnDate());
 			pstmt.setTimestamp(7, productVO.getpOffDate());
 			pstmt.setString(8, productVO.getpImage1());
@@ -119,16 +99,6 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			pstmt.setInt(12, productVO.getpTotalRatings());
 			pstmt.setInt(13, productVO.getpState());
 			pstmt.setInt(14, productVO.getpNo());
-=======
-			pstmt.setTimestamp(6, productVO.getpOffDate());
-			pstmt.setString(7, productVO.getpImage1());
-			pstmt.setString(8, productVO.getpImage2());
-			pstmt.setString(9, productVO.getpImage3());
-			pstmt.setInt(10, productVO.getpRatingsQuantity());
-			pstmt.setInt(11, productVO.getpTotalRatings());
-			pstmt.setInt(12, productVO.getpState());
-			pstmt.setInt(13, productVO.getpNo());
->>>>>>> 5e65e2a63fa68753dfd6d99f79f9d1255ce54f0b
 
 			pstmt.executeUpdate();
 
@@ -344,7 +314,6 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 	public static void main(String[] args) {
 
 		ProductJDBCDAO dao = new ProductJDBCDAO();
-<<<<<<< HEAD
 
 		// INSERT_STMT
 		ProductVO productVO1 = new ProductVO();
@@ -369,31 +338,6 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 //		productVO2.setpInfo("æ¾³ä½³å¯¶Blackmoresç„¡è…¥å‘³æ¿ƒç¸®æ·±æµ·é­šæ²¹");
 //		productVO2.setpQuantity(100);
 //		productVO2.setpOnDate(java.sql.Timestamp.valueOf("2021-08-22 11:45:31"));
-=======
-		
-		// ·s¼W
-//		ProductVO productVO1 = new ProductVO();
-//		productVO1.setCategoryName("³½ªo/DHA");
-//		productVO1.setpName("¿Dºñ±d­¿ºëºé²`®ü³½ªo½¦Ån­¹«~");
-//		productVO1.setpPrice(1980);
-//		productVO1.setpInfo("Info");
-//		productVO1.setpQuantity(250);
-//		productVO1.setpImage1("images/4.jpg");
-//		productVO1.setpImage2("images/5.jpg");
-//		productVO1.setpImage3("images/6.jpg");
-//		productVO1.setpRatingsQuantity(8);
-//		productVO1.setpTotalRatings(32);
-//		dao.insert(productVO1);		
-		
-		
-		// ­×§ï
-//		ProductVO productVO2 = new ProductVO();
-//		productVO2.setCategoryName("³½ªo/DHA");
-//		productVO2.setpName("¿D¨ÎÄ_BlackmoresµL¸{¨ý¿@ÁY²`®ü³½ªo");
-//		productVO2.setpPrice(550);
-//		productVO2.setpInfo("¿D¨ÎÄ_BlackmoresµL¸{¨ý¿@ÁY²`®ü³½ªo");
-//		productVO2.setpQuantity(100);
->>>>>>> 5e65e2a63fa68753dfd6d99f79f9d1255ce54f0b
 //		productVO2.setpOffDate(java.sql.Timestamp.valueOf("9999-12-31 23:59:59"));
 //		productVO2.setpImage1("images/1.jpg");
 //		productVO2.setpImage2("images/2.jpg");
@@ -403,21 +347,11 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 //		productVO2.setpState(1);
 //		productVO2.setpNo(1);
 //		dao.update(productVO2);
-<<<<<<< HEAD
 
 		// DELETE
 //		dao.delete(2);
 
 		// GET_ONE_STMT
-=======
-		
-		
-		// §R°£
-//		dao.delete(2);
-		
-		
-		// ¬d¸ß(PK)
->>>>>>> 5e65e2a63fa68753dfd6d99f79f9d1255ce54f0b
 		ProductVO productVO3 = dao.findByPrimaryKey(1);
 		System.out.print(productVO3.getpNo() + ",");
 		System.out.print(productVO3.getCategoryName() + ",");
@@ -434,14 +368,8 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		System.out.print(productVO3.getpTotalRatings() + ",");
 		System.out.println(productVO3.getpState());
 		System.out.println("---------------------");
-<<<<<<< HEAD
 
 		// GET_ALL_STMT
-=======
-		
-		
-		// ¬d¸ß(ALL)
->>>>>>> 5e65e2a63fa68753dfd6d99f79f9d1255ce54f0b
 		List<ProductVO> list = dao.getAll();
 		for (ProductVO aProduct : list) {
 			System.out.print(aProduct.getpNo() + ",");
@@ -457,15 +385,9 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			System.out.print(aProduct.getpImage3() + ",");
 			System.out.print(aProduct.getpRatingsQuantity() + ",");
 			System.out.print(aProduct.getpTotalRatings() + ",");
-<<<<<<< HEAD
 			System.out.println(aProduct.getpState());
 			System.out.println();
 		}
-=======
-			System.out.println(aProduct.getpState());			
-			System.out.println();
-		}		
->>>>>>> 5e65e2a63fa68753dfd6d99f79f9d1255ce54f0b
 
 	}
 
