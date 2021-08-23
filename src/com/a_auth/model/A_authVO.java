@@ -1,6 +1,8 @@
 package com.a_auth.model;
 
-public class A_authVO {
+import java.io.Serializable;
+
+public class A_authVO implements Serializable {
 	private Integer aNo;
 	private Integer authNo;
 

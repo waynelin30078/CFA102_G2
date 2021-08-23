@@ -1,5 +1,5 @@
 package com.member.model;
 
-public class MemberDAO_interface {
-
+public interface MemberDAO_interface {
+	
 }

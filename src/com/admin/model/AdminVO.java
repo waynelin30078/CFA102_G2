@@ -1,6 +1,8 @@
 package com.admin.model;
 
-public class AdminVO {
+import java.io.Serializable;
+
+public class AdminVO implements Serializable {
 	private Integer aNo;
 	private String aName;
 	private String aId;
