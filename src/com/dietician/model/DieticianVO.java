@@ -18,7 +18,7 @@ public class DieticianVO {
 	private String prof;
 	private Integer clPrice;
 	private Integer mPrice;
-	private String Intro;
+	private String intro;
 	private Integer dState;
 	private Integer totalScore;
 	private Integer totalReviewer;
@@ -148,11 +148,11 @@ public class DieticianVO {
 	}
 
 	public String getIntro() {
-		return Intro;
+		return intro;
 	}
 
 	public void setIntro(String intro) {
-		Intro = intro;
+		intro = intro;
 	}
 
 	public Integer getdState() {
