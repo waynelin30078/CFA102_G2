@@ -40,4 +40,5 @@ public class AdminVO implements Serializable {
 		this.aPsw = aPsw;
 	}
 
+
 }
