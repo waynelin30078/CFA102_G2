@@ -3,7 +3,7 @@ package com.d_order.model;
 import java.sql.Date;
 
 public class DorderVO {
-	
+
 	private Integer dOrderNo;
 	private Integer dNo;
 	private Integer mNo;
@@ -12,14 +12,25 @@ public class DorderVO {
 	private Integer mthFee;
 	private String dReview;
 	private Integer dScore;
+	private Integer autoSubs;
+
+	public Integer getAutoSubs() {
+		return autoSubs;
+	}
+
+	public void setAutoSubs(Integer autoSubs) {
+		this.autoSubs = autoSubs;
+	}
 
 	public DorderVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
 	public DorderVO(Integer dOrderNo, Integer dNo, Integer mNo, Date subStart, Date subEnd, Integer mthFee,
-			String dReview, Integer dScore) {
+			String dReview, Integer dScore, Integer autoSubs) {
 		super();
 		this.dOrderNo = dOrderNo;
 		this.dNo = dNo;
@@ -29,6 +40,7 @@ public class DorderVO {
 		this.mthFee = mthFee;
 		this.dReview = dReview;
 		this.dScore = dScore;
+		this.autoSubs = autoSubs;
 	}
 
 	public Integer getdOrderNo() {
