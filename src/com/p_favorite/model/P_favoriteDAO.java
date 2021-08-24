@@ -30,7 +30,7 @@ public class P_favoriteDAO implements P_favoriteDAO_interface {
 	// 刪除收藏
 	private static final String DELETE = "DELETE FROM p_favorite where mNo =? and pNo=?";
 	// 查詢收藏(用會員編號)
-	private static final String GET_FAVORITE_STMT = "SELECT mNo,pNo FROM p_favorite where mNo =?";
+	private static final String GET_FAVORITE_BY_MNO = "SELECT mNo,pNo FROM p_favorite where mNo =?";
 	// 查詢所有收藏
 	private static final String GET_ALL_STMT = "SELECT mNo,pNo FROM p_favorite order by mNo";
 
@@ -124,7 +124,7 @@ public class P_favoriteDAO implements P_favoriteDAO_interface {
 		try {
 
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_FAVORITE_STMT);
+			pstmt = con.prepareStatement(GET_FAVORITE_BY_MNO);
 			pstmt.setInt(1, mNo);
 			rs = pstmt.executeQuery();
 
