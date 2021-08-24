@@ -251,30 +251,30 @@ public class AppointmentJDBCDAO implements AppointmentDAO_interface {
 	
 	public static void main(String[] args) {
 		AppointmentJDBCDAO dao = new AppointmentJDBCDAO();
-		//·s¼W
+		//æ–°å¢ž
 		AppointmentVO appointMent1 = new AppointmentVO();
 		appointMent1.setdNo(7);;
 		appointMent1.setrDate(java.sql.Date.valueOf("2005-01-01"));
 		appointMent1.setrState("11111222223333333");
 		dao.insert(appointMent1);
 //		
-		//­×§ï
+		//ä¿®æ”¹
 //		AppointmentVO appointMent2 = new AppointmentVO();
 //		appointMent2.setAptNo(1);
 //		appointMent2.setdNo(2);;
 //		appointMent2.setrDate(java.sql.Date.valueOf("2022-01-01"));
 //		appointMent2.setrState("222222222222");
 //		dao.update(appointMent2);
-		//§R°£
+		//åˆªé™¤
 //		dao.delete(2);
-		//¬d¸ß¤@­Ó
+		//æŸ¥è©¢
 //		AppointmentVO appointMent3 = dao.findByPrimaryKey(1);
 //		System.out.print(appointMent3.getAptNo() + ",");
 //		System.out.print(appointMent3.getdNo() + ",");
 //		System.out.print(appointMent3.getrDate() + ",");
 //		System.out.println(appointMent3.getrState() + ",");
 //		System.out.println("------------------");
-		//¬d¸ß¥þ³¡
+		//æŸ¥è©¢
 		List<AppointmentVO> list = dao.getAll();
 		for (AppointmentVO aapp : list) {
 			System.out.print(aapp.getAptNo() + ",");
