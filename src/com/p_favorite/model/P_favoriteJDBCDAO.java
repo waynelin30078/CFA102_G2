@@ -15,10 +15,14 @@ public class P_favoriteJDBCDAO implements P_favoriteDAO_interface {
 	String userid = "David";
 	String passwd = "123456";
 
+	// 新增收藏
 	private static final String INSERT_STMT = "INSERT INTO p_favorite (mNo,pNo) VALUES (?, ?)";
+	// 刪除收藏
 	private static final String DELETE = "DELETE FROM p_favorite where mNo =? and pNo=?";
+	// 查詢收藏(用會員編號)
 	private static final String GET_FAVORITE_STMT = "SELECT mNo,pNo FROM p_favorite where mNo =?";
-	private static final String GET_ALL_STMT = "SELECT * FROM p_favorite order by mNo";
+	// 查詢所有收藏
+	private static final String GET_ALL_STMT = "SELECT mNo,pNo FROM p_favorite order by mNo";
 
 	@Override
 	public void insert(P_favoriteVO p_favoriteVO) {
@@ -248,17 +252,17 @@ public class P_favoriteJDBCDAO implements P_favoriteDAO_interface {
 
 		// GET_FAVORITE_STMT
 		List<P_favoriteVO> list = dao.getAll_favorite(1);
-		for (P_favoriteVO afavorite : list) {
-			System.out.print(afavorite.getmNo() + ",");
-			System.out.print(afavorite.getpNo());
+		for (P_favoriteVO aP_favorite : list) {
+			System.out.print(aP_favorite.getmNo() + ",");
+			System.out.print(aP_favorite.getpNo());
 			System.out.println();
 		}
 		System.out.println("--------------------------");
 		// GET_ALL_STMT
 		List<P_favoriteVO> listAll = dao.getAll();
-		for (P_favoriteVO afavorite : listAll) {
-			System.out.print(afavorite.getmNo() + ",");
-			System.out.print(afavorite.getpNo());
+		for (P_favoriteVO aP_favorite : listAll) {
+			System.out.print(aP_favorite.getmNo() + ",");
+			System.out.print(aP_favorite.getpNo());
 			System.out.println();
 		}		
 	}

@@ -25,9 +25,13 @@ public class P_favoriteDAO implements P_favoriteDAO_interface {
 		}
 	}
 
+	// 新增收藏
 	private static final String INSERT_STMT = "INSERT INTO p_favorite (mNo,pNo) VALUES (?, ?)";
+	// 刪除收藏
 	private static final String DELETE = "DELETE FROM p_favorite where mNo =? and pNo=?";
+	// 查詢收藏(用會員編號)
 	private static final String GET_FAVORITE_STMT = "SELECT mNo,pNo FROM p_favorite where mNo =?";
+	// 查詢所有收藏
 	private static final String GET_ALL_STMT = "SELECT mNo,pNo FROM p_favorite order by mNo";
 
 	@Override
