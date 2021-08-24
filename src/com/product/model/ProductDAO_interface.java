@@ -14,4 +14,8 @@ public interface ProductDAO_interface {
 
 	public List<ProductVO> getAll();
 
+	public List<ProductVO> getAll_bypName(String pName);
+
+	public List<ProductVO> getAll_byCategoryName(String pName);
+
 }
