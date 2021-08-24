@@ -12,12 +12,11 @@ import util.Util;
 
 public class CourseJDBCDAO implements CourseDAO_interface {
 	private static final String INSERT = "INSERT INTO COURSE(dNo,cName,cPrice,cShelfDate,cIntroduction,cType,cPic,cDescription)VALUES(?,?,?,?,?,?,?,?)";
-	private static final String UPDATE = "UPDATE COURSE SET cName=? cPrice=? cIntroduction=? cPic=? cDescription=? WHERE cNo";
+	private static final String UPDATE = "UPDATE COURSE SET cName=?,cPrice=?,cIntroduction=?,cPic=?,cDescription=?WHERE cNo=?";
 	private static final String STATE = "UPDATE COURSE SET cState=? WHERE cNo=?";
 	private static final String FIND_BY_CNO = "SELECT * FROM COURSE WHERE cNo=?";
 	private static final String FIND_BY_DNO = "SELECT * FROM COURSE WHERE dNO=?";
-//	private static final String FIND_BY_CNAME = "SELECT * FROM COURSE WHERE cName LIKE '%?%'";
-	private static final String FIND_BY_CNAME = "SELECT * FROM product where pName like '%' + ? + '%' order by pNo";
+	private static final String FIND_BY_CNAME = "SELECT * FROM COURSE WHERE cName LIKE ? ORDER BY cNO";
 	private static final String FIND_BY_CTYPE = "SELECT * FROM COURSE WHERE cType=?";
 //	private static final String FIND_BY_CTOTAL_SCORE="SELECT * FROM COURSE";
 	private static final String GET_ALL = "SELECT * FROM COURSE";//v
@@ -112,7 +111,7 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 	}
 
 	@Override
-	public void state(Integer cState, Integer cNo) {
+	public void cState(Integer cState, Integer cNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -120,6 +119,8 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 			pstmt = con.prepareStatement(STATE);
 			pstmt.setInt(1, cState);
 			pstmt.setInt(2, cNo);
+			pstmt.executeUpdate();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -280,7 +281,7 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(FIND_BY_CNAME);
-			pstmt.setString(1, cName);
+			pstmt.setString(1, "%"+cName+"%");
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {

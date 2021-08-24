@@ -11,13 +11,13 @@ public class CourseDAOtest {
 		
 		
 		Date date = new Date();
-		Integer cNo = 0;
+		Integer cNo = 1;
 		Integer dNo = 3;// 講師編號
 		String cName = "sl";// 課程名稱
-		Integer cPrice = 5000;
-		Integer cState = 1;
+		Integer cPrice = 3000;
+		Integer cState = 3;
 		Date cShelfDate = new java.sql.Date(date.getTime());// 上架日期
-		String cIntroduction = "test2";// 課程介紹
+		String cIntroduction = "sl";// 課程介紹
 		Integer cType = 1;
 		Integer quantity = 1;// 購買人數
 	
@@ -33,19 +33,17 @@ public class CourseDAOtest {
 		Integer cTotalScore = 0;
 
 		// 新增測試ok
-//		CourseVO course = new CourseVO(cNo, dNo, cName, cPrice, cState, cShelfDate, cIntroduction, cType, quantity,
-//				cPic, cDescription, cTotalPeople, cTotalScore);
-//		CourseDAO_interface dao = new CourseJDBCDAO();
+		CourseVO course = new CourseVO(cNo, dNo, cName, cPrice, cState, cShelfDate, cIntroduction, cType, quantity,
+				cPic, cDescription, cTotalPeople, cTotalScore);
+		CourseDAO_interface dao = new CourseJDBCDAO();
 //		dao.insert(course);
 		//更新測試
-		
-		
+//    dao.cState(2,3);
+//		dao.update(course);
 		// 單一查詢結果測試ok
-//		CourseDAO_interface dao = new CourseJDBCDAO();
 //		CourseVO course= dao.findBy_cNO(cNo);
 //		System.out.println(course);
 		// List查詢測試
-		CourseDAO_interface dao = new CourseJDBCDAO();
 		List<CourseVO> courseList = dao.findBy_cName(cName);
 		for(CourseVO c:courseList)
 			System.out.println(c);
