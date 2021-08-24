@@ -6,7 +6,7 @@ public class AdminVO implements Serializable {
 	private Integer aNo;
 	private String aName;
 	private String aId;
-	private String aPsw;
+	private String aPsw; 
 
 	public Integer getaNo() {
 		return aNo;
