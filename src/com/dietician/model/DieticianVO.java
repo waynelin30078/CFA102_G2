@@ -1,15 +1,17 @@
 package com.dietician.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class DieticianVO {
+public class DieticianVO implements Serializable {
+
 	private Integer dNo;
 	private String dName;
 	private String dAccount;
 	private String dPassword;
 	private Date dBirthDay;
 	private String dPic;
-	private Integer dphone;
+	private String dPhone;
 	private String dAddress;
 	private String dEmail;
 	private String edu;
@@ -25,8 +27,41 @@ public class DieticianVO {
 	private Integer dOnState;
 	private String offDay;
 	private String optTime;
-	
-	
+
+	public DieticianVO() {
+		super();
+	}
+
+	public DieticianVO(String dName, String dAccount, String dPassword, Date dBirthDay, String dPic, String dPhone,
+			String dAddress, String dEmail, String edu, String exp, String lic, String prof, Integer clPrice,
+			Integer mPrice, String intro, Integer dState, Integer totalScore, Integer totalReviewer, Integer dOnState,
+			String offDay, String optTime) {
+		super();
+
+		this.dName = dName;
+		this.dAccount = dAccount;
+		this.dPassword = dPassword;
+		this.dBirthDay = dBirthDay;
+		this.dPic = dPic;
+		this.dPhone = dPhone;
+		this.dAddress = dAddress;
+		this.dEmail = dEmail;
+		this.edu = edu;
+		this.exp = exp;
+		this.lic = lic;
+		this.prof = prof;
+		this.clPrice = clPrice;
+		this.mPrice = mPrice;
+		this.intro = intro;
+		this.dState = dState;
+		this.totalScore = totalScore;
+		this.totalReviewer = totalReviewer;
+		this.dOnState = dOnState;
+		this.offDay = offDay;
+		this.optTime = optTime;
+
+	}
+
 	public Integer getdNo() {
 		return dNo;
 	}
@@ -75,12 +110,12 @@ public class DieticianVO {
 		this.dPic = dPic;
 	}
 
-	public Integer getDphone() {
-		return dphone;
+	public String getdPhone() {
+		return dPhone;
 	}
 
-	public void setDphone(Integer dphone) {
-		this.dphone = dphone;
+	public void setdPhone(String dPhone) {
+		this.dPhone = dPhone;
 	}
 
 	public String getdAddress() {
@@ -152,7 +187,7 @@ public class DieticianVO {
 	}
 
 	public void setIntro(String intro) {
-		intro = intro;
+		this.intro = intro;
 	}
 
 	public Integer getdState() {
@@ -202,7 +237,5 @@ public class DieticianVO {
 	public void setOptTime(String optTime) {
 		this.optTime = optTime;
 	}
-
-
 
 }
