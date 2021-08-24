@@ -14,10 +14,15 @@ public class PromotionJDBCDAO implements PromotionDAO_interface {
 	String userid = "David";
 	String passwd = "123456";
 
+	// 新增商品優惠活動
 	private static final String INSERT_STMT = "INSERT INTO promotion (promNo,promName,promStartTime,promEndTime) VALUES (null, ?, ?, ?)";
+	// 更新商品優惠活動
 	private static final String UPDATE = "UPDATE promotion set promName=?, promStartTime=?, promEndTime=? where promNo =?";
-	private static final String DELETE = "DELETE FROM promotion where promNo =?";
+	// 刪除商品優惠活動
+	private static final String DELETE = "DELETE FROM promotion where pNo =?";
+	// 查詢商品優惠活動(用優惠活動編號)
 	private static final String GET_ONE_STMT = "SELECT promNo,promName,promStartTime,promEndTime FROM promotion where promNo =?";
+	// 查詢所有商品優惠活動
 	private static final String GET_ALL_STMT = "SELECT promNo,promName,promStartTime,promEndTime FROM promotion order by promNo";
 
 	@Override

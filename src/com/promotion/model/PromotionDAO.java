@@ -12,6 +12,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+
 public class PromotionDAO implements PromotionDAO_interface {
 
 	private static DataSource ds = null;
@@ -24,11 +25,16 @@ public class PromotionDAO implements PromotionDAO_interface {
 			e.printStackTrace();
 		}
 	}
-
+	
+	// 新增商品優惠活動
 	private static final String INSERT_STMT = "INSERT INTO promotion (promNo,promName,promStartTime,promEndTime) VALUES (null, ?, ?, ?)";
+	// 更新商品優惠活動
 	private static final String UPDATE = "UPDATE promotion set promName=?, promStartTime=?, promEndTime=? where promNo =?";
+	// 刪除商品優惠活動
 	private static final String DELETE = "DELETE FROM promotion where pNo =?";
+	// 查詢商品優惠活動(用優惠活動編號)
 	private static final String GET_ONE_STMT = "SELECT promNo,promName,promStartTime,promEndTime FROM promotion where promNo =?";
+	// 查詢所有商品優惠活動
 	private static final String GET_ALL_STMT = "SELECT promNo,promName,promStartTime,promEndTime FROM promotion order by promNo";
 
 	@Override
