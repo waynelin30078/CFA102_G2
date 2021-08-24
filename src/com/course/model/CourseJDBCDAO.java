@@ -11,15 +11,17 @@ import java.util.List;
 import util.Util;
 
 public class CourseJDBCDAO implements CourseDAO_interface {
-	private static final String INSERT = "INSERT INTO COURSE(cNo,dNo,cName,cPrice,cShelfDate,cIntroduction,cType,cPic,cDescription)VALUES(?,?,?,?,?,?,?,?,?)";
-	private static final String UPDATE = "UPDATE COURSE SET cName=? cPrice=? cIntroduction=? cPic=? cDescription=?";
+	private static final String INSERT = "INSERT INTO COURSE(dNo,cName,cPrice,cShelfDate,cIntroduction,cType,cPic,cDescription)VALUES(?,?,?,?,?,?,?,?)";
+	private static final String UPDATE = "UPDATE COURSE SET cName=? cPrice=? cIntroduction=? cPic=? cDescription=? WHERE cNo";
 	private static final String STATE = "UPDATE COURSE SET cState=? WHERE cNo=?";
 	private static final String FIND_BY_CNO = "SELECT * FROM COURSE WHERE cNo=?";
 	private static final String FIND_BY_DNO = "SELECT * FROM COURSE WHERE dNO=?";
-	private static final String FIND_BY_CNAME = "SELECT * FORM COURSE WHERE cName LIKE'%?%'";
-	private static final String FIND_BY_CTYPE = "SELECT * FORM COURSE WHERE cType=?";
+//	private static final String FIND_BY_CNAME = "SELECT * FROM COURSE WHERE cName LIKE '%?%'";
+	private static final String FIND_BY_CNAME = "SELECT * FROM product where pName like '%' + ? + '%' order by pNo";
+	private static final String FIND_BY_CTYPE = "SELECT * FROM COURSE WHERE cType=?";
 //	private static final String FIND_BY_CTOTAL_SCORE="SELECT * FROM COURSE";
-	private static final String GET_ALL = "SELCET * FROM COURSE";
+	private static final String GET_ALL = "SELECT * FROM COURSE";//v
+	
 	static {
 		try {
 			Class.forName(Util.DRIVER);
@@ -32,19 +34,22 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 	public void insert(CourseVO courseVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		System.out.println(5);
 		try {
+			try {
+				Class.forName(Util.DRIVER);
+			} catch (ClassNotFoundException e) {		
+				e.printStackTrace();
+			}
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(INSERT);
-			pstmt.setInt(1, courseVO.getcNo());
-			pstmt.setInt(2, courseVO.getdNo());
-			pstmt.setString(3, courseVO.getcName());
-			pstmt.setInt(4, courseVO.getcPrice());
-			pstmt.setDate(5, courseVO.getcShelfDate());
-			pstmt.setString(6, courseVO.getcIntroduction());
-			pstmt.setInt(7, courseVO.getcType());
-			pstmt.setBytes(8, courseVO.getcPic());
-			pstmt.setString(9, courseVO.getcDescription());
+			pstmt.setInt(1, courseVO.getdNo());
+			pstmt.setString(2, courseVO.getcName());
+			pstmt.setInt(3, courseVO.getcPrice());
+			pstmt.setDate(4, courseVO.getcShelfDate());
+			pstmt.setString(5, courseVO.getcIntroduction());
+			pstmt.setInt(6, courseVO.getcType());
+			pstmt.setBytes(7, courseVO.getcPic());
+			pstmt.setString(8, courseVO.getcDescription());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();//錯誤
@@ -81,6 +86,7 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 			pstmt.setString(3, courseVO.getcIntroduction());
 			pstmt.setBytes(4, courseVO.getcPic());
 			pstmt.setString(5, courseVO.getcDescription());
+			pstmt.setInt(6, courseVO.getcNo());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

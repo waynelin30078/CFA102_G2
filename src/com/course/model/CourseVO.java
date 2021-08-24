@@ -152,7 +152,7 @@ public class CourseVO implements Serializable {
 	public String toString() {
 		return "CourseVO [cNo=" + cNo + ", dNo=" + dNo + ", cName=" + cName + ", cPrice=" + cPrice + ", cState="
 				+ cState + ", cShelfDate=" + cShelfDate + ", cIntroduction=" + cIntroduction + ", cType=" + cType
-				+ ", quantity=" + quantity + ", cPic=" + Arrays.toString(cPic) + ", cDescription=" + cDescription
+				+ ", quantity=" + quantity + ", cPic="  + ", cDescription=" + cDescription
 				+ ", cTotalPeople=" + cTotalPeople + ", cTotalScore=" + cTotalScore + "]";
 	}
 
