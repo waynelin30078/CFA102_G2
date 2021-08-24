@@ -11,8 +11,7 @@ import java.util.List;
 import util.Util;
 
 public class CourseJDBCDAO implements CourseDAO_interface {
-	private static final String INSERT = "INSERT INTO COURSE(cNo,dNo,cName,cPrice,cShelfDate,cIntroduction,cType,cPic,cDescription)"
-			+ "values(?,?,?,?,?,?,?,?,?,?)";
+	private static final String INSERT = "INSERT INTO COURSE(cNo,dNo,cName,cPrice,cShelfDate,cIntroduction,cType,cPic,cDescription)VALUES(?,?,?,?,?,?,?,?,?)";
 	private static final String UPDATE = "UPDATE COURSE SET cName=? cPrice=? cIntroduction=? cPic=? cDescription=?";
 	private static final String STATE = "UPDATE COURSE SET cState=? WHERE cNo=?";
 	private static final String FIND_BY_CNO = "SELECT * FROM COURSE WHERE cNo=?";
@@ -33,7 +32,7 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 	public void insert(CourseVO courseVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-
+		System.out.println(5);
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(INSERT);
@@ -48,7 +47,7 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 			pstmt.setString(9, courseVO.getcDescription());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			e.printStackTrace();//錯誤
 		} finally {
 			if (pstmt != null) {
 				try {

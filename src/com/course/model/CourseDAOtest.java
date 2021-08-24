@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class CourseDAOtest {
 	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-	public static final String URL = "jdbc:mysql://localhost:3306/JDBCSample?" + "serverTimezone=Asia/Taipei";
+	public static final String URL = "jdbc:mysql://localhost:3306/test?serverTimezone=Asia/Taipei";
 	public static final String USER = "David";
 	public static final String PASSWORD = "123456";
 
@@ -24,6 +24,7 @@ public class CourseDAOtest {
 		String cIntroduction = "這是一門睡覺課";// 課程介紹
 		Integer cType = 1;
 		Integer quantity = 1;// 購買人數
+		System.out.println("1");
 		byte[] cPic = null;
 		try {
 			cPic = getPictureByteArray("C:\\Users\\Tibame_T14\\Desktop\\tJwGtpC.jpg");
@@ -31,6 +32,7 @@ public class CourseDAOtest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}// 預覽圖
+		System.out.println(2);
 		String cDescription = "睡好睡滿精神好";// 預覽介紹
 		Integer cTotalPeople = 0;
 		Integer cTotalScore = 0;
@@ -38,8 +40,10 @@ public class CourseDAOtest {
 		// 新增測試
 		CourseVO course = new CourseVO(cNo, dNo, cName, cPrice, cState, cShelfDate, cIntroduction, cType, quantity,
 				cPic, cDescription, cTotalPeople, cTotalScore);
+		System.out.println(3);
 		CourseDAO_interface dao = new CourseJDBCDAO();
 		dao.insert(course);
+		System.out.println(4);
 		// 單一查詢結果測試
 //		CourseDAO_interface dao = new CourseJDBCDAO();
 //		CourseVO course= dao.findBy_cNO(cNo);
