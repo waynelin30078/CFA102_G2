@@ -14,15 +14,24 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 	String userid = "David";
 	String passwd = "123456";
 
+	// 新增商品
 	private static final String INSERT_STMT = "INSERT INTO product (pNo, categoryName, pName, pPrice, pInfo, pQuantity, pOnDate, pOffDate, pImage1, pImage2, pImage3,"
 			+ "pRatingsQuantity, pTotalRatings, pState) VALUES (null, ?, ?, ?, ?, ?, now(), default, ?, ?, ?, ?, ?, default)";
-	private static final String UPDATE = "UPDATE product set categoryName=?, pName=?, pPrice=?, pInfo=?, pQuantity=?, pOnDate=?, pOffDate=?, pImage1=?, pImage2=?, pImage3=?,"
-			+ " pState=? where pNo =?";
-	private static final String DELETE = "DELETE FROM product where pNo =?";
+	// 更新商品資訊
+	private static final String UPDATE = "UPDATE product SET categoryName=?, pName=?, pPrice=?, pInfo=?, pQuantity=?, pOnDate=?, pOffDate=?, pImage1=?, pImage2=?, pImage3=?,"
+			+ " pState=? WHERE pNo =?";
+	// 刪除商品
+	private static final String DELETE = "DELETE FROM product WHERE pNo =?";
+	// 查詢商品(用商品編號)
 	private static final String GET_ONE_STMT = "SELECT pNo, categoryName, pName, pPrice, pInfo, pQuantity, pOnDate, pOffDate, pImage1, pImage2, pImage3,"
-			+ " pRatingsQuantity,pTotalRatings, pState FROM product where pNo =?";
+			+ " pRatingsQuantity, pTotalRatings, pState FROM product WHERE pNo =?";
+	// 查詢商品(用商品名稱)
+	private static final String GET_ALL_BY_PNAME = "SELECT * FROM product WHERE pName LIKE ? ORDER BY pNo";
+	// 查詢商品(用商品類別)
+	private static final String GET_ALL_BY_CATEGORYNAME = "SELECT * FROM product WHERE categoryName LIKE ? ORDER BY pNo";
+	// 查詢所有商品
 	private static final String GET_ALL_STMT = "SELECT pNo, categoryName, pName, pPrice, pInfo, pQuantity, pOnDate, pOffDate, pImage1, pImage2, pImage3,"
-			+ " pRatingsQuantity, pTotalRatings, pState FROM product order by pNo";
+			+ " pRatingsQuantity, pTotalRatings, pState FROM product ORDER BY pNo";	
 
 	public void insert(ProductVO productVO) {
 
@@ -242,6 +251,148 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 	}
 
 	@Override
+	public List<ProductVO> getAll_bypName(String pName) {
+
+		List<ProductVO> list = new ArrayList<ProductVO>();
+		ProductVO productVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ALL_BY_PNAME);
+			pstmt.setString(1, "%" + pName + "%");
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				productVO = new ProductVO();
+				productVO.setpNo(rs.getInt("pNo"));
+				productVO.setCategoryName(rs.getString("categoryName"));
+				productVO.setpName(rs.getString("pName"));
+				productVO.setpPrice(rs.getInt("pPrice"));
+				productVO.setpInfo(rs.getString("pInfo"));
+				productVO.setpQuantity(rs.getInt("pQuantity"));
+				productVO.setpOnDate(rs.getTimestamp("pOnDate"));
+				productVO.setpOffDate(rs.getTimestamp("pOffDate"));
+				productVO.setpImage1(rs.getString("pImage1"));
+				productVO.setpImage2(rs.getString("pImage2"));
+				productVO.setpImage3(rs.getString("pImage3"));
+				productVO.setpRatingsQuantity(rs.getInt("pRatingsQuantity"));
+				productVO.setpTotalRatings(rs.getInt("pTotalRatings"));
+				productVO.setpState(rs.getInt("pState"));
+				list.add(productVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<ProductVO> getAll_byCategoryName(String categoryName) {
+
+		List<ProductVO> list = new ArrayList<ProductVO>();
+		ProductVO productVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ALL_BY_CATEGORYNAME);
+			pstmt.setString(1, "%" + categoryName + "%");
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				productVO = new ProductVO();
+				productVO.setpNo(rs.getInt("pNo"));
+				productVO.setCategoryName(rs.getString("categoryName"));
+				productVO.setpName(rs.getString("pName"));
+				productVO.setpPrice(rs.getInt("pPrice"));
+				productVO.setpInfo(rs.getString("pInfo"));
+				productVO.setpQuantity(rs.getInt("pQuantity"));
+				productVO.setpOnDate(rs.getTimestamp("pOnDate"));
+				productVO.setpOffDate(rs.getTimestamp("pOffDate"));
+				productVO.setpImage1(rs.getString("pImage1"));
+				productVO.setpImage2(rs.getString("pImage2"));
+				productVO.setpImage3(rs.getString("pImage3"));
+				productVO.setpRatingsQuantity(rs.getInt("pRatingsQuantity"));
+				productVO.setpTotalRatings(rs.getInt("pTotalRatings"));
+				productVO.setpState(rs.getInt("pState"));
+				list.add(productVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
 	public List<ProductVO> getAll() {
 
 		List<ProductVO> list = new ArrayList<ProductVO>();
@@ -309,29 +460,28 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			}
 		}
 		return list;
-	}
+	}	
 
 	public static void main(String[] args) {
 
 		ProductJDBCDAO dao = new ProductJDBCDAO();
 
 		// INSERT_STMT
-		ProductVO productVO1 = new ProductVO();
-		productVO1.setCategoryName("魚油/DHA");
-		productVO1.setpName("澳佳寶Blackmores無腥味濃縮深海魚油");
-		productVO1.setpPrice(1980);
-		productVO1.setpInfo("Info");
-		productVO1.setpQuantity(250);
-		productVO1.setpImage1("images/4.jpg");
-		productVO1.setpImage2("images/5.jpg");
-		productVO1.setpImage3("images/6.jpg");
-		productVO1.setpRatingsQuantity(8);
-		productVO1.setpTotalRatings(32);
-		dao.insert(productVO1);
+//		ProductVO productVO1 = new ProductVO();
+//		productVO1.setCategoryName("魚油/DHA");
+//		productVO1.setpName("澳佳寶Blackmores無腥味濃縮深海魚油");
+//		productVO1.setpPrice(1980);
+//		productVO1.setpInfo("Info");
+//		productVO1.setpQuantity(250);
+//		productVO1.setpImage1("images/4.jpg");
+//		productVO1.setpImage2("images/5.jpg");
+//		productVO1.setpImage3("images/6.jpg");
+//		productVO1.setpRatingsQuantity(8);
+//		productVO1.setpTotalRatings(32);
+//		dao.insert(productVO1);
 
 		// UPDATE
 //		ProductVO productVO2 = new ProductVO();
-//		
 //		productVO2.setCategoryName("魚油/DHA");
 //		productVO2.setpName("澳佳寶Blackmores無腥味濃縮深海魚油");
 //		productVO2.setpPrice(550);
@@ -367,27 +517,73 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		System.out.print(productVO3.getpRatingsQuantity() + ",");
 		System.out.print(productVO3.getpTotalRatings() + ",");
 		System.out.println(productVO3.getpState());
-		System.out.println("---------------------");
 
-		// GET_ALL_STMT
-		List<ProductVO> list = dao.getAll();
-		for (ProductVO aProduct : list) {
-			System.out.print(aProduct.getpNo() + ",");
-			System.out.print(aProduct.getCategoryName() + ",");
-			System.out.print(aProduct.getpName() + ",");
-			System.out.print(aProduct.getpPrice() + ",");
-			System.out.print(aProduct.getpInfo() + ",");
-			System.out.print(aProduct.getpQuantity() + ",");
-			System.out.print(aProduct.getpOnDate() + ",");
-			System.out.print(aProduct.getpOffDate() + ",");
-			System.out.print(aProduct.getpImage1() + ",");
-			System.out.print(aProduct.getpImage2() + ",");
-			System.out.print(aProduct.getpImage3() + ",");
-			System.out.print(aProduct.getpRatingsQuantity() + ",");
-			System.out.print(aProduct.getpTotalRatings() + ",");
-			System.out.println(aProduct.getpState());
+		System.out.println("--------------------------------------------------------");
+		
+		// GET_ALL_BYPNAME
+		List<ProductVO> list = dao.getAll_bypName("澳");
+		for (ProductVO aProduct4 : list) {
+			System.out.print(aProduct4.getpNo() + ",");
+			System.out.print(aProduct4.getCategoryName() + ",");
+			System.out.print(aProduct4.getpName() + ",");
+			System.out.print(aProduct4.getpPrice() + ",");
+			System.out.print(aProduct4.getpInfo() + ",");
+			System.out.print(aProduct4.getpQuantity() + ",");
+			System.out.print(aProduct4.getpOnDate() + ",");
+			System.out.print(aProduct4.getpOffDate() + ",");
+			System.out.print(aProduct4.getpImage1() + ",");
+			System.out.print(aProduct4.getpImage2() + ",");
+			System.out.print(aProduct4.getpImage3() + ",");
+			System.out.print(aProduct4.getpRatingsQuantity() + ",");
+			System.out.print(aProduct4.getpTotalRatings() + ",");
+			System.out.println(aProduct4.getpState());
 			System.out.println();
 		}
+
+		System.out.println("--------------------------------------------------------");
+
+		// GET_ALL_BYCATEGORYNAME
+		List<ProductVO> list2 = dao.getAll_byCategoryName("魚");
+		for (ProductVO aProduct5 : list2) {
+			System.out.print(aProduct5.getpNo() + ",");
+			System.out.print(aProduct5.getCategoryName() + ",");
+			System.out.print(aProduct5.getpName() + ",");
+			System.out.print(aProduct5.getpPrice() + ",");
+			System.out.print(aProduct5.getpInfo() + ",");
+			System.out.print(aProduct5.getpQuantity() + ",");
+			System.out.print(aProduct5.getpOnDate() + ",");
+			System.out.print(aProduct5.getpOffDate() + ",");
+			System.out.print(aProduct5.getpImage1() + ",");
+			System.out.print(aProduct5.getpImage2() + ",");
+			System.out.print(aProduct5.getpImage3() + ",");
+			System.out.print(aProduct5.getpRatingsQuantity() + ",");
+			System.out.print(aProduct5.getpTotalRatings() + ",");
+			System.out.println(aProduct5.getpState());
+			System.out.println();
+		}
+	
+		System.out.println("--------------------------------------------------------");
+		
+		
+		// GET_ALL_STMT
+		List<ProductVO> list3 = dao.getAll();
+		for (ProductVO aProduct6 : list3) {
+			System.out.print(aProduct6.getpNo() + ",");
+			System.out.print(aProduct6.getCategoryName() + ",");
+			System.out.print(aProduct6.getpName() + ",");
+			System.out.print(aProduct6.getpPrice() + ",");
+			System.out.print(aProduct6.getpInfo() + ",");
+			System.out.print(aProduct6.getpQuantity() + ",");
+			System.out.print(aProduct6.getpOnDate() + ",");
+			System.out.print(aProduct6.getpOffDate() + ",");
+			System.out.print(aProduct6.getpImage1() + ",");
+			System.out.print(aProduct6.getpImage2() + ",");
+			System.out.print(aProduct6.getpImage3() + ",");
+			System.out.print(aProduct6.getpRatingsQuantity() + ",");
+			System.out.print(aProduct6.getpTotalRatings() + ",");
+			System.out.println(aProduct6.getpState());
+			System.out.println();
+		}		
 
 	}
 
