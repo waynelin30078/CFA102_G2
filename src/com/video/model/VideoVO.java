@@ -49,4 +49,18 @@ public class VideoVO implements Serializable {
 	public void setvLength(java.sql.Time vLength) {
 		this.vLength = vLength;
 	}
+	public void setvLength(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void setvLength(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public String toString() {
+		return "VideoVO [vNo=" + vNo + ", cNo=" + cNo + ", vFile=" + vFile + ", vUpdateTime=" + vUpdateTime
+				+ ", vLength=" + vLength + "]";
+	}
+	
 }
