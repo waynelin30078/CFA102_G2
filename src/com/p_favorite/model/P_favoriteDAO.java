@@ -26,13 +26,13 @@ public class P_favoriteDAO implements P_favoriteDAO_interface {
 	}
 
 	// 新增收藏
-	private static final String INSERT_STMT = "INSERT INTO p_favorite (mNo,pNo) VALUES (?, ?)";
+	private static final String INSERT_STMT = "INSERT INTO p_favorite (mNo, pNo) VALUES (?, ?)";
 	// 刪除收藏
-	private static final String DELETE = "DELETE FROM p_favorite where mNo =? and pNo=?";
+	private static final String DELETE = "DELETE FROM p_favorite WHERE mNo =? AND pNo=?";
 	// 查詢收藏(用會員編號)
-	private static final String GET_FAVORITE_BY_MNO = "SELECT mNo,pNo FROM p_favorite where mNo =?";
+	private static final String GET_FAVORITE_BY_MNO = "SELECT * FROM p_favorite WHERE mNo =?";
 	// 查詢所有收藏
-	private static final String GET_ALL_STMT = "SELECT mNo,pNo FROM p_favorite order by mNo";
+	private static final String GET_ALL_STMT = "SELECT * FROM p_favorite ORDER BY mNo";
 
 	@Override
 	public void insert(P_favoriteVO p_favoriteVO) {
@@ -112,7 +112,7 @@ public class P_favoriteDAO implements P_favoriteDAO_interface {
 	}
 
 	@Override
-	public List<P_favoriteVO> getAll_favorite(Integer mNo) {
+	public List<P_favoriteVO> getFavorite_byMNo(Integer mNo) {
 
 		List<P_favoriteVO> list = new ArrayList<P_favoriteVO>();
 		P_favoriteVO p_favoriteVO = null;
@@ -170,7 +170,7 @@ public class P_favoriteDAO implements P_favoriteDAO_interface {
 	@Override
 	public List<P_favoriteVO> getAll() {
 
-		List<P_favoriteVO> listAll = new ArrayList<P_favoriteVO>();
+		List<P_favoriteVO> list = new ArrayList<P_favoriteVO>();
 		P_favoriteVO p_favoriteVO = null;
 
 		Connection con = null;
@@ -189,7 +189,7 @@ public class P_favoriteDAO implements P_favoriteDAO_interface {
 				p_favoriteVO.setmNo(rs.getInt("mNo"));
 				p_favoriteVO.setpNo(rs.getInt("pNo"));
 
-				listAll.add(p_favoriteVO); // Store the row in the list
+				list.add(p_favoriteVO); // Store the row in the list
 			}
 
 			// Handle any driver errors
@@ -219,7 +219,7 @@ public class P_favoriteDAO implements P_favoriteDAO_interface {
 				}
 			}
 		}
-		return listAll;
+		return list;
 	}
 
 }

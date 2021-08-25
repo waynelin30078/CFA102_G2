@@ -8,7 +8,7 @@ public interface P_favoriteDAO_interface {
 
 	public void delete(P_favoriteVO p_favoriteVO);
 
-	public List<P_favoriteVO> getAll_favorite(Integer mNo);
+	public List<P_favoriteVO> getFavorite_byMNo(Integer mNo);
 
 	public List<P_favoriteVO> getAll();
 
