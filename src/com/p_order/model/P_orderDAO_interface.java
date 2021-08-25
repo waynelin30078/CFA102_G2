@@ -15,11 +15,5 @@ public interface P_orderDAO_interface {
 	public P_orderVO findByPrimaryKey(Integer pOrderNo);
 
 	public List<P_orderVO> getAll();
-	
-	public List<P_orderVO> getAll_byMNo(Integer mNo);
-	
-	public List<P_orderVO> getAll_byOrderState(Integer pOrderState);
-	
-	
 
 }
