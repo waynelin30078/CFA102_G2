@@ -11,6 +11,8 @@ public interface PromotionDAO_interface {
 	public void delete(Integer promNo);
 
 	public PromotionVO findByPrimaryKey(Integer promNo);
+	
+	public List<PromotionVO> getAll_byPromName(String promName);
 
 	public List<PromotionVO> getAll();
 
