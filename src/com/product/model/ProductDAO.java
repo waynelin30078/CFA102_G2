@@ -29,20 +29,20 @@ public class ProductDAO implements ProductDAO_interface {
 	private static final String INSERT_STMT = "INSERT INTO product (pNo, categoryName, pName, pPrice, pInfo, pQuantity, pOnDate, pOffDate, pImage1, pImage2, pImage3,"
 			+ "pRatingsQuantity, pTotalRatings, pState) VALUES (null, ?, ?, ?, ?, ?, now(), default, ?, ?, ?, ?, ?, default)";
 	// 更新商品資訊
-	private static final String UPDATE = "UPDATE product set categoryName=?, pName=?, pPrice=?, pInfo=?, pQuantity=?, pOnDate=?, pOffDate=?, pImage1=?, pImage2=?, pImage3=?,"
-			+ " pState=? where pNo =?";
+	private static final String UPDATE = "UPDATE product SET categoryName=?, pName=?, pPrice=?, pInfo=?, pQuantity=?, pOnDate=?, pOffDate=?, pImage1=?, pImage2=?, pImage3=?,"
+			+ " pState=? WHERE pNo =?";
 	// 刪除商品
-	private static final String DELETE = "DELETE FROM product where pNo =?";
+	private static final String DELETE = "DELETE FROM product WHERE pNo =?";
 	// 查詢商品(用商品編號)
 	private static final String GET_ONE_STMT = "SELECT pNo, categoryName, pName, pPrice, pInfo, pQuantity, pOnDate, pOffDate, pImage1, pImage2, pImage3,"
-			+ " pRatingsQuantity,pTotalRatings, pState FROM product where pNo =?";
+			+ " pRatingsQuantity, pTotalRatings, pState FROM product WHERE pNo =?";
+	// 查詢商品(用商品名稱)
+	private static final String GET_ALL_BY_PNAME = "SELECT * FROM product WHERE pName LIKE ? ORDER BY pNo";
+	// 查詢商品(用商品類別)
+	private static final String GET_ALL_BY_CATEGORYNAME = "SELECT * FROM promotion WHERE categoryName LIKE ? ORDER BY pNo";
 	// 查詢所有商品
 	private static final String GET_ALL_STMT = "SELECT pNo, categoryName, pName, pPrice, pInfo, pQuantity, pOnDate, pOffDate, pImage1, pImage2, pImage3,"
-			+ " pRatingsQuantity, pTotalRatings, pState FROM product order by pNo";
-	// 查詢商品(用商品名稱)
-	private static final String GET_ALL_BYPNAME = "SELECT * FROM product where pName like ? order by pNo";
-	// 查詢商品(用商品類別)
-	private static final String GET_ALL_BYCATEGORYNAME = "SELECT * FROM product where categoryName like ? order by pNo";
+			+ " pRatingsQuantity, pTotalRatings, pState FROM product ORDER BY pNo";	
 
 	@Override
 	public void insert(ProductVO productVO) {
@@ -244,6 +244,140 @@ public class ProductDAO implements ProductDAO_interface {
 	}
 
 	@Override
+	public List<ProductVO> getAll_bypName(String pName) {
+
+		List<ProductVO> list = new ArrayList<ProductVO>();
+		ProductVO productVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_BY_PNAME);
+			pstmt.setString(1, "%" + pName + "%");
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				productVO = new ProductVO();
+				productVO.setpNo(rs.getInt("pNo"));
+				productVO.setCategoryName(rs.getString("categoryName"));
+				productVO.setpName(rs.getString("pName"));
+				productVO.setpPrice(rs.getInt("pPrice"));
+				productVO.setpInfo(rs.getString("pInfo"));
+				productVO.setpQuantity(rs.getInt("pQuantity"));
+				productVO.setpOnDate(rs.getTimestamp("pOnDate"));
+				productVO.setpOffDate(rs.getTimestamp("pOffDate"));
+				productVO.setpImage1(rs.getString("pImage1"));
+				productVO.setpImage2(rs.getString("pImage2"));
+				productVO.setpImage3(rs.getString("pImage3"));
+				productVO.setpRatingsQuantity(rs.getInt("pRatingsQuantity"));
+				productVO.setpTotalRatings(rs.getInt("pTotalRatings"));
+				productVO.setpState(rs.getInt("pState"));
+				list.add(productVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<ProductVO> getAll_byCategoryName(String categoryName) {
+
+		List<ProductVO> list = new ArrayList<ProductVO>();
+		ProductVO productVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_BY_CATEGORYNAME);
+			pstmt.setString(1, "%" + categoryName + "%");
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				productVO = new ProductVO();
+				productVO.setpNo(rs.getInt("pNo"));
+				productVO.setCategoryName(rs.getString("categoryName"));
+				productVO.setpName(rs.getString("pName"));
+				productVO.setpPrice(rs.getInt("pPrice"));
+				productVO.setpInfo(rs.getString("pInfo"));
+				productVO.setpQuantity(rs.getInt("pQuantity"));
+				productVO.setpOnDate(rs.getTimestamp("pOnDate"));
+				productVO.setpOffDate(rs.getTimestamp("pOffDate"));
+				productVO.setpImage1(rs.getString("pImage1"));
+				productVO.setpImage2(rs.getString("pImage2"));
+				productVO.setpImage3(rs.getString("pImage3"));
+				productVO.setpRatingsQuantity(rs.getInt("pRatingsQuantity"));
+				productVO.setpTotalRatings(rs.getInt("pTotalRatings"));
+				productVO.setpState(rs.getInt("pState"));
+				list.add(productVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	@Override
 	public List<ProductVO> getAll() {
 
 		List<ProductVO> list = new ArrayList<ProductVO>();
@@ -307,139 +441,5 @@ public class ProductDAO implements ProductDAO_interface {
 			}
 		}
 		return list;
-	}
-
-	@Override
-	public List<ProductVO> getAll_bypName(String pName) {
-
-		List<ProductVO> list1 = new ArrayList<ProductVO>();
-		ProductVO productVO = null;
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ALL_BYPNAME);
-			pstmt.setString(1, "%" + pName + "%");
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-
-				productVO = new ProductVO();
-				productVO.setpNo(rs.getInt("pNo"));
-				productVO.setCategoryName(rs.getString("categoryName"));
-				productVO.setpName(rs.getString("pName"));
-				productVO.setpPrice(rs.getInt("pPrice"));
-				productVO.setpInfo(rs.getString("pInfo"));
-				productVO.setpQuantity(rs.getInt("pQuantity"));
-				productVO.setpOnDate(rs.getTimestamp("pOnDate"));
-				productVO.setpOffDate(rs.getTimestamp("pOffDate"));
-				productVO.setpImage1(rs.getString("pImage1"));
-				productVO.setpImage2(rs.getString("pImage2"));
-				productVO.setpImage3(rs.getString("pImage3"));
-				productVO.setpRatingsQuantity(rs.getInt("pRatingsQuantity"));
-				productVO.setpTotalRatings(rs.getInt("pTotalRatings"));
-				productVO.setpState(rs.getInt("pState"));
-				list1.add(productVO); // Store the row in the list
-			}
-
-			// Handle any driver errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return list1;
-	}
-
-	@Override
-	public List<ProductVO> getAll_byCategoryName(String categoryName) {
-
-		List<ProductVO> list2 = new ArrayList<ProductVO>();
-		ProductVO productVO = null;
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ALL_BYCATEGORYNAME);
-			pstmt.setString(1, "%" + categoryName + "%");
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-
-				productVO = new ProductVO();
-				productVO.setpNo(rs.getInt("pNo"));
-				productVO.setCategoryName(rs.getString("categoryName"));
-				productVO.setpName(rs.getString("pName"));
-				productVO.setpPrice(rs.getInt("pPrice"));
-				productVO.setpInfo(rs.getString("pInfo"));
-				productVO.setpQuantity(rs.getInt("pQuantity"));
-				productVO.setpOnDate(rs.getTimestamp("pOnDate"));
-				productVO.setpOffDate(rs.getTimestamp("pOffDate"));
-				productVO.setpImage1(rs.getString("pImage1"));
-				productVO.setpImage2(rs.getString("pImage2"));
-				productVO.setpImage3(rs.getString("pImage3"));
-				productVO.setpRatingsQuantity(rs.getInt("pRatingsQuantity"));
-				productVO.setpTotalRatings(rs.getInt("pTotalRatings"));
-				productVO.setpState(rs.getInt("pState"));
-				list2.add(productVO); // Store the row in the list
-			}
-
-			// Handle any driver errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return list2;
-	}
+	}	
 }
