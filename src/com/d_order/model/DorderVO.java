@@ -1,27 +1,29 @@
 package com.d_order.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class DorderVO {
-	
+
 	private Integer dOrderNo;
 	private Integer dNo;
 	private Integer mNo;
-	private Date subStart;
-	private Date subEnd;
+	private Timestamp subStart;
+	private Timestamp subEnd;
 	private Integer mthFee;
 	private String dReview;
 	private Integer dScore;
+	private Integer autoSubs;
 
 	public DorderVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public DorderVO(Integer dOrderNo, Integer dNo, Integer mNo, Date subStart, Date subEnd, Integer mthFee,
-			String dReview, Integer dScore) {
+	public DorderVO(Integer dNo, Integer mNo, Timestamp subStart, Timestamp subEnd, Integer mthFee,
+			String dReview, Integer dScore, Integer autoSubs) {
 		super();
-		this.dOrderNo = dOrderNo;
+		
 		this.dNo = dNo;
 		this.mNo = mNo;
 		this.subStart = subStart;
@@ -29,6 +31,7 @@ public class DorderVO {
 		this.mthFee = mthFee;
 		this.dReview = dReview;
 		this.dScore = dScore;
+		this.autoSubs = autoSubs;
 	}
 
 	public Integer getdOrderNo() {
@@ -55,19 +58,19 @@ public class DorderVO {
 		this.mNo = mNo;
 	}
 
-	public Date getSubStart() {
+	public Timestamp getSubStart() {
 		return subStart;
 	}
-
-	public void setSubStart(Date subStart) {
+ 
+	public void setSubStart(Timestamp subStart) {
 		this.subStart = subStart;
 	}
 
-	public Date getSubEnd() {
+	public Timestamp getSubEnd() {
 		return subEnd;
 	}
 
-	public void setSubEnd(Date subEnd) {
+	public void setSubEnd(Timestamp subEnd) {
 		this.subEnd = subEnd;
 	}
 
@@ -93,6 +96,14 @@ public class DorderVO {
 
 	public void setdScore(Integer dScore) {
 		this.dScore = dScore;
+	}
+
+	public Integer getAutoSubs() {
+		return autoSubs;
+	}
+
+	public void setAutoSubs(Integer autoSubs) {
+		this.autoSubs = autoSubs;
 	}
 
 }
