@@ -13,7 +13,7 @@ import com.member.model.MemberVO;
 
 public class DorderDAO implements DorderDAO_interface {
 
-	Connection con;
+	
 
 	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 	public static final String URL = "jdbc:mysql://localhost:3306/CFA102_G2?serverTimezone=Asia/Taipei";
@@ -38,7 +38,7 @@ public class DorderDAO implements DorderDAO_interface {
 
 	@Override
 	public void insert(DorderVO dOrder) {
-
+		Connection con = null;
 		try {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(insert_SQL);
@@ -72,7 +72,7 @@ public class DorderDAO implements DorderDAO_interface {
 
 	@Override
 	public void update(DorderVO dOrder) {
-
+		Connection con = null;
 		try {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(update_SQL);
@@ -106,7 +106,7 @@ public class DorderDAO implements DorderDAO_interface {
 
 	@Override
 	public DorderVO findByPrimaryKey(int dOrderNo) {
-
+		Connection con = null;
 		DorderVO dOrder = new DorderVO();
 
 		try {
@@ -143,7 +143,7 @@ public class DorderDAO implements DorderDAO_interface {
 
 	@Override
 	public List<DorderVO> getAll() {
-
+		Connection con = null;
 		List<DorderVO> dOrders = new ArrayList<DorderVO>();
 
 		try {
@@ -187,7 +187,7 @@ public class DorderDAO implements DorderDAO_interface {
 
 	@Override
 	public List<DorderVO> getActiveOrder() {
-
+		Connection con = null;
 		List<DorderVO> dOrders = new ArrayList<DorderVO>();
 
 		try {
@@ -232,7 +232,7 @@ public class DorderDAO implements DorderDAO_interface {
 
 	@Override
 	public List<DorderVO> getActiveOrderByDNo(int dNo) {
-		
+		Connection con = null;
 		List<DorderVO> dOrders = new ArrayList<DorderVO>();
 
 		try {
@@ -278,13 +278,13 @@ public class DorderDAO implements DorderDAO_interface {
 	}
 
 	public static void main(String[] args) {
-
+		
 		DorderDAO dao = new DorderDAO();
 
 		List<DorderVO> dOrders = dao.getActiveOrderByDNo(3);
 
 		for (DorderVO dOrder : dOrders) {
-			System.out.println(dOrder.getdReview());
+			System.out.println(dOrder.getMthFee());
 		}
 
 //		DorderVO order = dao.findByPrimaryKey(2);

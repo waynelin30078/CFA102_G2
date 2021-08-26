@@ -13,7 +13,7 @@ import com.dietician.model.DieticianVO;
 
 public class DlicenseDAO implements DlicenseDAO_interface {
 
-	Connection con;
+	
 
 	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 	public static final String URL = "jdbc:mysql://localhost:3306/CFA102_G2?serverTimezone=Asia/Taipei";
@@ -37,6 +37,7 @@ public class DlicenseDAO implements DlicenseDAO_interface {
 
 	@Override
 	public void insert(DlicenseVO dLicense) {
+		Connection con = null;
 		try {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(insert_SQL);
@@ -65,6 +66,7 @@ public class DlicenseDAO implements DlicenseDAO_interface {
 
 	@Override
 	public void update(DlicenseVO dLicense) {
+		Connection con = null;
 		try {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(update_SQL);
@@ -94,7 +96,7 @@ public class DlicenseDAO implements DlicenseDAO_interface {
 
 	@Override
 	public List<DlicenseVO> getAll() {
-
+		Connection con = null;
 		List<DlicenseVO> dLicenses = new ArrayList<DlicenseVO>();
 
 		try {
@@ -135,7 +137,7 @@ public class DlicenseDAO implements DlicenseDAO_interface {
 
 	@Override
 	public List<DlicenseVO> findByDno(int dNo) {
-
+		Connection con = null;
 		List<DlicenseVO> dLicenses = new ArrayList<DlicenseVO>();
 
 		try {

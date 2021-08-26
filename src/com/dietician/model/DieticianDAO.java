@@ -8,7 +8,7 @@ import java.util.List;
 
 public class DieticianDAO implements DieticianDAO_interface {
 	
-	Connection con;
+	
 
 	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 	public static final String URL = "jdbc:mysql://localhost:3306/CFA102_G2?serverTimezone=Asia/Taipei";
@@ -44,7 +44,7 @@ public class DieticianDAO implements DieticianDAO_interface {
 	
 	@Override
 	public void insert(DieticianVO dietician) {
-
+		Connection con = null;
 		try {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(insert_SQL);
@@ -94,7 +94,7 @@ public class DieticianDAO implements DieticianDAO_interface {
 
 	@Override
 	public void update(DieticianVO dietician) {
-
+		Connection con = null;
 		
 		try {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -143,7 +143,7 @@ public class DieticianDAO implements DieticianDAO_interface {
 
 	@Override
 	public DieticianVO findByPrimaryKey(int dNo) {
-
+		Connection con = null;
 		DieticianVO dietician = new DieticianVO();
 		
 
@@ -202,7 +202,7 @@ public class DieticianDAO implements DieticianDAO_interface {
 
 	@Override
 	public List<DieticianVO> getAll() {
-
+		Connection con = null;
 		List<DieticianVO> dieticians = new ArrayList<DieticianVO>();
 		
 		try {
@@ -259,7 +259,7 @@ public class DieticianDAO implements DieticianDAO_interface {
 
 	@Override
 	public List<DieticianVO> findByScore(double avgScore) {
-
+		Connection con = null;
 		List<DieticianVO> dieticians = new ArrayList<DieticianVO>();
 		
 		
@@ -322,7 +322,7 @@ public class DieticianDAO implements DieticianDAO_interface {
 
 	@Override
 	public List<DieticianVO> findBySubscribeFee(int minPrice, int maxPrice) {
-
+		Connection con = null;
 		List<DieticianVO> dieticians = new ArrayList<DieticianVO>();
 
 		try {
@@ -383,7 +383,7 @@ public class DieticianDAO implements DieticianDAO_interface {
 
 	@Override
 	public List<DieticianVO> findByDieticianState(int dState) {
-
+		Connection con = null;
 		List<DieticianVO> dieticians = new ArrayList<DieticianVO>();
 
 		try {
@@ -445,7 +445,7 @@ public class DieticianDAO implements DieticianDAO_interface {
 	public static void main(String[] args) {
 
 		DieticianDAO dao = new DieticianDAO();
-		List<DieticianVO> dieticians = dao.findByDieticianState(2);
+		List<DieticianVO> dieticians = dao.findByDieticianState(1);
 		
 		
 		for(DieticianVO dietician : dieticians) {

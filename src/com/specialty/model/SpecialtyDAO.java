@@ -11,7 +11,7 @@ import java.util.List;
 
 public class SpecialtyDAO implements SpecialtyDAO_interface {
 
-	Connection con;
+	
 
 	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 	public static final String URL = "jdbc:mysql://localhost:3306/CFA102_G2?serverTimezone=Asia/Taipei";
@@ -33,7 +33,8 @@ public class SpecialtyDAO implements SpecialtyDAO_interface {
 
 	@Override
 	public void insert(SpecialtyVO specialty) {
-
+		Connection con = null;
+		
 		try {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(insert_SQL);
@@ -60,7 +61,8 @@ public class SpecialtyDAO implements SpecialtyDAO_interface {
 
 	@Override
 	public void update(SpecialtyVO specialty) {
-
+		Connection con = null;
+		
 		try {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(update_SQL);
@@ -88,7 +90,8 @@ public class SpecialtyDAO implements SpecialtyDAO_interface {
 
 	@Override
 	public List<SpecialtyVO> getAll() {
-
+		Connection con = null;
+		
 		List<SpecialtyVO> specialties = new ArrayList<SpecialtyVO>();
 
 		try {
