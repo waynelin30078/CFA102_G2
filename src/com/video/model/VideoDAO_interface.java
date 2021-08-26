@@ -7,5 +7,5 @@ public interface VideoDAO_interface {
 	void update(VideoVO video);
 	void delete(Integer vNo);
 	VideoVO getOne(Integer vNo);
-	List <VideoVO> gelAll();
+	List <VideoVO> getAll();
 }

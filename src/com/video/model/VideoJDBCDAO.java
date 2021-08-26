@@ -164,7 +164,7 @@ public class VideoJDBCDAO implements VideoDAO_interface {
 	}
 
 	@Override
-	public List<VideoVO> gelAll() {
+	public List<VideoVO> getAll() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -201,32 +201,32 @@ public class VideoJDBCDAO implements VideoDAO_interface {
 		return videoList;
 	}
 //cNo,vFile,vUpdateTime,vLength
-	
-	public static void main(String[] agrs) {
-		//insert
-		Time t = new Time(11,11,11);
-		VideoDAO_interface vdao=new VideoJDBCDAO();
-		VideoVO VideoVO1 = new VideoVO();
-		VideoVO1.setvNo(3);
-		VideoVO1.setcNo(2);
-		VideoVO1.setvFile("video/aa.mp4");
-		VideoVO1.setvUpdateTime((java.sql.Timestamp.valueOf("9999-12-31 23:59:59")));
-		VideoVO1.setvLength(t);
-//		vdao.insert(VideoVO1);
-//		System.out.println(t);
-		//update
-//		vdao.update(VideoVO1);
-		
-		//delete
-//		vdao.delete(6);
-		//getone
-//		System.out.println(vdao.getOne(2));
-		//get all
-		List<VideoVO> vList =vdao.gelAll();
-		for(VideoVO v:vList)
-			System.out.println(v);
-		
-	}
+//	
+//	public static void main(String[] agrs) {
+//		//insert
+//		Time t = new Time(11,11,11);
+//		VideoDAO_interface vdao=new VideoJDBCDAO();
+//		VideoVO VideoVO1 = new VideoVO();
+//		VideoVO1.setvNo(3);
+//		VideoVO1.setcNo(2);
+//		VideoVO1.setvFile("video/aa.mp4");
+//		VideoVO1.setvUpdateTime((java.sql.Timestamp.valueOf("9999-12-31 23:59:59")));
+//		VideoVO1.setvLength(t);
+////		vdao.insert(VideoVO1);
+////		System.out.println(t);
+//		//update
+////		vdao.update(VideoVO1);
+//		
+//		//delete
+////		vdao.delete(6);
+//		//getone
+////		System.out.println(vdao.getOne(2));
+//		//get all
+//		List<VideoVO> vList =vdao.gelAll();
+//		for(VideoVO v:vList)
+//			System.out.println(v);
+//		
+//	}
 
 	
 }

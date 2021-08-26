@@ -6,6 +6,6 @@ public interface MaterialDAO_interface {
 	void update(MaterialVO mat);
 	void delete(Integer matNo);
 	MaterialVO getOne(Integer matNo);
-	List <MaterialVO> gelAll();
+	List <MaterialVO> getAll();
 
 }
