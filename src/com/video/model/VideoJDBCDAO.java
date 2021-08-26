@@ -46,7 +46,7 @@ public class VideoJDBCDAO implements VideoDAO_interface {
 			pstmt.setTime(3, video.getvLength());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();// 錯誤
+			e.printStackTrace();
 		} finally {
 
 			if (con != null) {
