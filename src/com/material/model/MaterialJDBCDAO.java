@@ -1,4 +1,4 @@
-package com.material;
+package com.material.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,7 +11,7 @@ import java.util.List;
 
 
 import util.Util;
-
+				
 public class MaterialJDBCDAO implements MaterialDAO_interface {
 	private static final String INSERT = "INSERT INTO MATERIAL(matNo,cNo,matFile,matUpdateTime)VALUES(null,?,?,Now())";
 	private static final String UPDATE_MATERIAL="UPDATE MATERIAL SET matFile=?, matUpdateTime=Now() WHERE matNO=?";
@@ -198,11 +198,11 @@ public class MaterialJDBCDAO implements MaterialDAO_interface {
 
 		return matList;
 	}
-//	public static void main(String[] agrs) {
+	public static void main(String[] agrs) {
 //		//insert
 //		
-//		MaterialDAO_interface matdao=new MaterialJDBCDAO();
-//		MaterialVO matVO1 = new MaterialVO();
+		MaterialDAO_interface matdao=new MaterialJDBCDAO();
+		MaterialVO matVO1 = new MaterialVO();
 //		matVO1.setMatNo(1);
 //		matVO1.setcNo(3);
 //		matVO1.setMatFile("wwwaa.pptx");
@@ -217,9 +217,9 @@ public class MaterialJDBCDAO implements MaterialDAO_interface {
 		//getone
 //		System.out.println(matdao.getOne(1));
 		//get all
-//		List<MaterialVO> matList =(matdao.getAll());
-//		for(MaterialVO mat:matList)
-//			System.out.println(mat);
+		List<MaterialVO> matList =(matdao.getAll());
+		for(MaterialVO mat:matList)
+			System.out.println(mat);
 		
-//	}
+	}
 }
