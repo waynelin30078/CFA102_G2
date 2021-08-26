@@ -24,7 +24,7 @@ public class DlicenseDAO implements DlicenseDAO_interface {
 	private static final String update_SQL = "UPDATE d_license SET  dNo = ?, licDesc = ?, licFile = ? WHERE dLicNo = ?";
 	private static final String getAll_SQL = "SELECT * FROM d_license;";
 	private static final String findByDno_SQL = "SELECT * FROM d_license WHERE dNo = ?";
-	private static final String getAll_SQL = "SELECT * FROM d_license;";
+
 	
 	
 	static {
