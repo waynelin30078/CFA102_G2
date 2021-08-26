@@ -1,6 +1,8 @@
 package com.c_favorite.model;
 
-public class C_FavoriteVO {
+import java.io.Serializable;
+
+public class C_FavoriteVO implements Serializable {
 	private Integer mNo;
 	private Integer cNo;
 	public C_FavoriteVO() {};
