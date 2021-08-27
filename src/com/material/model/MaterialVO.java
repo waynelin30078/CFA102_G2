@@ -5,23 +5,21 @@ import java.sql.Timestamp;
 
 public class MaterialVO implements Serializable {
 	private Integer matNo;
-	private Integer cNo;
+	private Integer cno;
 	private String matFile;
 	private Timestamp matUpdateTime;
-	public MaterialVO() {};
-	
-	
+	public MaterialVO() {}
 	public Integer getMatNo() {
 		return matNo;
 	}
 	public void setMatNo(Integer matNo) {
 		this.matNo = matNo;
 	}
-	public Integer getcNo() {
-		return cNo;
+	public Integer getCno() {
+		return cno;
 	}
-	public void setcNo(Integer cNo) {
-		this.cNo = cNo;
+	public void setCno(Integer cno) {
+		this.cno = cno;
 	}
 	public String getMatFile() {
 		return matFile;
@@ -35,16 +33,14 @@ public class MaterialVO implements Serializable {
 	public void setMatUpdateTime(Timestamp matUpdateTime) {
 		this.matUpdateTime = matUpdateTime;
 	}
-	public MaterialVO(Integer matNo, Integer cNo, String matFile, Timestamp matUpdateTime) {
+	public MaterialVO(Integer matNo, Integer cno, String matFile, Timestamp matUpdateTime) {
 		super();
 		this.matNo = matNo;
-		this.cNo = cNo;
+		this.cno = cno;
 		this.matFile = matFile;
 		this.matUpdateTime = matUpdateTime;
-	}
-	@Override
-	public String toString() {
-		return "MaterialVO [matNo=" + matNo + ", cNo=" + cNo + ", matFile=" + matFile + ", matUpdateTime="
-				+ matUpdateTime + "]";
-	}
+	};
+	
+	
+	
 }

@@ -145,7 +145,7 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 	}
 
 	@Override
-	public CourseVO findBy_cNO(Integer cNo) {
+	public CourseVO getOneBy_cNO(Integer cNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -208,7 +208,7 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 	}
 
 	@Override
-	public List<CourseVO> findBy_dNo(Integer dNo) {
+	public List<CourseVO> getBy_dNo(Integer dNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -273,7 +273,7 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 	}
 
 	@Override
-	public List<CourseVO> findBy_cName(String cName) {
+	public List<CourseVO> getBy_cName(String cName) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -338,7 +338,7 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 	}
 
 	@Override
-	public List<CourseVO> findBy_cTotalScore(Integer score) {
+	public List<CourseVO> getBy_cTotalScore(Integer score) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -408,7 +408,7 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 	}
 
 	@Override
-	public List<CourseVO> findBy_cType(Integer cType) {
+	public List<CourseVO> getBy_cType(Integer cType) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

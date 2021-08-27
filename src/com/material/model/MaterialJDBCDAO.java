@@ -37,7 +37,7 @@ public class MaterialJDBCDAO implements MaterialDAO_interface {
 			}
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(INSERT);
-			pstmt.setInt(1, mat.getcNo());
+			pstmt.setInt(1, mat.getCno());
 			pstmt.setString(2, mat.getMatFile());
 			
 			pstmt.executeUpdate();
@@ -137,7 +137,7 @@ public class MaterialJDBCDAO implements MaterialDAO_interface {
 			while (rs.next()) {
 				matVO = new MaterialVO();
 				matVO.setMatNo(matNo);
-				matVO.setcNo(rs.getInt("cNo"));
+				matVO.setCno(rs.getInt("cNo"));
 				matVO.setMatFile(rs.getString("matFile"));
 				matVO.setMatUpdateTime(rs.getTimestamp("matUpdateTime"));
 
@@ -175,7 +175,7 @@ public class MaterialJDBCDAO implements MaterialDAO_interface {
 			while (rs.next()) {
 				MaterialVO matVO = new MaterialVO();
 				matVO.setMatNo(rs.getInt("matNo"));
-				matVO.setcNo(rs.getInt("cNo"));
+				matVO.setCno(rs.getInt("cNo"));
 				matVO.setMatFile(rs.getString("matFile"));
 				matVO.setMatUpdateTime(rs.getTimestamp("matUpdateTime"));
 	
