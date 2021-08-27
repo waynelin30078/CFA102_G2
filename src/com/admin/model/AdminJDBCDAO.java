@@ -29,9 +29,9 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 			con = DriverManager.getConnection(url, user, password);
 			pstmt = con.prepareStatement(insert);
 
-			pstmt.setString(1, adminVO.getaName());
-			pstmt.setString(2, adminVO.getaId());
-			pstmt.setString(3, adminVO.getaPsw());
+			pstmt.setString(1, adminVO.getAname());
+			pstmt.setString(2, adminVO.getAid());
+			pstmt.setString(3, adminVO.getApsw());
 			pstmt.executeUpdate();
 			System.out.println("新增成功!");
 		} catch (ClassNotFoundException e) {
@@ -64,10 +64,10 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 			con = DriverManager.getConnection(url, user, password);
 			pstmt = con.prepareStatement(update);
 
-			pstmt.setString(1, adminVO.getaName());
-			pstmt.setString(2, adminVO.getaId());
-			pstmt.setString(3, adminVO.getaPsw());
-			pstmt.setInt(4, adminVO.getaNo());
+			pstmt.setString(1, adminVO.getAname());
+			pstmt.setString(2, adminVO.getAid());
+			pstmt.setString(3, adminVO.getApsw());
+			pstmt.setInt(4, adminVO.getAno());
 			pstmt.executeUpdate();
 			System.out.println("修改成功!");
 		} catch (ClassNotFoundException e) {
@@ -91,7 +91,7 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer aNo) {
+	public void delete(Integer ano) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -101,7 +101,7 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 			con = DriverManager.getConnection(url, user, password);
 			pstmt = con.prepareStatement(delete);
 
-			pstmt.setInt(1, aNo);
+			pstmt.setInt(1, ano);
 			pstmt.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -128,7 +128,7 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 	}
 
 	@Override
-	public void findByPrimaryKey(Integer aNo) {
+	public AdminVO findByPrimaryKey(Integer ano) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -138,7 +138,7 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 			con = DriverManager.getConnection(url, user, password);
 			pstmt = con.prepareStatement(findByPrimaryKey);
 
-			pstmt.setInt(1, aNo);
+			pstmt.setInt(1, ano);
 			rs = pstmt.executeQuery();
 			rs.next();
 			System.out.print("aNo=" + rs.getInt("aNo") + "\t");
@@ -171,7 +171,7 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 					e.printStackTrace();
 				}
 		}
-
+		return adminVO;
 	}
 
 	@Override
@@ -191,10 +191,10 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 			
 			while (rs.next()) {
 				AdminVO adminVO = new AdminVO();
-				adminVO.setaNo(rs.getInt("aNo"));
-				adminVO.setaName(rs.getString("aName"));
-				adminVO.setaId(rs.getString("aId"));
-				adminVO.setaPsw(rs.getString("aPsw"));
+				adminVO.setAno(rs.getInt("aNo"));
+				adminVO.setAname(rs.getString("aName"));
+				adminVO.setAid(rs.getString("aId"));
+				adminVO.setApsw(rs.getString("aPsw"));
 				list.add(adminVO);
 			}
 		} catch (ClassNotFoundException e) {
@@ -210,31 +210,32 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 		// 新增
 //		AdminVO adminVO1 = new AdminVO();
 //		for (int i = 0; i < 10; i++) {
-//			adminVO1.setaName("aadc" + i);
-//			adminVO1.setaId("bacd" + i);
-//			adminVO1.setaPsw("cadc" + i);
+//			adminVO1.setAname("aadcr" + i);
+//			adminVO1.setAid("bacdr" + i);
+//			adminVO1.setApsw("cadcr" + i);
 //			dao.insert(adminVO1);
 //		}
-		// 修改
+//		 修改
+		 
 //		AdminVO adminVO2 = new AdminVO();
-//		adminVO2.setaName("offfo");
-//		adminVO2.setaId("ppffp");
-//		adminVO2.setaPsw("lffll");
-//		adminVO2.setaNo(2);
+//		adminVO2.setAname("offfo");
+//		adminVO2.setAid("ppffp");
+//		adminVO2.setApsw("lffll");
+//		adminVO2.setAno(25);
 //		dao.update(adminVO2);
-		// 刪除
+////		 刪除
 //		AdminVO adminVO3 = new AdminVO();
-//		adminVO3.setaNo(3);
-//		dao.delete(adminVO3.getaNo());
+//		adminVO3.setAno(3);
+//		dao.delete(adminVO3.getAno());
 //		 依管理員編號查詢
 //		AdminVO adminVO4 = new AdminVO();
-//		adminVO4.setaNo(1);
-//		dao.findByPrimaryKey(adminVO4.getaNo());
-		// 查全部
+//		adminVO4.setAno(1);
+//		dao.findByPrimaryKey(adminVO4.getAno());
+//		// 查全部
 		List<AdminVO> list =new ArrayList<AdminVO>();
 		list=dao.getAll();
 		for (AdminVO str : list)
-			System.out.println(str.getaNo()+","+str.getaName()+","+str.getaId()+","+str.getaPsw());
+			System.out.println(str.getAno()+","+str.getAname()+","+str.getAid()+","+str.getApsw());
 		System.out.println();
 	}
 }

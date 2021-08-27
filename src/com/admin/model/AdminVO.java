@@ -3,42 +3,37 @@ package com.admin.model;
 import java.io.Serializable;
 
 public class AdminVO implements Serializable {
-	private Integer aNo;
-	private String aName;
-	private String aId;
-	private String aPsw; 
-
-	public Integer getaNo() {
-		return aNo;
+	private Integer ano;
+	private String aname;
+	private String aid;
+	private String apsw;
+	
+	public Integer getAno() {
+		return ano;
 	}
-
-	public void setaNo(Integer aNo) {
-		this.aNo = aNo;
+	public void setAno(Integer ano) {
+		this.ano = ano;
 	}
-
-	public String getaName() {
-		return aName;
+	public String getAname() {
+		return aname;
 	}
-
-	public void setaName(String aName) {
-		this.aName = aName;
+	public void setAname(String aname) {
+		this.aname = aname;
 	}
-
-	public String getaId() {
-		return aId;
+	public String getAid() {
+		return aid;
 	}
-
-	public void setaId(String aId) {
-		this.aId = aId;
+	public void setAid(String aid) {
+		this.aid = aid;
 	}
-
-	public String getaPsw() {
-		return aPsw;
+	public String getApsw() {
+		return apsw;
 	}
+	public void setApsw(String apsw) {
+		this.apsw = apsw;
+	} 
 
-	public void setaPsw(String aPsw) {
-		this.aPsw = aPsw;
-	}
+
 
 
 }

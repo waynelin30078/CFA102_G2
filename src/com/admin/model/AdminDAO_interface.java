@@ -6,7 +6,7 @@ public interface AdminDAO_interface {
 
 	public void insert(AdminVO adminVO); 
 	public void update(AdminVO adminVO);
-	public void delete(Integer aNo);
-	public void findByPrimaryKey(Integer aNo);
+	public void delete(Integer ano);
+	public AdminVO findByPrimaryKey(Integer ano);
 	public List<AdminVO> getAll();
 }
