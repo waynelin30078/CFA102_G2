@@ -41,14 +41,14 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 			}
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(INSERT);
-			pstmt.setInt(1, courseVO.getdNo());
-			pstmt.setString(2, courseVO.getcName());
-			pstmt.setInt(3, courseVO.getcPrice());
-			pstmt.setDate(4, courseVO.getcShelfDate());
-			pstmt.setString(5, courseVO.getcIntroduction());
-			pstmt.setInt(6, courseVO.getcType());
-			pstmt.setBytes(7, courseVO.getcPic());
-			pstmt.setString(8, courseVO.getcDescription());
+			pstmt.setInt(1, courseVO.getDno());
+			pstmt.setString(2, courseVO.getCname());
+			pstmt.setInt(3, courseVO.getCprice());
+			pstmt.setDate(4, courseVO.getCshelfDate());
+			pstmt.setString(5, courseVO.getCintroduction());
+			pstmt.setInt(6, courseVO.getCtype());
+			pstmt.setBytes(7, courseVO.getCpic());
+			pstmt.setString(8, courseVO.getCdescription());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();//錯誤
@@ -80,12 +80,12 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
-			pstmt.setString(1, courseVO.getcName());
-			pstmt.setInt(2, courseVO.getcPrice());
-			pstmt.setString(3, courseVO.getcIntroduction());
-			pstmt.setBytes(4, courseVO.getcPic());
-			pstmt.setString(5, courseVO.getcDescription());
-			pstmt.setInt(6, courseVO.getcNo());
+			pstmt.setString(1, courseVO.getCname());
+			pstmt.setInt(2, courseVO.getCprice());
+			pstmt.setString(3, courseVO.getCintroduction());
+			pstmt.setBytes(4, courseVO.getCpic());
+			pstmt.setString(5, courseVO.getCdescription());
+			pstmt.setInt(6, courseVO.getCno());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -158,19 +158,19 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 
 			while (rs.next()) {
 				courseVO = new CourseVO();
-				courseVO.setcNo(cNo);
-				courseVO.setdNo(rs.getInt("dNo"));
-				courseVO.setcName(rs.getString("cName"));
-				courseVO.setcPrice(rs.getInt("cPrice"));
-				courseVO.setcState(rs.getInt("cState"));
-				courseVO.setcShelfDate(rs.getDate("cShelfDate"));
-				courseVO.setcIntroduction(rs.getString("cIntroduction"));
-				courseVO.setcType(rs.getInt("cType"));
+				courseVO.setCno(cNo);
+				courseVO.setDno(rs.getInt("dNo"));
+				courseVO.setCname(rs.getString("cName"));
+				courseVO.setCprice(rs.getInt("cPrice"));
+				courseVO.setCstate(rs.getInt("cState"));
+				courseVO.setCshelfDate(rs.getDate("cShelfDate"));
+				courseVO.setCintroduction(rs.getString("cIntroduction"));
+				courseVO.setCtype(rs.getInt("cType"));
 				courseVO.setQuantity(rs.getInt("quantity"));
-				courseVO.setcPic(rs.getBytes("cPic"));
-				courseVO.setcDescription(rs.getString("cDescription"));
-				courseVO.setcTotalPeople(rs.getInt("cTotalPeople"));
-				courseVO.setcTotalScore(rs.getInt("cTotalScore"));
+				courseVO.setCpic(rs.getBytes("cPic"));
+				courseVO.setCdescription(rs.getString("cDescription"));
+				courseVO.setCtotalPeople(rs.getInt("cTotalPeople"));
+				courseVO.setCtotalScore(rs.getInt("cTotalScore"));
 			}
 
 		} catch (SQLException e) {
@@ -221,19 +221,19 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 
 			while (rs.next()) {
 				CourseVO courseVO = new CourseVO();
-				courseVO.setcNo(rs.getInt("cNo"));
-				courseVO.setdNo(dNo);
-				courseVO.setcName(rs.getString("cName"));
-				courseVO.setcPrice(rs.getInt("cPrice"));
-				courseVO.setcState(rs.getInt("cState"));
-				courseVO.setcShelfDate(rs.getDate("cShelfDate"));
-				courseVO.setcIntroduction(rs.getString("cIntroduction"));
-				courseVO.setcType(rs.getInt("cType"));
+				courseVO.setCno(rs.getInt("cNo"));
+				courseVO.setDno(dNo);
+				courseVO.setCname(rs.getString("cName"));
+				courseVO.setCprice(rs.getInt("cPrice"));
+				courseVO.setCstate(rs.getInt("cState"));
+				courseVO.setCshelfDate(rs.getDate("cShelfDate"));
+				courseVO.setCintroduction(rs.getString("cIntroduction"));
+				courseVO.setCtype(rs.getInt("cType"));
 				courseVO.setQuantity(rs.getInt("quantity"));
-				courseVO.setcPic(rs.getBytes("cPic"));
-				courseVO.setcDescription(rs.getString("cDescription"));
-				courseVO.setcTotalPeople(rs.getInt("cTotalPeople"));
-				courseVO.setcTotalScore(rs.getInt("cTotalScore"));
+				courseVO.setCpic(rs.getBytes("cPic"));
+				courseVO.setCdescription(rs.getString("cDescription"));
+				courseVO.setCtotalPeople(rs.getInt("cTotalPeople"));
+				courseVO.setCtotalScore(rs.getInt("cTotalScore"));
 				courseList.add(courseVO);
 			}
 
@@ -286,19 +286,19 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 
 			while (rs.next()) {
 				CourseVO courseVO = new CourseVO();
-				courseVO.setcNo(rs.getInt("cNo"));
-				courseVO.setdNo(rs.getInt("dNo"));
-				courseVO.setcName(rs.getString("cName"));
-				courseVO.setcPrice(rs.getInt("cPrice"));
-				courseVO.setcState(rs.getInt("cState"));
-				courseVO.setcShelfDate(rs.getDate("cShelfDate"));
-				courseVO.setcIntroduction(rs.getString("cIntroduction"));
-				courseVO.setcType(rs.getInt("cType"));
+				courseVO.setCno(rs.getInt("cNo"));
+				courseVO.setDno(rs.getInt("dNo"));
+				courseVO.setCname(rs.getString("cName"));
+				courseVO.setCprice(rs.getInt("cPrice"));
+				courseVO.setCstate(rs.getInt("cState"));
+				courseVO.setCshelfDate(rs.getDate("cShelfDate"));
+				courseVO.setCintroduction(rs.getString("cIntroduction"));
+				courseVO.setCtype(rs.getInt("cType"));
 				courseVO.setQuantity(rs.getInt("quantity"));
-				courseVO.setcPic(rs.getBytes("cPic"));
-				courseVO.setcDescription(rs.getString("cDescription"));
-				courseVO.setcTotalPeople(rs.getInt("cTotalPeople"));
-				courseVO.setcTotalScore(rs.getInt("cTotalScore"));
+				courseVO.setCpic(rs.getBytes("cPic"));
+				courseVO.setCdescription(rs.getString("cDescription"));
+				courseVO.setCtotalPeople(rs.getInt("cTotalPeople"));
+				courseVO.setCtotalScore(rs.getInt("cTotalScore"));
 				courseList.add(courseVO);
 			}
 
@@ -356,19 +356,19 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 
 			while (rs.next()) {
 				CourseVO courseVO = new CourseVO();
-				courseVO.setcNo(rs.getInt("cNo"));
-				courseVO.setdNo(rs.getInt("dNo"));
-				courseVO.setcName(rs.getString("cName"));
-				courseVO.setcPrice(rs.getInt("cPrice"));
-				courseVO.setcState(rs.getInt("cState"));
-				courseVO.setcShelfDate(rs.getDate("cShelfDate"));
-				courseVO.setcIntroduction(rs.getString("cIntroduction"));
-				courseVO.setcType(rs.getInt("cType"));
+				courseVO.setCno(rs.getInt("cNo"));
+				courseVO.setDno(rs.getInt("dNo"));
+				courseVO.setCname(rs.getString("cName"));
+				courseVO.setCprice(rs.getInt("cPrice"));
+				courseVO.setCstate(rs.getInt("cState"));
+				courseVO.setCshelfDate(rs.getDate("cShelfDate"));
+				courseVO.setCintroduction(rs.getString("cIntroduction"));
+				courseVO.setCtype(rs.getInt("cType"));
 				courseVO.setQuantity(rs.getInt("quantity"));
-				courseVO.setcPic(rs.getBytes("cPic"));
-				courseVO.setcDescription(rs.getString("cDescription"));
-				courseVO.setcTotalPeople(rs.getInt("cTotalPeople"));
-				courseVO.setcTotalScore(rs.getInt("cTotalScore"));
+				courseVO.setCpic(rs.getBytes("cPic"));
+				courseVO.setCdescription(rs.getString("cDescription"));
+				courseVO.setCtotalPeople(rs.getInt("cTotalPeople"));
+				courseVO.setCtotalScore(rs.getInt("cTotalScore"));
 				courseList.add(courseVO);
 			}
 
@@ -421,19 +421,19 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 
 			while (rs.next()) {
 				CourseVO courseVO = new CourseVO();
-				courseVO.setcNo(rs.getInt("cNo"));
-				courseVO.setdNo(rs.getInt("dNo"));
-				courseVO.setcName(rs.getString("cName"));
-				courseVO.setcPrice(rs.getInt("cPrice"));
-				courseVO.setcState(rs.getInt("cState"));
-				courseVO.setcShelfDate(rs.getDate("cShelfDate"));
-				courseVO.setcIntroduction(rs.getString("cIntroduction"));
-				courseVO.setcType(cType);
+				courseVO.setCno(rs.getInt("cNo"));
+				courseVO.setDno(rs.getInt("dNo"));
+				courseVO.setCname(rs.getString("cName"));
+				courseVO.setCprice(rs.getInt("cPrice"));
+				courseVO.setCstate(rs.getInt("cState"));
+				courseVO.setCshelfDate(rs.getDate("cShelfDate"));
+				courseVO.setCintroduction(rs.getString("cIntroduction"));
+				courseVO.setCtype(cType);
 				courseVO.setQuantity(rs.getInt("quantity"));
-				courseVO.setcPic(rs.getBytes("cPic"));
-				courseVO.setcDescription(rs.getString("cDescription"));
-				courseVO.setcTotalPeople(rs.getInt("cTotalPeople"));
-				courseVO.setcTotalScore(rs.getInt("cTotalScore"));
+				courseVO.setCpic(rs.getBytes("cPic"));
+				courseVO.setCdescription(rs.getString("cDescription"));
+				courseVO.setCtotalPeople(rs.getInt("cTotalPeople"));
+				courseVO.setCtotalScore(rs.getInt("cTotalScore"));
 				courseList.add(courseVO);
 			}
 

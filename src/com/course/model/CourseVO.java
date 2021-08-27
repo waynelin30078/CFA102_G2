@@ -6,106 +6,104 @@ import java.sql.Timestamp;
 import java.util.Arrays;
 
 public class CourseVO implements Serializable {
-	private Integer cNo;// 課程編號
-	private Integer dNo;// 講師編號
-	private String cName;// 課程名稱
-	private Integer cPrice;
-	private Integer cState;
-	private Date cShelfDate;// 上架日期
-	private String cIntroduction;// 課程介紹
-	private Integer cType;
+	private Integer cno;// 課程編號
+	private Integer dno;// 講師編號
+	private String cname;// 課程名稱
+	private Integer cprice;
+	private Integer cstate;
+	private Date cshelfDate;// 上架日期
+	private String cintroduction;// 課程介紹
+	private Integer ctype;
 	private Integer quantity;// 購買人數
-	private byte[] cPic;// 預覽圖
-	private String cDescription;// 預覽介紹
-	private Integer cTotalPeople;
-	private Integer cTotalScore;
+	private byte[] cpic;// 預覽圖
+	private String cdescription;// 預覽介紹
+	private Integer ctotalPeople;
+	private Integer ctotalScore;
 
 	public CourseVO() {
-		super();
-	}
+	};
 
-	public CourseVO(Integer cNo, Integer dNo, String cName, Integer cPrice, Integer cState, java.util.Date cShelfDate2,
-			String cIntroduction, Integer cType, Integer quantity, byte[] cPic, String cDescription,
-			Integer cTotalPeople, Integer cTotalScore) {
+	public CourseVO(Integer cno, Integer dno, String cname, Integer cprice, Integer cstate, Date cshelfDate,
+			String cintroduction, Integer ctype, Integer quantity, byte[] cpic, String cdescription,
+			Integer ctotalPeople, Integer ctotalScore) {
 		super();
-		this.cNo = cNo;
-		this.dNo = dNo;
-		this.cName = cName;
-		this.cPrice = cPrice;
-		this.cState = cState;
-		this.cShelfDate = (Date) cShelfDate2;
-		this.cIntroduction = cIntroduction;
-		this.cType = cType;
+		this.cno = cno;
+		this.dno = dno;
+		this.cname = cname;
+		this.cprice = cprice;
+		this.cstate = cstate;
+		this.cshelfDate = cshelfDate;
+		this.cintroduction = cintroduction;
+		this.ctype = ctype;
 		this.quantity = quantity;
-		this.cPic = cPic;
-		this.cDescription = cDescription;
-		this.cTotalPeople = cTotalPeople;
-		this.cTotalScore = cTotalScore;
-
+		this.cpic = cpic;
+		this.cdescription = cdescription;
+		this.ctotalPeople = ctotalPeople;
+		this.ctotalScore = ctotalScore;
 	}
 
-	public Integer getcNo() {
-		return cNo;
+	public Integer getCno() {
+		return cno;
 	}
 
-	public void setcNo(Integer cNo) {
-		this.cNo = cNo;
+	public void setCno(Integer cno) {
+		this.cno = cno;
 	}
 
-	public Integer getdNo() {
-		return dNo;
+	public Integer getDno() {
+		return dno;
 	}
 
-	public void setdNo(Integer dNo) {
-		this.dNo = dNo;
+	public void setDno(Integer dno) {
+		this.dno = dno;
 	}
 
-	public String getcName() {
-		return cName;
+	public String getCname() {
+		return cname;
 	}
 
-	public void setcName(String cName) {
-		this.cName = cName;
+	public void setCname(String cname) {
+		this.cname = cname;
 	}
 
-	public Integer getcPrice() {
-		return cPrice;
+	public Integer getCprice() {
+		return cprice;
 	}
 
-	public void setcPrice(Integer cPrice) {
-		this.cPrice = cPrice;
+	public void setCprice(Integer cprice) {
+		this.cprice = cprice;
 	}
 
-	public Integer getcState() {
-		return cState;
+	public Integer getCstate() {
+		return cstate;
 	}
 
-	public void setcState(Integer cStatue) {
-		this.cState = cStatue;
+	public void setCstate(Integer cstate) {
+		this.cstate = cstate;
 	}
 
-	public Date getcShelfDate() {
-		return cShelfDate;
+	public Date getCshelfDate() {
+		return cshelfDate;
 	}
 
-	public void setcShelfDate(Date cShelfDate) {
-		this.cShelfDate = cShelfDate;
+	public void setCshelfDate(Date cshelfDate) {
+		this.cshelfDate = cshelfDate;
 	}
 
-	public String getcIntroduction() {
-		return cIntroduction;
+	public String getCintroduction() {
+		return cintroduction;
 	}
 
-	public void setcIntroduction(String cIntroduction) {
-		this.cIntroduction = cIntroduction;
+	public void setCintroduction(String cintroduction) {
+		this.cintroduction = cintroduction;
 	}
 
-	public Integer getcType() {
-		return cType;
+	public Integer getCtype() {
+		return ctype;
 	}
 
-	public void setcType(Integer cType) {
-		this.cType = cType;
+	public void setCtype(Integer ctype) {
+		this.ctype = ctype;
 	}
 
 	public Integer getQuantity() {
@@ -116,44 +114,36 @@ public class CourseVO implements Serializable {
 		this.quantity = quantity;
 	}
 
-	public byte[] getcPic() {
-		return cPic;
+	public byte[] getCpic() {
+		return cpic;
 	}
 
-	public void setcPic(byte[] cPic) {
-		this.cPic = cPic;
+	public void setCpic(byte[] cpic) {
+		this.cpic = cpic;
 	}
 
-	public String getcDescription() {
-		return cDescription;
+	public String getCdescription() {
+		return cdescription;
 	}
 
-	public void setcDescription(String cDescription) {
-		this.cDescription = cDescription;
+	public void setCdescription(String cdescription) {
+		this.cdescription = cdescription;
 	}
 
-	public Integer getcTotalPeople() {
-		return cTotalPeople;
+	public Integer getCtotalPeople() {
+		return ctotalPeople;
 	}
 
-	public void setcTotalPeople(Integer cTotalPeople) {
-		this.cTotalPeople = cTotalPeople;
+	public void setCtotalPeople(Integer ctotalPeople) {
+		this.ctotalPeople = ctotalPeople;
 	}
 
-	public Integer getcTotalScore() {
-		return cTotalScore;
+	public Integer getCtotalScore() {
+		return ctotalScore;
 	}
 
-	public void setcTotalScore(Integer cTotalScore) {
-		this.cTotalScore = cTotalScore;
-	}
-
-	@Override
-	public String toString() {
-		return "CourseVO [cNo=" + cNo + ", dNo=" + dNo + ", cName=" + cName + ", cPrice=" + cPrice + ", cState="
-				+ cState + ", cShelfDate=" + cShelfDate + ", cIntroduction=" + cIntroduction + ", cType=" + cType
-				+ ", quantity=" + quantity + ", cPic="  + ", cDescription=" + cDescription
-				+ ", cTotalPeople=" + cTotalPeople + ", cTotalScore=" + cTotalScore + "]";
+	public void setCtotalScore(Integer ctotalScore) {
+		this.ctotalScore = ctotalScore;
 	}
 
 }
