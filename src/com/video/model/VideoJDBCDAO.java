@@ -34,11 +34,6 @@ public class VideoJDBCDAO implements VideoDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
-			try {
-				Class.forName(Util.DRIVER);
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(INSERT);
 			pstmt.setInt(1, video.getCno());
