@@ -8,12 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import util.Util;
 
 public class C_FavoriteJDBCDAO implements C_FavoriteDAO_interface {
 	private static final String INSERT = "INSERT INTO C_FAVORITE (mNO,cNO)VALUES(?,?)";
-//	private static final String UPDATE = "UPDATE C_FAVORITE SET cNO=?,mNO=?";
+
 	private static final String DELETE = "DELETE FROM C_FAVORITE WHERE mNo =? AND cNo=?";
 	private static final String GET_ONE_BY_PK = "SELECT * FROM C_FAVORITE WHERE mNO=? AND cNO=?";
 	private static final String GET_ALL = "SELECT * FROM C_FAVORITE";
@@ -39,8 +38,8 @@ public class C_FavoriteJDBCDAO implements C_FavoriteDAO_interface {
 			}
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(INSERT);
-			pstmt.setInt(1, c_favorite.getmNo());
-			pstmt.setInt(2, c_favorite.getcNo());
+			pstmt.setInt(1, c_favorite.getMno());
+			pstmt.setInt(2, c_favorite.getCno());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();// 錯誤
@@ -59,41 +58,6 @@ public class C_FavoriteJDBCDAO implements C_FavoriteDAO_interface {
 	}
 
 	@Override
-	public void update(C_FavoriteVO c_favorite) {
-//		Connection con = null;
-//		PreparedStatement pstmt = null;
-//	
-//
-//		try {
-//			try {
-//				Class.forName(Util.DRIVER);
-//			} catch (ClassNotFoundException e) {
-//				e.printStackTrace();
-//			}
-//			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
-//			pstmt = con.prepareStatement(UPDATE);
-//			pstmt.setInt(1, c_favorite.getmNo());
-//			pstmt.setInt(2, c_favorite.getcNo());
-//			
-//			pstmt.executeUpdate();
-//		} catch (SQLException e) {
-//			e.printStackTrace();// 錯誤
-//		} finally {
-//
-//			if (con != null) {
-//				try {
-//					con.close();
-//				} catch (SQLException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
-//		}
-//		
-//
-	}
-
-	@Override
 	public void delete(C_FavoriteVO c_favorite) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -106,8 +70,8 @@ public class C_FavoriteJDBCDAO implements C_FavoriteDAO_interface {
 			}
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(DELETE);
-			pstmt.setInt(1, c_favorite.getmNo());
-			pstmt.setInt(2, c_favorite.getcNo());
+			pstmt.setInt(1, c_favorite.getMno());
+			pstmt.setInt(2, c_favorite.getCno());
 
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -135,14 +99,14 @@ public class C_FavoriteJDBCDAO implements C_FavoriteDAO_interface {
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(GET_ONE_BY_PK);
-			pstmt.setInt(1, c_favorite.getmNo());
-			pstmt.setInt(1, c_favorite.getcNo());
+			pstmt.setInt(1, c_favorite.getMno());
+			pstmt.setInt(1, c_favorite.getCno());
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				c_favoriteVO = new C_FavoriteVO();
-				c_favoriteVO.setmNo(rs.getInt("mNo"));
-				c_favoriteVO.setcNo(rs.getInt("cNo"));
+				c_favoriteVO.setMno(rs.getInt("mNo"));
+				c_favoriteVO.setCno(rs.getInt("cNo"));
 
 			}
 
@@ -176,8 +140,8 @@ public class C_FavoriteJDBCDAO implements C_FavoriteDAO_interface {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				C_FavoriteVO c_favoriteVO = new C_FavoriteVO();
-				c_favoriteVO.setmNo(rs.getInt("mNo"));
-				c_favoriteVO.setcNo(rs.getInt("cNo"));
+				c_favoriteVO.setMno(rs.getInt("mNo"));
+				c_favoriteVO.setCno(rs.getInt("cNo"));
 				c_favoritelist.add(c_favoriteVO);
 			}
 
@@ -212,8 +176,8 @@ public class C_FavoriteJDBCDAO implements C_FavoriteDAO_interface {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				C_FavoriteVO c_favoriteVO = new C_FavoriteVO();
-				c_favoriteVO.setmNo(rs.getInt("mNo"));
-				c_favoriteVO.setcNo(rs.getInt("cNo"));
+				c_favoriteVO.setMno(rs.getInt("mNo"));
+				c_favoriteVO.setCno(rs.getInt("cNo"));
 				c_favoritelist.add(c_favoriteVO);
 			}
 
@@ -244,14 +208,14 @@ public class C_FavoriteJDBCDAO implements C_FavoriteDAO_interface {
 //		VO.setcNo(3);
 
 //		dao.insert(VO);
-		// update
+	// update
 //		dao.update(VO);
 
-		// delete
+	// delete
 //		dao.delete(VO);
-		// getone
+	// getone
 //		System.out.println(VO);
-		// get all
+	// get all
 //		List<C_FavoriteVO> List = (dao.getAll(1));
 //		for (C_FavoriteVO t : List)
 //			System.out.println(t);

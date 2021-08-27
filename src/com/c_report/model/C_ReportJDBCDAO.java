@@ -41,10 +41,10 @@ public class C_ReportJDBCDAO implements C_ReportDAO_interface {
 			}
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(INSERT);
-			pstmt.setInt(1, c_report.getmNo());
-			pstmt.setInt(2, c_report.getcNo());
-			pstmt.setInt(3, c_report.getcReportState());
-			pstmt.setString(4, c_report.getcReportContent());
+			pstmt.setInt(1, c_report.getMno());
+			pstmt.setInt(2, c_report.getCno());
+			pstmt.setInt(3, c_report.getCreportState());
+			pstmt.setString(4, c_report.getCreportContent());
 			
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -76,7 +76,7 @@ public class C_ReportJDBCDAO implements C_ReportDAO_interface {
 			}
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE_CONTENT);
-			pstmt.setString(1, c_report.getcReportContent());
+			pstmt.setString(1, c_report.getCreportContent());
 			pstmt.setInt(2, c_report.getReportNo());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -107,7 +107,7 @@ public class C_ReportJDBCDAO implements C_ReportDAO_interface {
 			}
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE_CONTENT);
-			pstmt.setInt(1, c_report.getcReportState());
+			pstmt.setInt(1, c_report.getCreportState());
 			pstmt.setInt(2, c_report.getReportNo());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -178,11 +178,11 @@ public class C_ReportJDBCDAO implements C_ReportDAO_interface {
 			while (rs.next()) {
 				repVO = new C_ReportVO();
 				repVO.setReportNo(reportNo);
-				repVO.setmNo(rs.getInt("mNo"));
-				repVO.setcNo(rs.getInt("cNo"));
-				repVO.setcReportState(rs.getInt("cReportState"));
-				repVO.setcReportContent(rs.getString("cReportContent"));
-				repVO.setcReportTime(rs.getTimestamp("cReportTime"));
+				repVO.setMno(rs.getInt("mNo"));
+				repVO.setCno(rs.getInt("cNo"));
+				repVO.setCreportState(rs.getInt("cReportState"));
+				repVO.setCreportContent(rs.getString("cReportContent"));
+				repVO.setCreportTime(rs.getTimestamp("cReportTime"));
 				
 			}
 		} catch (SQLException e) {
@@ -217,11 +217,11 @@ public class C_ReportJDBCDAO implements C_ReportDAO_interface {
 				C_ReportVO repVO = new C_ReportVO();
 				repVO = new C_ReportVO();
 				repVO.setReportNo(rs.getInt("reportNo"));
-				repVO.setmNo(rs.getInt("mNo"));
-				repVO.setcNo(rs.getInt("cNo"));
-				repVO.setcReportState(rs.getInt("cReportState"));
-				repVO.setcReportContent(rs.getString("cReportContent"));
-				repVO.setcReportTime(rs.getTimestamp("cReportTime"));
+				repVO.setMno(rs.getInt("mNo"));
+				repVO.setCno(rs.getInt("cNo"));
+				repVO.setCreportState(rs.getInt("cReportState"));
+				repVO.setCreportContent(rs.getString("cReportContent"));
+				repVO.setCreportTime(rs.getTimestamp("cReportTime"));
 				retList.add(repVO);
 			}
 

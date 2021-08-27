@@ -44,7 +44,7 @@ public class CourseDAOtest {
 //		CourseVO course= dao.findBy_cNO(cNo);
 //		System.out.println(course);
 		// List查詢測試
-		List<CourseVO> courseList = dao.findBy_cName(cName);
+		List<CourseVO> courseList = dao.getBy_cName(cName);
 		for(CourseVO c:courseList)
 			System.out.println(c);
 	}

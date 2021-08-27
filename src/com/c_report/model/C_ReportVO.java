@@ -3,27 +3,27 @@ package com.c_report.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class C_ReportVO implements Serializable{
+public class C_ReportVO implements Serializable {
 	private Integer reportNo;
-	private Integer mNo;
-	private Integer cNo;
-	private Integer cReportState;
-	private String cReportContent;
-	private Timestamp cReportTime;
+	private Integer mno;
+	private Integer cno;
+	private Integer creportState;
+	private String creportContent;
+	private Timestamp creportTime;
 
 	public C_ReportVO() {
 	};
-
-	public C_ReportVO(Integer reportNo, Integer mNo, Integer cNo, Integer cPeportState, String cReportContent,
-			Timestamp cReportTime) {
+	public C_ReportVO(Integer reportNo, Integer mno, Integer cno, Integer creportState, String creportContent,
+			Timestamp creportTime) {
 		super();
 		this.reportNo = reportNo;
-		this.mNo = mNo;
-		this.cNo = cNo;
-		this.cReportState = cPeportState;
-		this.cReportContent = cReportContent;
-		this.cReportTime = cReportTime;
-	}
+		this.mno = mno;
+		this.cno = cno;
+		this.creportState = creportState;
+		this.creportContent = creportContent;
+		this.creportTime = creportTime;
+	};
+
 
 	public Integer getReportNo() {
 		return reportNo;
@@ -33,50 +33,45 @@ public class C_ReportVO implements Serializable{
 		this.reportNo = reportNo;
 	}
 
-	public Integer getmNo() {
-		return mNo;
+	public Integer getMno() {
+		return mno;
 	}
 
-	public void setmNo(Integer mNo) {
-		this.mNo = mNo;
+	public void setMno(Integer mno) {
+		this.mno = mno;
 	}
 
-	public Integer getcNo() {
-		return cNo;
+	public Integer getCno() {
+		return cno;
 	}
 
-	public void setcNo(Integer cNo) {
-		this.cNo = cNo;
+	public void setCno(Integer cno) {
+		this.cno = cno;
 	}
 
-	public Integer getcReportState() {
-		return cReportState;
+	public Integer getCreportState() {
+		return creportState;
 	}
 
-	public void setcReportState(Integer cPeportState) {
-		this.cReportState = cPeportState;
+	public void setCreportState(Integer creportState) {
+		this.creportState = creportState;
 	}
 
-	public String getcReportContent() {
-		return cReportContent;
+	public String getCreportContent() {
+		return creportContent;
 	}
 
-	public void setcReportContent(String cReportContent) {
-		this.cReportContent = cReportContent;
+	public void setCreportContent(String creportContent) {
+		this.creportContent = creportContent;
 	}
 
-	public Timestamp getcReportTime() {
-		return cReportTime;
+	public Timestamp getCreportTime() {
+		return creportTime;
 	}
 
-	public void setcReportTime(Timestamp cReportTime) {
-		this.cReportTime = cReportTime;
+	public void setCreportTime(Timestamp creportTime) {
+		this.creportTime = creportTime;
 	}
 
-	@Override
-	public String toString() {
-		return "C_ReportVO [reportNo=" + reportNo + ", mNo=" + mNo + ", cNo=" + cNo + ", cPeportState=" + cReportState
-				+ ", cReportContent=" + cReportContent + ", cReportTime=" + cReportTime + "]";
-	}
-
+	
 }

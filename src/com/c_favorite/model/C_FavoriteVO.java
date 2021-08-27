@@ -3,29 +3,32 @@ package com.c_favorite.model;
 import java.io.Serializable;
 
 public class C_FavoriteVO implements Serializable {
-	private Integer mNo;
-	private Integer cNo;
-	public C_FavoriteVO() {};
-	public C_FavoriteVO(Integer mNo, Integer cNo) {
+	private Integer mno;
+	private Integer cno;
+
+	public C_FavoriteVO() {
+	}
+
+	public C_FavoriteVO(Integer mno, Integer cno) {
 		super();
-		this.mNo = mNo;
-		this.cNo = cNo;
+		mno = mno;
+		cno = cno;
 	}
-	public Integer getmNo() {
-		return mNo;
+
+	public Integer getMno() {
+		return mno;
 	}
-	public void setmNo(Integer mNo) {
-		this.mNo = mNo;
+
+	public void setMno(Integer mno) {
+		mno = mno;
 	}
-	public Integer getcNo() {
-		return cNo;
+
+	public Integer getCno() {
+		return cno;
 	}
-	public void setcNo(Integer cNo) {
-		this.cNo = cNo;
-	}
-	@Override
-	public String toString() {
-		return "C_FavoriteVO [mNo=" + mNo + ", cNo=" + cNo + "]";
-	}
-	
+
+	public void setCno(Integer cno) {
+		cno = cno;
+	};
+
 }
