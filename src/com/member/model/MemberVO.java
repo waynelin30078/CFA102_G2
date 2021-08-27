@@ -3,92 +3,79 @@ package com.member.model;
 import java.sql.Date;
 
 public class MemberVO implements java.io.Serializable{
-	private Integer mNo;
-	private String mName;
-	private String mId;
-	private String mPsw;
-	private String mMail;
-	private String mPhone;
-	private String mImg;
-	private Date mBday;
-	private Byte mSex;  //tinyint ??
-	private String mIntro;
-	private Byte mState;
-	private Integer cardID;
-	private Integer cardDate;
-	private Integer cardNum;
-	private Integer dNo;
-	private Integer dailyCal;
-	private Integer dailyCho;
-	private Integer dailyPro;
-	private Integer dailyFat;
-	private String dietPlan;
-	
-	public Integer getmNo() {
-		return mNo;
+	private Integer mno;
+	private String mname;
+	private String mid;
+	private String mpsw;
+	private String mmail;
+	private String mphone;
+	private String mimg;
+	private Date mbday;
+	public Integer getMno() {
+		return mno;
 	}
-	public void setmNo(Integer mNo) {
-		this.mNo = mNo;
+	public void setMno(Integer mno) {
+		this.mno = mno;
 	}
-	public String getmName() {
-		return mName;
+	public String getMname() {
+		return mname;
 	}
-	public void setmName(String mName) {
-		this.mName = mName;
+	public void setMname(String mname) {
+		this.mname = mname;
 	}
-	public String getmId() {
-		return mId;
+	public String getMid() {
+		return mid;
 	}
-	public void setmId(String mId) {
-		this.mId = mId;
+	public void setMid(String mid) {
+		this.mid = mid;
 	}
-	public String getmPsw() {
-		return mPsw;
+	public String getMpsw() {
+		return mpsw;
 	}
-	public void setmPsw(String mPsw) {
-		this.mPsw = mPsw;
+	public void setMpsw(String mpsw) {
+		this.mpsw = mpsw;
 	}
-	public String getmMail() {
-		return mMail;
+	public String getMmail() {
+		return mmail;
 	}
-	public void setmMail(String mMail) {
-		this.mMail = mMail;
+	public void setMmail(String mmail) {
+		this.mmail = mmail;
 	}
-	public String getmPhone() {
-		return mPhone;
+	public String getMphone() {
+		return mphone;
 	}
-	public void setmPhone(String mPhone) {
-		this.mPhone = mPhone;
+	public void setMphone(String mphone) {
+		this.mphone = mphone;
 	}
-	public String getmImg() {
-		return mImg;
+	public String getMimg() {
+		return mimg;
 	}
-	public void setmImg(String mImg) {
-		this.mImg = mImg;
+	public void setMimg(String mimg) {
+		this.mimg = mimg;
 	}
-	public Date getmBday() {
-		return mBday;
+	public Date getMbday() {
+		return mbday;
 	}
-	public void setmBday(Date mBday) {
-		this.mBday = mBday;
+	public void setMbday(Date mbday) {
+		this.mbday = mbday;
 	}
-	public Byte getmSex() {
-		return mSex;
+	public Byte getMsex() {
+		return msex;
 	}
-	public void setmSex(Byte mSex) {
-		this.mSex = mSex;
+	public void setMsex(Byte msex) {
+		this.msex = msex;
 	}
-	public String getmIntro() {
-		return mIntro;
+	public String getMintro() {
+		return mintro;
 	}
-	public void setmIntro(String mIntro) {
-		this.mIntro = mIntro;
+	public void setMintro(String mintro) {
+		this.mintro = mintro;
 	}
-	public Byte getmState() {
-		return mState;
+	public Byte getMstate() {
+		return mstate;
 	}
-	public void setmState(Byte mState) {
-		this.mState = mState;
+	public void setMstate(Byte mstate) {
+		this.mstate = mstate;
 	}
 	public Integer getCardID() {
 		return cardID;
@@ -108,11 +95,11 @@ public class MemberVO implements java.io.Serializable{
 	public void setCardNum(Integer cardNum) {
 		this.cardNum = cardNum;
 	}
-	public Integer getdNo() {
-		return dNo;
+	public Integer getDno() {
+		return dno;
 	}
-	public void setdNo(Integer dNo) {
-		this.dNo = dNo;
+	public void setDno(Integer dno) {
+		this.dno = dno;
 	}
 	public Integer getDailyCal() {
 		return dailyCal;
@@ -144,6 +131,19 @@ public class MemberVO implements java.io.Serializable{
 	public void setDietPlan(String dietPlan) {
 		this.dietPlan = dietPlan;
 	}
+	private Byte msex;  //tinyint ??
+	private String mintro;
+	private Byte mstate;
+	private Integer cardID;
+	private Integer cardDate;
+	private Integer cardNum;
+	private Integer dno;
+	private Integer dailyCal;
+	private Integer dailyCho;
+	private Integer dailyPro;
+	private Integer dailyFat;
+	private String dietPlan;
+	
 	
 	
 	
