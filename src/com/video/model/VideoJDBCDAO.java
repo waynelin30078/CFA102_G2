@@ -41,9 +41,9 @@ public class VideoJDBCDAO implements VideoDAO_interface {
 			}
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(INSERT);
-			pstmt.setInt(1, video.getcNo());
-			pstmt.setString(2, video.getvFile());
-			pstmt.setTime(3, video.getvLength());
+			pstmt.setInt(1, video.getCno());
+			pstmt.setString(2, video.getVfile());
+			pstmt.setTime(3, video.getVlength());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -74,9 +74,9 @@ public class VideoJDBCDAO implements VideoDAO_interface {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE_VIDEO);
 
-			pstmt.setString(1, video.getvFile());
-			pstmt.setTime(2, video.getvLength());
-			pstmt.setInt(3, video.getcNo());
+			pstmt.setString(1, video.getVfile());
+			pstmt.setTime(2, video.getVlength());
+			pstmt.setInt(3, video.getCno());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -137,11 +137,11 @@ public class VideoJDBCDAO implements VideoDAO_interface {
 
 			while (rs.next()) {
 				videoVO = new VideoVO();
-				videoVO.setvNo(vNo);
-				videoVO.setcNo(rs.getInt("cNo"));
-				videoVO.setvFile(rs.getString("vFile"));
-				videoVO.setvUpdateTime(rs.getTimestamp("vUpdateTime"));
-				videoVO.setvLength(rs.getTime("vLength"));
+				videoVO.setVno(vNo);
+				videoVO.setCno(rs.getInt("cNo"));
+				videoVO.setVfile(rs.getString("vFile"));
+				videoVO.setVupdateTime(rs.getTimestamp("vUpdateTime"));
+				videoVO.setVlength(rs.getTime("vLength"));
 
 			}
 
@@ -176,11 +176,11 @@ public class VideoJDBCDAO implements VideoDAO_interface {
 
 			while (rs.next()) {
 				VideoVO videoVO = new VideoVO();
-				videoVO.setvNo(rs.getInt("vNo"));
-				videoVO.setcNo(rs.getInt("cNo"));
-				videoVO.setvFile(rs.getString("vFile"));
-				videoVO.setvUpdateTime(rs.getTimestamp("vUpdateTime"));
-				videoVO.setvLength(rs.getTime("vLength"));
+				videoVO.setVno(rs.getInt("vNo"));
+				videoVO.setCno(rs.getInt("cNo"));
+				videoVO.setVfile(rs.getString("vFile"));
+				videoVO.setVupdateTime(rs.getTimestamp("vUpdateTime"));
+				videoVO.setVlength(rs.getTime("vLength"));
 				videoList.add(videoVO);
 			}
 

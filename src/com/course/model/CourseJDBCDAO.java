@@ -338,7 +338,7 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 	}
 
 	@Override
-	public List<CourseVO> findBy_cTotalScore(int Score) {
+	public List<CourseVO> findBy_cTotalScore(Integer score) {
 		// TODO Auto-generated method stub
 		return null;
 	}

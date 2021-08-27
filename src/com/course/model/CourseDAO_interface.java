@@ -10,6 +10,6 @@ public interface CourseDAO_interface {
 	List<CourseVO> findBy_dNo(Integer dNo); //依照講師編號查詢 會員 訪客  v
 	List<CourseVO> findBy_cName(String cName); //依照課程名稱查詢	  會員 訪客		x							
 	List<CourseVO> findBy_cType(Integer cType);//依照類別 訪客 會員 v
-	List<CourseVO> findBy_cTotalScore(int Score);//依照評價  會員 訪客	
+	List<CourseVO> findBy_cTotalScore(Integer score);//依照評價  會員 訪客	
 	List<CourseVO> getAll();//
 }

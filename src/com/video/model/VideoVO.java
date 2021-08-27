@@ -5,62 +5,51 @@ import java.sql.Time;
 import java.sql.Timestamp;
 
 public class VideoVO implements Serializable {
-	private Integer vNo;
-	private Integer cNo;
-	private String vFile;
-	private Timestamp vUpdateTime;
-	private java.sql.Time vLength;
-	public VideoVO() {};
-	public VideoVO(Integer vNo, Integer cNo, String vFile, Timestamp vUpdateTime, Time vLength) {
+	private Integer vno;
+	private Integer cno;
+	private String vfile;
+	private Timestamp vupdateTime;
+	private java.sql.Time vlength;
+	public VideoVO() {}
+	
+	public VideoVO(Integer vno, Integer cno, String vfile, Timestamp vupdateTime, Time vlength) {
 		super();
-		this.vNo = vNo;
-		this.cNo = cNo;
-		this.vFile = vFile;
-		this.vUpdateTime = vUpdateTime;
-		this.vLength = vLength;
+		this.vno = vno;
+		this.cno = cno;
+		this.vfile = vfile;
+		this.vupdateTime = vupdateTime;
+		this.vlength = vlength;
 	}
-	public Integer getvNo() {
-		return vNo;
+
+	public Integer getVno() {
+		return vno;
 	}
-	public void setvNo(Integer vNo) {
-		this.vNo = vNo;
+	public void setVno(Integer vno) {
+		this.vno = vno;
 	}
-	public Integer getcNo() {
-		return cNo;
+	public Integer getCno() {
+		return cno;
 	}
-	public void setcNo(Integer cNo) {
-		this.cNo = cNo;
+	public void setCno(Integer cno) {
+		this.cno = cno;
 	}
-	public String getvFile() {
-		return vFile;
+	public String getVfile() {
+		return vfile;
 	}
-	public void setvFile(String vFile) {
-		this.vFile = vFile;
+	public void setVfile(String vfile) {
+		this.vfile = vfile;
 	}
-	public Timestamp getvUpdateTime() {
-		return vUpdateTime;
+	public Timestamp getVupdateTime() {
+		return vupdateTime;
 	}
-	public void setvUpdateTime(Timestamp vUpdateTime) {
-		this.vUpdateTime = vUpdateTime;
+	public void setVupdateTime(Timestamp vupdateTime) {
+		this.vupdateTime = vupdateTime;
 	}
-	public java.sql.Time getvLength() {
-		return vLength;
+	public java.sql.Time getVlength() {
+		return vlength;
 	}
-	public void setvLength(java.sql.Time vLength) {
-		this.vLength = vLength;
-	}
-	public void setvLength(int i) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setvLength(String string) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public String toString() {
-		return "VideoVO [vNo=" + vNo + ", cNo=" + cNo + ", vFile=" + vFile + ", vUpdateTime=" + vUpdateTime
-				+ ", vLength=" + vLength + "]";
-	}
+	public void setVlength(java.sql.Time vlength) {
+		this.vlength = vlength;
+	};
 	
 }

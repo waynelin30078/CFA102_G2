@@ -33,8 +33,8 @@ public class CourseDAOtest {
 		Integer cTotalScore = 0;
 
 		// 新增測試ok
-		CourseVO course = new CourseVO(cNo, dNo, cName, cPrice, cState, cShelfDate, cIntroduction, cType, quantity,
-				cPic, cDescription, cTotalPeople, cTotalScore);
+//		CourseVO course = new CourseVO(cNo, dNo, cName, cPrice, cState, cShelfDate, cIntroduction, cType, quantity,
+//				cPic, cDescription, cTotalPeople, cTotalScore);
 		CourseDAO_interface dao = new CourseJDBCDAO();
 //		dao.insert(course);
 		//更新測試
