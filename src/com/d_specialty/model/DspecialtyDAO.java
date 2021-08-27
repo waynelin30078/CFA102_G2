@@ -17,10 +17,10 @@ public class DspecialtyDAO implements DspecialtyDAO_interface {
 	public static final String USER = "David";
 	public static final String PASSWORD = "123456";
 
-	private static final String insert_SQL = "INSERT INTO d_specialty (specialtyNo, dNo) VALUES(?, ?);";
-	private static final String delete_SQL = "DELETE FROM d_specialty WHERE specialtyNo = ? AND dNo = ?;";
+	private static final String insert_SQL = "INSERT INTO d_specialty (specialtyNo, dno) VALUES(?, ?);";
+	private static final String delete_SQL = "DELETE FROM d_specialty WHERE specialtyNo = ? AND dno = ?;";
 	private static final String getAll_SQL = "SELECT * FROM d_specialty;";
-	private static final String findByDno_SQL = "SELECT * FROM d_specialty WHERE dNo = ?;";
+	private static final String findByDno_SQL = "SELECT * FROM d_specialty WHERE dno = ?;";
 
 	static {
 		try {
@@ -41,7 +41,7 @@ public class DspecialtyDAO implements DspecialtyDAO_interface {
 			PreparedStatement pstmt = con.prepareStatement(insert_SQL);
 
 			pstmt.setInt(1, dSpecialty.getSpecialtyNo());
-			pstmt.setInt(2, dSpecialty.getdNo());
+			pstmt.setInt(2, dSpecialty.getDno());
 
 			pstmt.executeUpdate();
 
@@ -70,7 +70,7 @@ public class DspecialtyDAO implements DspecialtyDAO_interface {
 			PreparedStatement pstmt = con.prepareStatement(delete_SQL);
 
 			pstmt.setInt(1, dSpecialty.getSpecialtyNo());
-			pstmt.setInt(2, dSpecialty.getdNo());
+			pstmt.setInt(2, dSpecialty.getDno());
 
 			pstmt.executeUpdate();
 
@@ -106,7 +106,7 @@ public class DspecialtyDAO implements DspecialtyDAO_interface {
 
 				dSpecialty.setSpecialtyNo(rs.getInt("specialtyNo"));
 
-				dSpecialty.setdNo(rs.getInt("dNo"));
+				dSpecialty.setDno(rs.getInt("dno"));
 
 				dSpecialties.add(dSpecialty);
 			}
@@ -127,7 +127,7 @@ public class DspecialtyDAO implements DspecialtyDAO_interface {
 	}
 
 	@Override
-	public List<DspecialtyVO> findByDno(int dNo) {
+	public List<DspecialtyVO> findByDno(int dno) {
 
 		Connection con = null;
 		List<DspecialtyVO> dSpecialties = new ArrayList<DspecialtyVO>();
@@ -135,7 +135,7 @@ public class DspecialtyDAO implements DspecialtyDAO_interface {
 		try {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(findByDno_SQL);
-			pstmt.setInt(1, dNo);
+			pstmt.setInt(1, dno);
 			
 			ResultSet rs = pstmt.executeQuery();
 
@@ -147,7 +147,7 @@ public class DspecialtyDAO implements DspecialtyDAO_interface {
 
 				dSpecialty.setSpecialtyNo(rs.getInt("specialtyNo"));
 
-				dSpecialty.setdNo(rs.getInt("dNo"));
+				dSpecialty.setDno(rs.getInt("dno"));
 
 				dSpecialties.add(dSpecialty);
 			}
@@ -179,8 +179,8 @@ public class DspecialtyDAO implements DspecialtyDAO_interface {
 			System.out.println(dSpecialty.getSpecialtyNo());
 		}
 		
-		DspecialtyVO Dspecialty1 = new DspecialtyVO(3, 5);
-		dao.delete(Dspecialty1);
+//		DspecialtyVO Dspecialty1 = new DspecialtyVO(3, 5);
+//		dao.delete(Dspecialty1);
 		
 		
 		

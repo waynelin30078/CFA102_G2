@@ -2,17 +2,17 @@ package com.d_specialty.model;
 
 public class DspecialtyVO {
 	private Integer specialtyNo;
-	private Integer dNo;
+	private Integer dno;
 
 	public DspecialtyVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public DspecialtyVO(Integer specialtyNo, Integer dNo) {
+	public DspecialtyVO(Integer specialtyNo, Integer dno) {
 		super();
 		this.specialtyNo = specialtyNo;
-		this.dNo = dNo;
+		this.dno = dno;
 	}
 
 	public Integer getSpecialtyNo() {
@@ -23,12 +23,12 @@ public class DspecialtyVO {
 		this.specialtyNo = specialtyNo;
 	}
 
-	public Integer getdNo() {
-		return dNo;
+	public Integer getDno() {
+		return dno;
 	}
 
-	public void setdNo(Integer dNo) {
-		this.dNo = dNo;
+	public void setDno(Integer dno) {
+		this.dno = dno;
 	}
 
 }

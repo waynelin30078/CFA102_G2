@@ -12,7 +12,7 @@ public interface DspecialtyDAO_interface {
 	
 	List<DspecialtyVO> getAll(); // 找全部專長 
 	
-	List<DspecialtyVO> findByDno(int dNo); // 營養師代號找專長 
+	List<DspecialtyVO> findByDno(int dno); // 營養師代號找專長 
 	
 	
 }

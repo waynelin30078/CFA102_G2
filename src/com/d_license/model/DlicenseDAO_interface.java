@@ -12,7 +12,7 @@ public interface DlicenseDAO_interface {
 	
 	List<DlicenseVO> getAll(); // 找全部訂單
 
-	List<DlicenseVO> findByDno(int dNo); // 營養師編號編號找證照
+	List<DlicenseVO> findByDno(int dno); // 營養師編號編號找證照
 
 
 }

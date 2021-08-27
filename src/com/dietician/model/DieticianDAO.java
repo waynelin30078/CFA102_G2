@@ -15,23 +15,21 @@ public class DieticianDAO implements DieticianDAO_interface {
 	public static final String USER = "David";
 	public static final String PASSWORD = "123456";
 
-	private static final String insert_SQL = "INSERT INTO dietician"
-			+ "(dName, dAccount, dPassword, dBirthDay, dPic, dPhone, dAddress, dEmail, edu, exp, lic, prof, clPrice, mPrice, intro, dState, totalScore, totalReviewer, dOnState, offDay, optTime) "
-			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+	private static final String insert_SQL = "INSERT INTO dietician VALUES(default, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 	private static final String update_SQL = "UPDATE dietician "
-			+ " SET dName = ?, dAccount = ?, dPassword = ?, dBirthDay = ?, dPic = ?, dPhone = ?, dAddress = ?, dEmail = ?, edu = ?, exp = ?, lic = ?, prof = ?, clPrice = ?, mPrice = ?, intro = ?, dState = ?, totalScore = ?, totalReviewer = ?, dOnState = ?, offDay = ?, optTime = ? "
+			+ " SET dname = ?, daccount = ?, dpassword = ?, dbirthDay = ?, dpic = ?, dphone = ?, daddress = ?, demail = ?, edu = ?, exp = ?, lic = ?, prof = ?, clPrice = ?, mprice = ?, intro = ?, dstate = ?, totalScore = ?, totalReviewer = ?, donState = ?, offDay = ?, optTime = ? "
 			+ "WHERE dNo = ?";
 
-	private static final String findByPrimaryKey_SQL = "SELECT * FROM dietician WHERE dNo = ?";
+	private static final String findByPrimaryKey_SQL = "SELECT * FROM dietician WHERE dno = ?";
 
 	private static final String getAll_SQL = "SELECT * FROM dietician";
 
 	private static final String findByScore_SQL = "SELECT * FROM dietician WHERE totalScore/totalReviewer >= ?";
 
-	private static final String findBySubscibeFee_SQL = "SELECT * FROM dietician WHERE mPrice >= ? AND mPrice <= ?";
+	private static final String findBySubscibeFee_SQL = "SELECT * FROM dietician WHERE mprice >= ? AND mprice <= ?";
 
-	private static final String findByDieticianState_SQL = "SELECT * FROM dietician WHERE dState = ?";
+	private static final String findByDieticianState_SQL = "SELECT * FROM dietician WHERE dstate = ?";
 
 	static {
 		try {
@@ -50,25 +48,25 @@ public class DieticianDAO implements DieticianDAO_interface {
 			PreparedStatement pstmt = con.prepareStatement(insert_SQL);
 			
 			
-			pstmt.setString(1, dietician.getdName());
-			pstmt.setString(2, dietician.getdAccount());
-			pstmt.setString(3, dietician.getdPassword());
-			pstmt.setDate(4, dietician.getdBirthDay());
-			pstmt.setString(5, dietician.getdPic());
-			pstmt.setString(6, dietician.getdPhone());
-			pstmt.setString(7, dietician.getdAddress());
-			pstmt.setString(8, dietician.getdEmail());
+			pstmt.setString(1, dietician.getDname());
+			pstmt.setString(2, dietician.getDaccount());
+			pstmt.setString(3, dietician.getDpassword());
+			pstmt.setDate(4, dietician.getDbirthDay());
+			pstmt.setString(5, dietician.getDpic());
+			pstmt.setString(6, dietician.getDphone());
+			pstmt.setString(7, dietician.getDaddress());
+			pstmt.setString(8, dietician.getDemail());
 			pstmt.setString(9, dietician.getEdu());
 			pstmt.setString(10, dietician.getExp());
 			pstmt.setString(11, dietician.getLic());
 			pstmt.setString(12, dietician.getProf());
 			pstmt.setInt(13, dietician.getClPrice());
-			pstmt.setInt(14, dietician.getmPrice());
+			pstmt.setInt(14, dietician.getMprice());
 			pstmt.setString(15, dietician.getIntro());
-			pstmt.setInt(16, dietician.getdState());
+			pstmt.setInt(16, dietician.getDstate());
 			pstmt.setInt(17, dietician.getTotalScore());
 			pstmt.setInt(18, dietician.getTotalReviewer());
-			pstmt.setInt(19, dietician.getdOnState());
+			pstmt.setInt(19, dietician.getDonState());
 			pstmt.setString(20, dietician.getOffDay());
 			pstmt.setString(21, dietician.getOptTime());
 			
@@ -100,28 +98,28 @@ public class DieticianDAO implements DieticianDAO_interface {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(update_SQL);
 			
-			pstmt.setString(1, dietician.getdName());
-			pstmt.setString(2, dietician.getdAccount());
-			pstmt.setString(3, dietician.getdPassword());
-			pstmt.setDate(4, dietician.getdBirthDay());
-			pstmt.setString(5, dietician.getdPic());
-			pstmt.setString(6, dietician.getdPhone());
-			pstmt.setString(7, dietician.getdAddress());
-			pstmt.setString(8, dietician.getdEmail());
+			pstmt.setString(1, dietician.getDname());
+			pstmt.setString(2, dietician.getDaccount());
+			pstmt.setString(3, dietician.getDpassword());
+			pstmt.setDate(4, dietician.getDbirthDay());
+			pstmt.setString(5, dietician.getDpic());
+			pstmt.setString(6, dietician.getDphone());
+			pstmt.setString(7, dietician.getDaddress());
+			pstmt.setString(8, dietician.getDemail());
 			pstmt.setString(9, dietician.getEdu());
 			pstmt.setString(10, dietician.getExp());
 			pstmt.setString(11, dietician.getLic());
 			pstmt.setString(12, dietician.getProf());
 			pstmt.setInt(13, dietician.getClPrice());
-			pstmt.setInt(14, dietician.getmPrice());
+			pstmt.setInt(14, dietician.getMprice());
 			pstmt.setString(15, dietician.getIntro());
-			pstmt.setInt(16, dietician.getdState());
+			pstmt.setInt(16, dietician.getDstate());
 			pstmt.setInt(17, dietician.getTotalScore());
 			pstmt.setInt(18, dietician.getTotalReviewer());
-			pstmt.setInt(19, dietician.getdOnState());
+			pstmt.setInt(19, dietician.getDonState());
 			pstmt.setString(20, dietician.getOffDay());
 			pstmt.setString(21, dietician.getOptTime());
-			pstmt.setInt(22, dietician.getdNo());
+			pstmt.setInt(22, dietician.getDno());
 			
 			pstmt.executeUpdate();
 			
@@ -142,7 +140,7 @@ public class DieticianDAO implements DieticianDAO_interface {
 	}
 
 	@Override
-	public DieticianVO findByPrimaryKey(int dNo) {
+	public DieticianVO findByPrimaryKey(int dno) {
 		Connection con = null;
 		DieticianVO dietician = new DieticianVO();
 		
@@ -150,31 +148,31 @@ public class DieticianDAO implements DieticianDAO_interface {
 		try {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(findByPrimaryKey_SQL);
-			pstmt.setInt(1, dNo);
+			pstmt.setInt(1, dno);
 			
 			ResultSet rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				dietician.setdNo(dNo);
-				dietician.setdName(rs.getString("dName"));
-				dietician.setdAccount(rs.getString("dAccount"));
-				dietician.setdPassword(rs.getString("dPassword"));
-				dietician.setdBirthDay(rs.getDate("dBirthDay"));
-				dietician.setdPic(rs.getString("dPic"));
-				dietician.setdPhone(rs.getString("dPhone"));
-				dietician.setdAddress(rs.getString("dAddress"));
-				dietician.setdEmail(rs.getString("dEmail"));
+				dietician.setDno(dno);
+				dietician.setDname(rs.getString("dname"));
+				dietician.setDaccount(rs.getString("daccount"));
+				dietician.setDpassword(rs.getString("dpassword"));
+				dietician.setDbirthDay(rs.getDate("dbirthDay"));
+				dietician.setDpic(rs.getString("dpic"));
+				dietician.setDphone(rs.getString("dphone"));
+				dietician.setDaddress(rs.getString("daddress"));
+				dietician.setDemail(rs.getString("demail"));
 				dietician.setEdu(rs.getString("edu"));
 				dietician.setExp(rs.getString("exp"));
 				dietician.setLic(rs.getString("lic"));
 				dietician.setProf(rs.getString("prof"));
 				dietician.setClPrice(rs.getInt("clPrice"));
-				dietician.setmPrice(rs.getInt("mPrice"));
+				dietician.setMprice(rs.getInt("mprice"));
 				dietician.setIntro(rs.getString("intro"));
-				dietician.setdState(rs.getInt("dState"));
+				dietician.setDstate(rs.getInt("dstate"));
 				dietician.setTotalScore(rs.getInt("totalScore"));
 				dietician.setTotalReviewer(rs.getInt("totalReviewer"));
-				dietician.setdOnState(rs.getInt("dOnState"));
+				dietician.setDonState(rs.getInt("donState"));
 				dietician.setOffDay(rs.getString("offDay"));
 				dietician.setOptTime(rs.getString("optTime"));
 			}
@@ -212,26 +210,26 @@ public class DieticianDAO implements DieticianDAO_interface {
 			
 			while(rs.next()) {
 				DieticianVO dietician = new DieticianVO();
-				dietician.setdNo(rs.getInt("dNo"));
-				dietician.setdName(rs.getString("dName"));
-				dietician.setdAccount(rs.getString("dAccount"));
-				dietician.setdPassword(rs.getString("dPassword"));
-				dietician.setdBirthDay(rs.getDate("dBirthDay"));
-				dietician.setdPic(rs.getString("dPic"));
-				dietician.setdPhone(rs.getString("dPhone"));
-				dietician.setdAddress(rs.getString("dAddress"));
-				dietician.setdEmail(rs.getString("dEmail"));
+				dietician.setDno(rs.getInt("dno"));
+				dietician.setDname(rs.getString("dname"));
+				dietician.setDaccount(rs.getString("daccount"));
+				dietician.setDpassword(rs.getString("dpassword"));
+				dietician.setDbirthDay(rs.getDate("dbirthDay"));
+				dietician.setDpic(rs.getString("dpic"));
+				dietician.setDphone(rs.getString("dphone"));
+				dietician.setDaddress(rs.getString("daddress"));
+				dietician.setDemail(rs.getString("demail"));
 				dietician.setEdu(rs.getString("edu"));
 				dietician.setExp(rs.getString("exp"));
 				dietician.setLic(rs.getString("lic"));
 				dietician.setProf(rs.getString("prof"));
 				dietician.setClPrice(rs.getInt("clPrice"));
-				dietician.setmPrice(rs.getInt("mPrice"));
+				dietician.setMprice(rs.getInt("mprice"));
 				dietician.setIntro(rs.getString("intro"));
-				dietician.setdState(rs.getInt("dState"));
+				dietician.setDstate(rs.getInt("dstate"));
 				dietician.setTotalScore(rs.getInt("totalScore"));
 				dietician.setTotalReviewer(rs.getInt("totalReviewer"));
-				dietician.setdOnState(rs.getInt("dOnState"));
+				dietician.setDonState(rs.getInt("donState"));
 				dietician.setOffDay(rs.getString("offDay"));
 				dietician.setOptTime(rs.getString("optTime"));
 				
@@ -273,26 +271,26 @@ public class DieticianDAO implements DieticianDAO_interface {
 			
 			while(rs.next()) {
 				DieticianVO dietician = new DieticianVO();
-				dietician.setdNo(rs.getInt("dNo"));
-				dietician.setdName(rs.getString("dName"));
-				dietician.setdAccount(rs.getString("dAccount"));
-				dietician.setdPassword(rs.getString("dPassword"));
-				dietician.setdBirthDay(rs.getDate("dBirthDay"));
-				dietician.setdPic(rs.getString("dPic"));
-				dietician.setdPhone(rs.getString("dPhone"));
-				dietician.setdAddress(rs.getString("dAddress"));
-				dietician.setdEmail(rs.getString("dEmail"));
+				dietician.setDno(rs.getInt("dno"));
+				dietician.setDname(rs.getString("dname"));
+				dietician.setDaccount(rs.getString("daccount"));
+				dietician.setDpassword(rs.getString("dpassword"));
+				dietician.setDbirthDay(rs.getDate("dbirthDay"));
+				dietician.setDpic(rs.getString("dpic"));
+				dietician.setDphone(rs.getString("dphone"));
+				dietician.setDaddress(rs.getString("daddress"));
+				dietician.setDemail(rs.getString("demail"));
 				dietician.setEdu(rs.getString("edu"));
 				dietician.setExp(rs.getString("exp"));
 				dietician.setLic(rs.getString("lic"));
 				dietician.setProf(rs.getString("prof"));
 				dietician.setClPrice(rs.getInt("clPrice"));
-				dietician.setmPrice(rs.getInt("mPrice"));
+				dietician.setMprice(rs.getInt("mprice"));
 				dietician.setIntro(rs.getString("intro"));
-				dietician.setdState(rs.getInt("dState"));
+				dietician.setDstate(rs.getInt("dstate"));
 				dietician.setTotalScore(rs.getInt("totalScore"));
 				dietician.setTotalReviewer(rs.getInt("totalReviewer"));
-				dietician.setdOnState(rs.getInt("dOnState"));
+				dietician.setDonState(rs.getInt("donState"));
 				dietician.setOffDay(rs.getString("offDay"));
 				dietician.setOptTime(rs.getString("optTime"));
 				
@@ -336,26 +334,26 @@ public class DieticianDAO implements DieticianDAO_interface {
 			
 			while(rs.next()) {
 				DieticianVO dietician = new DieticianVO();
-				dietician.setdNo(rs.getInt("dNo"));
-				dietician.setdName(rs.getString("dName"));
-				dietician.setdAccount(rs.getString("dAccount"));
-				dietician.setdPassword(rs.getString("dPassword"));
-				dietician.setdBirthDay(rs.getDate("dBirthDay"));
-				dietician.setdPic(rs.getString("dPic"));
-				dietician.setdPhone(rs.getString("dPhone"));
-				dietician.setdAddress(rs.getString("dAddress"));
-				dietician.setdEmail(rs.getString("dEmail"));
+				dietician.setDno(rs.getInt("dno"));
+				dietician.setDname(rs.getString("dname"));
+				dietician.setDaccount(rs.getString("daccount"));
+				dietician.setDpassword(rs.getString("dpassword"));
+				dietician.setDbirthDay(rs.getDate("dbirthDay"));
+				dietician.setDpic(rs.getString("dpic"));
+				dietician.setDphone(rs.getString("dphone"));
+				dietician.setDaddress(rs.getString("daddress"));
+				dietician.setDemail(rs.getString("demail"));
 				dietician.setEdu(rs.getString("edu"));
 				dietician.setExp(rs.getString("exp"));
 				dietician.setLic(rs.getString("lic"));
 				dietician.setProf(rs.getString("prof"));
 				dietician.setClPrice(rs.getInt("clPrice"));
-				dietician.setmPrice(rs.getInt("mPrice"));
+				dietician.setMprice(rs.getInt("mprice"));
 				dietician.setIntro(rs.getString("intro"));
-				dietician.setdState(rs.getInt("dState"));
+				dietician.setDstate(rs.getInt("dstate"));
 				dietician.setTotalScore(rs.getInt("totalScore"));
 				dietician.setTotalReviewer(rs.getInt("totalReviewer"));
-				dietician.setdOnState(rs.getInt("dOnState"));
+				dietician.setDonState(rs.getInt("donState"));
 				dietician.setOffDay(rs.getString("offDay"));
 				dietician.setOptTime(rs.getString("optTime"));
 				
@@ -382,7 +380,7 @@ public class DieticianDAO implements DieticianDAO_interface {
 	}
 
 	@Override
-	public List<DieticianVO> findByDieticianState(int dState) {
+	public List<DieticianVO> findByDieticianState(int dstate) {
 		Connection con = null;
 		List<DieticianVO> dieticians = new ArrayList<DieticianVO>();
 
@@ -390,32 +388,32 @@ public class DieticianDAO implements DieticianDAO_interface {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(findByDieticianState_SQL);
 			
-			pstmt.setInt(1, dState);
+			pstmt.setInt(1, dstate);
 			
 			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				DieticianVO dietician = new DieticianVO();
-				dietician.setdNo(rs.getInt("dNo"));
-				dietician.setdName(rs.getString("dName"));
-				dietician.setdAccount(rs.getString("dAccount"));
-				dietician.setdPassword(rs.getString("dPassword"));
-				dietician.setdBirthDay(rs.getDate("dBirthDay"));
-				dietician.setdPic(rs.getString("dPic"));
-				dietician.setdPhone(rs.getString("dPhone"));
-				dietician.setdAddress(rs.getString("dAddress"));
-				dietician.setdEmail(rs.getString("dEmail"));
+				dietician.setDno(rs.getInt("dno"));
+				dietician.setDname(rs.getString("dname"));
+				dietician.setDaccount(rs.getString("daccount"));
+				dietician.setDpassword(rs.getString("dpassword"));
+				dietician.setDbirthDay(rs.getDate("dbirthDay"));
+				dietician.setDpic(rs.getString("dpic"));
+				dietician.setDphone(rs.getString("dphone"));
+				dietician.setDaddress(rs.getString("daddress"));
+				dietician.setDemail(rs.getString("demail"));
 				dietician.setEdu(rs.getString("edu"));
 				dietician.setExp(rs.getString("exp"));
 				dietician.setLic(rs.getString("lic"));
 				dietician.setProf(rs.getString("prof"));
 				dietician.setClPrice(rs.getInt("clPrice"));
-				dietician.setmPrice(rs.getInt("mPrice"));
+				dietician.setMprice(rs.getInt("mprice"));
 				dietician.setIntro(rs.getString("intro"));
-				dietician.setdState(rs.getInt("dState"));
+				dietician.setDstate(rs.getInt("dstate"));
 				dietician.setTotalScore(rs.getInt("totalScore"));
 				dietician.setTotalReviewer(rs.getInt("totalReviewer"));
-				dietician.setdOnState(rs.getInt("dOnState"));
+				dietician.setDonState(rs.getInt("donState"));
 				dietician.setOffDay(rs.getString("offDay"));
 				dietician.setOptTime(rs.getString("optTime"));
 				
@@ -449,7 +447,7 @@ public class DieticianDAO implements DieticianDAO_interface {
 		
 		
 		for(DieticianVO dietician : dieticians) {
-			System.out.println(dietician.getdName());
+			System.out.println(dietician.getDname());
 		}
 		
 		

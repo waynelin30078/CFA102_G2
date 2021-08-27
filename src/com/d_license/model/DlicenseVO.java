@@ -2,8 +2,8 @@ package com.d_license.model;
 
 public class DlicenseVO {
 
-	private Integer dLicNo;
-	private Integer dNo;
+	private Integer dlicNo;
+	private Integer dno;
 	private String licDesc;
 	private String licFile;
 
@@ -12,27 +12,28 @@ public class DlicenseVO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public DlicenseVO(Integer dNo, String licDesc, String licFile) {
+	public DlicenseVO(Integer dno, String licDesc, String licFile) {
 		super();
-		this.dNo = dNo;
+
+		this.dno = dno;
 		this.licDesc = licDesc;
 		this.licFile = licFile;
 	}
 
-	public Integer getdLicNo() {
-		return dLicNo;
+	public Integer getDlicNo() {
+		return dlicNo;
 	}
 
-	public void setdLicNo(Integer dLicNo) {
-		this.dLicNo = dLicNo;
+	public void setDlicNo(Integer dlicNo) {
+		this.dlicNo = dlicNo;
 	}
 
-	public Integer getdNo() {
-		return dNo;
+	public Integer getDno() {
+		return dno;
 	}
 
-	public void setdNo(Integer dNo) {
-		this.dNo = dNo;
+	public void setDno(Integer dno) {
+		this.dno = dno;
 	}
 
 	public String getLicDesc() {

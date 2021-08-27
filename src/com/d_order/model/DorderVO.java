@@ -5,63 +5,63 @@ import java.sql.Timestamp;
 
 public class DorderVO {
 
-	private Integer dOrderNo;
-	private Integer dNo;
-	private Integer mNo;
+	private Integer dorderNo;
+	private Integer dno;
+	private Integer mno;
 	private Timestamp subStart;
 	private Timestamp subEnd;
 	private Integer mthFee;
-	private String dReview;
-	private Integer dScore;
+	private String dreview;
+	private Integer dscore;
 	private Integer autoSubs;
 
 	public DorderVO() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
-	public DorderVO(Integer dNo, Integer mNo, Timestamp subStart, Timestamp subEnd, Integer mthFee,
-			String dReview, Integer dScore, Integer autoSubs) {
+	public DorderVO(Integer dno, Integer mno, Timestamp subStart, Timestamp subEnd, Integer mthFee, String dreview,
+			Integer dscore, Integer autoSubs) {
 		super();
-		
-		this.dNo = dNo;
-		this.mNo = mNo;
+
+		this.dno = dno;
+		this.mno = mno;
 		this.subStart = subStart;
 		this.subEnd = subEnd;
 		this.mthFee = mthFee;
-		this.dReview = dReview;
-		this.dScore = dScore;
+		this.dreview = dreview;
+		this.dscore = dscore;
 		this.autoSubs = autoSubs;
 	}
 
-	public Integer getdOrderNo() {
-		return dOrderNo;
+	public Integer getDorderNo() {
+		return dorderNo;
 	}
 
-	public void setdOrderNo(Integer dOrderNo) {
-		this.dOrderNo = dOrderNo;
+	public void setDorderNo(Integer dorderNo) {
+		this.dorderNo = dorderNo;
 	}
 
-	public Integer getdNo() {
-		return dNo;
+	public Integer getDno() {
+		return dno;
 	}
 
-	public void setdNo(Integer dNo) {
-		this.dNo = dNo;
+	public void setDno(Integer dno) {
+		this.dno = dno;
 	}
 
-	public Integer getmNo() {
-		return mNo;
+	public Integer getMno() {
+		return mno;
 	}
 
-	public void setmNo(Integer mNo) {
-		this.mNo = mNo;
+	public void setMno(Integer mno) {
+		this.mno = mno;
 	}
 
 	public Timestamp getSubStart() {
 		return subStart;
 	}
- 
+
 	public void setSubStart(Timestamp subStart) {
 		this.subStart = subStart;
 	}
@@ -82,20 +82,20 @@ public class DorderVO {
 		this.mthFee = mthFee;
 	}
 
-	public String getdReview() {
-		return dReview;
+	public String getDreview() {
+		return dreview;
 	}
 
-	public void setdReview(String dReview) {
-		this.dReview = dReview;
+	public void setDreview(String dreview) {
+		this.dreview = dreview;
 	}
 
-	public Integer getdScore() {
-		return dScore;
+	public Integer getDscore() {
+		return dscore;
 	}
 
-	public void setdScore(Integer dScore) {
-		this.dScore = dScore;
+	public void setDscore(Integer dscore) {
+		this.dscore = dscore;
 	}
 
 	public Integer getAutoSubs() {

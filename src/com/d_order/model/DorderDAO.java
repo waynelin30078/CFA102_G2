@@ -20,13 +20,13 @@ public class DorderDAO implements DorderDAO_interface {
 	public static final String USER = "David";
 	public static final String PASSWORD = "123456";
 
-	private static final String insert_SQL = "INSERT INTO D_order(dNo, mNo, subStart, subEnd, mthFee, dReview, dScore, autoSubs) VALUES(?, ?, ?, ?, ?, ?, ?, ? );";
-	private static final String update_SQL = "UPDATE d_order SET dNo = ?, mNo = ?, "
-			+ "subStart = ?, subEnd = ?, mthFee = ?, dReview = ?, dScore = ?, autoSubs = ? WHERE dOrderNo = ?";
-	private static final String findByPrimaryKey_SQL = "SELECT * FROM d_Order WHERE dOrderNo = ?";
+	private static final String insert_SQL = "INSERT INTO D_order VALUES(default, ?, ?, ?, ?, ?, ?, ?, ? );";
+	private static final String update_SQL = "UPDATE d_order SET dno = ?, mno = ?, "
+			+ "subStart = ?, subEnd = ?, mthFee = ?, dreview = ?, dscore = ?, autoSubs = ? WHERE dorderNo = ?";
+	private static final String findByPrimaryKey_SQL = "SELECT * FROM d_Order WHERE dorderNo = ?";
 	private static final String getAll_SQL = "SELECT * FROM d_order;";
 	private static final String getActiveOrder_SQL = "SELECT * FROM d_Order WHERE subEnd > current_timestamp;";
-	private static final String getActiveOrderByDNo_SQL = "SELECT * FROM d_order WHERE dNo = ? AND subEnd > current_timestamp;";
+	private static final String getActiveOrderByDNo_SQL = "SELECT * FROM d_order WHERE dno = ? AND subEnd > current_timestamp;";
 
 	static {
 		try {
@@ -43,13 +43,13 @@ public class DorderDAO implements DorderDAO_interface {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(insert_SQL);
 
-			pstmt.setInt(1, dOrder.getdNo());
-			pstmt.setInt(2, dOrder.getmNo());
+			pstmt.setInt(1, dOrder.getDno());
+			pstmt.setInt(2, dOrder.getMno());
 			pstmt.setTimestamp(3, dOrder.getSubStart());
 			pstmt.setTimestamp(4, dOrder.getSubEnd());
 			pstmt.setInt(5, dOrder.getMthFee());
-			pstmt.setString(6, dOrder.getdReview());
-			pstmt.setInt(7, dOrder.getdScore());
+			pstmt.setString(6, dOrder.getDreview());
+			pstmt.setInt(7, dOrder.getDscore());
 			pstmt.setInt(8, dOrder.getAutoSubs());
 
 			pstmt.executeUpdate();
@@ -77,15 +77,15 @@ public class DorderDAO implements DorderDAO_interface {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(update_SQL);
 
-			pstmt.setInt(1, dOrder.getdNo());
-			pstmt.setInt(2, dOrder.getmNo());
+			pstmt.setInt(1, dOrder.getDno());
+			pstmt.setInt(2, dOrder.getMno());
 			pstmt.setTimestamp(3, dOrder.getSubStart());
 			pstmt.setTimestamp(4, dOrder.getSubEnd());
 			pstmt.setInt(5, dOrder.getMthFee());
-			pstmt.setString(6, dOrder.getdReview());
-			pstmt.setInt(7, dOrder.getdScore());
+			pstmt.setString(6, dOrder.getDreview());
+			pstmt.setInt(7, dOrder.getDscore());
 			pstmt.setInt(8, dOrder.getAutoSubs());
-			pstmt.setInt(9, dOrder.getdOrderNo());
+			pstmt.setInt(9, dOrder.getDorderNo());
 
 			pstmt.executeUpdate();
 
@@ -105,26 +105,26 @@ public class DorderDAO implements DorderDAO_interface {
 	}
 
 	@Override
-	public DorderVO findByPrimaryKey(int dOrderNo) {
+	public DorderVO findByPrimaryKey(int dorderNo) {
 		Connection con = null;
 		DorderVO dOrder = new DorderVO();
 
 		try {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(findByPrimaryKey_SQL);
-			pstmt.setInt(1, dOrderNo);
+			pstmt.setInt(1, dorderNo);
 
 			ResultSet rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				dOrder.setdOrderNo(rs.getInt("dOrderNo"));
-				dOrder.setdNo(rs.getInt("dNo"));
-				dOrder.setmNo(rs.getInt("mNo"));
+				dOrder.setDorderNo(rs.getInt("dorderNo"));
+				dOrder.setDno(rs.getInt("dno"));
+				dOrder.setMno(rs.getInt("mno"));
 				dOrder.setSubStart(rs.getTimestamp("subStart"));
 				dOrder.setSubEnd(rs.getTimestamp("subEnd"));
 				dOrder.setMthFee(rs.getInt("mthFee"));
-				dOrder.setdReview(rs.getString("dReview"));
-				dOrder.setdScore(rs.getInt("dScore"));
+				dOrder.setDreview(rs.getString("dreview"));
+				dOrder.setDscore(rs.getInt("dscore"));
 				dOrder.setAutoSubs(rs.getInt("autoSubs"));
 			}
 		} catch (SQLException e) {
@@ -154,14 +154,14 @@ public class DorderDAO implements DorderDAO_interface {
 			while (rs.next()) {
 
 				DorderVO dOrder = new DorderVO();
-				dOrder.setdOrderNo(rs.getInt("dOrderNo"));
-				dOrder.setdNo(rs.getInt("dNo"));
-				dOrder.setmNo(rs.getInt("mNo"));
+				dOrder.setDorderNo(rs.getInt("dorderNo"));
+				dOrder.setDno(rs.getInt("dno"));
+				dOrder.setMno(rs.getInt("mno"));
 				dOrder.setSubStart(rs.getTimestamp("subStart"));
 				dOrder.setSubEnd(rs.getTimestamp("subEnd"));
 				dOrder.setMthFee(rs.getInt("mthFee"));
-				dOrder.setdReview(rs.getString("dReview"));
-				dOrder.setdScore(rs.getInt("dScore"));
+				dOrder.setDreview(rs.getString("dreview"));
+				dOrder.setDscore(rs.getInt("dscore"));
 				dOrder.setAutoSubs(rs.getInt("autoSubs"));
 
 				dOrders.add(dOrder);
@@ -198,14 +198,14 @@ public class DorderDAO implements DorderDAO_interface {
 			while (rs.next()) {
 
 				DorderVO dOrder = new DorderVO();
-				dOrder.setdOrderNo(rs.getInt("dOrderNo"));
-				dOrder.setdNo(rs.getInt("dNo"));
-				dOrder.setmNo(rs.getInt("mNo"));
+				dOrder.setDorderNo(rs.getInt("dorderNo"));
+				dOrder.setDno(rs.getInt("dno"));
+				dOrder.setMno(rs.getInt("mno"));
 				dOrder.setSubStart(rs.getTimestamp("subStart"));
 				dOrder.setSubEnd(rs.getTimestamp("subEnd"));
 				dOrder.setMthFee(rs.getInt("mthFee"));
-				dOrder.setdReview(rs.getString("dReview"));
-				dOrder.setdScore(rs.getInt("dScore"));
+				dOrder.setDreview(rs.getString("dreview"));
+				dOrder.setDscore(rs.getInt("dscore"));
 				dOrder.setAutoSubs(rs.getInt("autoSubs"));
 
 				dOrders.add(dOrder);
@@ -231,28 +231,28 @@ public class DorderDAO implements DorderDAO_interface {
 	}
 
 	@Override
-	public List<DorderVO> getActiveOrderByDNo(int dNo) {
+	public List<DorderVO> getActiveOrderByDNo(int dno) {
 		Connection con = null;
 		List<DorderVO> dOrders = new ArrayList<DorderVO>();
 
 		try {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(getActiveOrderByDNo_SQL);
-			pstmt.setInt(1, dNo);
+			pstmt.setInt(1, dno);
 			
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 
 				DorderVO dOrder = new DorderVO();
-				dOrder.setdOrderNo(rs.getInt("dOrderNo"));
-				dOrder.setdNo(rs.getInt("dNo"));
-				dOrder.setmNo(rs.getInt("mNo"));
+				dOrder.setDorderNo(rs.getInt("dorderNo"));
+				dOrder.setDno(rs.getInt("dno"));
+				dOrder.setMno(rs.getInt("mno"));
 				dOrder.setSubStart(rs.getTimestamp("subStart"));
 				dOrder.setSubEnd(rs.getTimestamp("subEnd"));
 				dOrder.setMthFee(rs.getInt("mthFee"));
-				dOrder.setdReview(rs.getString("dReview"));
-				dOrder.setdScore(rs.getInt("dScore"));
+				dOrder.setDreview(rs.getString("dreview"));
+				dOrder.setDscore(rs.getInt("dscore"));
 				dOrder.setAutoSubs(rs.getInt("autoSubs"));
 
 				dOrders.add(dOrder);

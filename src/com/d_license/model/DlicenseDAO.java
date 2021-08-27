@@ -20,10 +20,10 @@ public class DlicenseDAO implements DlicenseDAO_interface {
 	public static final String USER = "David";
 	public static final String PASSWORD = "123456";
 
-	private static final String insert_SQL = "INSERT INTO d_license (dNo, licDesc, licFile) VALUES(?, ?, ?);";
-	private static final String update_SQL = "UPDATE d_license SET  dNo = ?, licDesc = ?, licFile = ? WHERE dLicNo = ?";
+	private static final String insert_SQL = "INSERT INTO d_license (dno, licDesc, licFile) VALUES(?, ?, ?);";
+	private static final String update_SQL = "UPDATE d_license SET  dno = ?, licDesc = ?, licFile = ? WHERE dlicNo = ?";
 	private static final String getAll_SQL = "SELECT * FROM d_license;";
-	private static final String findByDno_SQL = "SELECT * FROM d_license WHERE dNo = ?";
+	private static final String findByDno_SQL = "SELECT * FROM d_license WHERE dno = ?";
 
 	
 	
@@ -42,7 +42,7 @@ public class DlicenseDAO implements DlicenseDAO_interface {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(insert_SQL);
 
-			pstmt.setInt(1, dLicense.getdNo());
+			pstmt.setInt(1, dLicense.getDno());
 			pstmt.setString(2, dLicense.getLicDesc());
 			pstmt.setString(3, dLicense.getLicFile());
 
@@ -71,10 +71,10 @@ public class DlicenseDAO implements DlicenseDAO_interface {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(update_SQL);
 
-			pstmt.setInt(1, dLicense.getdNo());
+			pstmt.setInt(1, dLicense.getDno());
 			pstmt.setString(2, dLicense.getLicDesc());
 			pstmt.setString(3, dLicense.getLicFile());
-			pstmt.setInt(4, dLicense.getdLicNo());
+			pstmt.setInt(4, dLicense.getDlicNo());
 
 			pstmt.executeUpdate();
 
@@ -108,8 +108,8 @@ public class DlicenseDAO implements DlicenseDAO_interface {
 
 				DlicenseVO dLicense = new DlicenseVO();
 
-				dLicense.setdLicNo(rs.getInt("dLicNo"));
-				dLicense.setdNo(rs.getInt("dNo"));
+				dLicense.setDlicNo(rs.getInt("dLicNo"));
+				dLicense.setDno(rs.getInt("dNo"));
 				dLicense.setLicDesc(rs.getString("licDesc"));
 				dLicense.setLicFile(rs.getString("licFile"));
 
@@ -136,7 +136,7 @@ public class DlicenseDAO implements DlicenseDAO_interface {
 	}
 
 	@Override
-	public List<DlicenseVO> findByDno(int dNo) {
+	public List<DlicenseVO> findByDno(int dno) {
 		Connection con = null;
 		List<DlicenseVO> dLicenses = new ArrayList<DlicenseVO>();
 
@@ -144,7 +144,7 @@ public class DlicenseDAO implements DlicenseDAO_interface {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(findByDno_SQL);
 
-			pstmt.setInt(1, dNo);
+			pstmt.setInt(1, dno);
 
 			ResultSet rs = pstmt.executeQuery();
 
@@ -152,8 +152,8 @@ public class DlicenseDAO implements DlicenseDAO_interface {
 
 				DlicenseVO dLicense = new DlicenseVO();
 
-				dLicense.setdLicNo(rs.getInt("dLicNo"));
-				dLicense.setdNo(rs.getInt("dNo"));
+				dLicense.setDlicNo(rs.getInt("dlicNo"));
+				dLicense.setDno(rs.getInt("dno"));
 				dLicense.setLicDesc(rs.getString("licDesc"));
 				dLicense.setLicFile(rs.getString("licFile"));
 
@@ -200,30 +200,30 @@ public class DlicenseDAO implements DlicenseDAO_interface {
 		
 
 //		
-//		List<DlicenseVO> licenses = dao.findByDno(3);
-//		
-//		for (DlicenseVO license : licenses) {
-//
-//			System.out.println(license.getdLicNo());
-//			System.out.println(license.getdNo());
-//			System.out.println(license.getLicDesc());
-//			System.out.println(license.getLicFile());
-//			
-//		}
+		List<DlicenseVO> licenses = dao.findByDno(3);
 		
-		DlicenseVO dLicense = new DlicenseVO();
-		
-		dLicense.setdLicNo(4);
-		dLicense.setdNo(5);
-		dLicense.setLicDesc("腎臟專科");
-		dLicense.setLicFile("/images/Dlicense/ccc.jpg");
-		
-//		dao.insert(dLicense);
+		for (DlicenseVO license : licenses) {
 
-		dLicense.setLicDesc("肝臟專科");
-		
-		dao.update(dLicense);
-		
+			System.out.println(license.getDlicNo());
+			System.out.println(license.getDno());
+			System.out.println(license.getLicDesc());
+			System.out.println(license.getLicFile());
+			
+		}
+//		
+//		DlicenseVO dLicense = new DlicenseVO();
+//		
+//		dLicense.setDlicNo(4);
+//		dLicense.setDno(5);
+//		dLicense.setLicDesc("腎臟專科");
+//		dLicense.setLicFile("/images/Dlicense/ccc.jpg");
+//		
+////		dao.insert(dLicense);
+//
+//		dLicense.setLicDesc("肝臟專科");
+//		
+//		dao.update(dLicense);
+//		
 		
 		
 	}
