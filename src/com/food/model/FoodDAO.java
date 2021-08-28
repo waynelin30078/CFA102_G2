@@ -9,8 +9,6 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class FoodDAO implements FoodDAO_interface {
 
 	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -20,7 +18,7 @@ public class FoodDAO implements FoodDAO_interface {
 
 	private static final String insert_SQL = "INSERT INTO food VALUES(default, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	private static final String update_SQL = "UPDATE food SET mno= ?,fdName= ?, wtPerPortion= ?, calPerWt= ?, choPerWt= ?, proPerWt= ?, fatPerWt= ?, fdBrand= ?, fdState= ? WHERE fdNo= ?;";
-	private static final String findByFdNo_SQL ="SELECT * FROM food where fdNo =?;";
+	private static final String findByFdNo_SQL = "SELECT * FROM food where fdNo =?;";
 	private static final String findByFoodName_SQL = "SELECT * FROM food where fdName like ?;";
 	private static final String findByBrandName_SQL = "SELECT * FROM food where fdBrand like ?;";
 
@@ -73,8 +71,8 @@ public class FoodDAO implements FoodDAO_interface {
 		try {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(update_SQL);
-			
-			if(food.getMno() == 0) {
+
+			if (food.getMno() == 0) {
 				pstmt.setNull(1, Types.NULL);
 			} else {
 				pstmt.setInt(1, food.getMno());
@@ -109,18 +107,18 @@ public class FoodDAO implements FoodDAO_interface {
 
 	@Override
 	public FoodVO findByFdNo(int fdNo) {
-		
+
 		Connection con = null;
 		FoodVO food = new FoodVO();
-		
+
 		try {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(findByFdNo_SQL);
 			pstmt.setInt(1, fdNo);
-			
+
 			ResultSet rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				food.setFdNo(fdNo);
 				food.setMno(rs.getInt("mno"));
 				food.setFdName(rs.getString("fdName"));
@@ -133,13 +131,12 @@ public class FoodDAO implements FoodDAO_interface {
 				food.setFdState(rs.getInt("fdState"));
 
 			}
-			
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			if(con !=null) {
+			if (con != null) {
 				try {
 					con.close();
 				} catch (SQLException e) {
@@ -148,17 +145,11 @@ public class FoodDAO implements FoodDAO_interface {
 				}
 			}
 		}
-		
-		
+
 		return food;
-		
-		
-		
+
 	}
-	
-	
-	
-	
+
 	@Override
 	public List<FoodVO> findByFoodName(String fdName) {
 		// TODO Auto-generated method stub
@@ -170,8 +161,7 @@ public class FoodDAO implements FoodDAO_interface {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(findByFoodName_SQL);
 
-			
-			pstmt.setString(1, "%"+ fdName +"%");
+			pstmt.setString(1, "%" + fdName + "%");
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -207,7 +197,6 @@ public class FoodDAO implements FoodDAO_interface {
 		}
 
 		return foodList;
-
 
 	}
 
@@ -221,8 +210,7 @@ public class FoodDAO implements FoodDAO_interface {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(findByBrandName_SQL);
 
-			
-			pstmt.setString(1, "%"+ fdBrand +"%");
+			pstmt.setString(1, "%" + fdBrand + "%");
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -261,18 +249,14 @@ public class FoodDAO implements FoodDAO_interface {
 
 	}
 
-	
 	public static void main(String[] args) {
-		
+
 		FoodDAO dao = new FoodDAO();
-		
+
 		FoodVO food = dao.findByFdNo(3);
-		
-		
+
 		dao.update(food);
-		
-	
-		
+
 //		List<FoodVO> foodList = new ArrayList<FoodVO>();
 //		
 //		foodList = dao.findByBrandName("");
@@ -281,15 +265,6 @@ public class FoodDAO implements FoodDAO_interface {
 //			System.out.println(food.getFdName());
 //		}
 
-		
-		
-		
-		
 	}
-	
-	
-	
-	
-	
-	
+
 }
