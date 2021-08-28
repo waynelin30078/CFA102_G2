@@ -11,7 +11,7 @@ import java.util.List;
 import util.Util;
 
 public class CourseJDBCDAO implements CourseDAO_interface {
-	private static final String INSERT = "INSERT INTO COURSE(dNo,cName,cPrice,cShelfDate,cIntroduction,cType,cPic,cDescription)VALUES(?,?,?,?,?,?,?,?)";
+	private static final String INSERT = "INSERT INTO COURSE(dNo,cName,cPrice,cShelfDate,cIntroduction,cType,cPic,cDescription)VALUES(?,?,?,NOW(),?,?,?,?)";
 	private static final String UPDATE = "UPDATE COURSE SET cName=?,cPrice=?,cIntroduction=?,cPic=?,cDescription=?WHERE cNo=?";
 	private static final String STATE = "UPDATE COURSE SET cState=? WHERE cNo=?";
 	private static final String FIND_BY_CNO = "SELECT * FROM COURSE WHERE cNo=?";
@@ -44,11 +44,10 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 			pstmt.setInt(1, courseVO.getDno());
 			pstmt.setString(2, courseVO.getCname());
 			pstmt.setInt(3, courseVO.getCprice());
-			pstmt.setDate(4, courseVO.getCshelfDate());
-			pstmt.setString(5, courseVO.getCintroduction());
-			pstmt.setInt(6, courseVO.getCtype());
-			pstmt.setBytes(7, courseVO.getCpic());
-			pstmt.setString(8, courseVO.getCdescription());
+			pstmt.setString(4, courseVO.getCintroduction());
+			pstmt.setInt(5, courseVO.getCtype());
+			pstmt.setBytes(6, courseVO.getCpic());
+			pstmt.setString(7, courseVO.getCdescription());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();//錯誤
@@ -163,7 +162,7 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 				courseVO.setCname(rs.getString("cName"));
 				courseVO.setCprice(rs.getInt("cPrice"));
 				courseVO.setCstate(rs.getInt("cState"));
-				courseVO.setCshelfDate(rs.getDate("cShelfDate"));
+				courseVO.setCshelfDate(rs.getTimestamp("cShelfDate"));
 				courseVO.setCintroduction(rs.getString("cIntroduction"));
 				courseVO.setCtype(rs.getInt("cType"));
 				courseVO.setQuantity(rs.getInt("quantity"));
@@ -226,7 +225,7 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 				courseVO.setCname(rs.getString("cName"));
 				courseVO.setCprice(rs.getInt("cPrice"));
 				courseVO.setCstate(rs.getInt("cState"));
-				courseVO.setCshelfDate(rs.getDate("cShelfDate"));
+				courseVO.setCshelfDate(rs.getTimestamp("cShelfDate"));
 				courseVO.setCintroduction(rs.getString("cIntroduction"));
 				courseVO.setCtype(rs.getInt("cType"));
 				courseVO.setQuantity(rs.getInt("quantity"));
@@ -291,7 +290,7 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 				courseVO.setCname(rs.getString("cName"));
 				courseVO.setCprice(rs.getInt("cPrice"));
 				courseVO.setCstate(rs.getInt("cState"));
-				courseVO.setCshelfDate(rs.getDate("cShelfDate"));
+				courseVO.setCshelfDate(rs.getTimestamp("cShelfDate"));
 				courseVO.setCintroduction(rs.getString("cIntroduction"));
 				courseVO.setCtype(rs.getInt("cType"));
 				courseVO.setQuantity(rs.getInt("quantity"));
@@ -361,7 +360,7 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 				courseVO.setCname(rs.getString("cName"));
 				courseVO.setCprice(rs.getInt("cPrice"));
 				courseVO.setCstate(rs.getInt("cState"));
-				courseVO.setCshelfDate(rs.getDate("cShelfDate"));
+				courseVO.setCshelfDate(rs.getTimestamp("cShelfDate"));
 				courseVO.setCintroduction(rs.getString("cIntroduction"));
 				courseVO.setCtype(rs.getInt("cType"));
 				courseVO.setQuantity(rs.getInt("quantity"));
@@ -426,7 +425,7 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 				courseVO.setCname(rs.getString("cName"));
 				courseVO.setCprice(rs.getInt("cPrice"));
 				courseVO.setCstate(rs.getInt("cState"));
-				courseVO.setCshelfDate(rs.getDate("cShelfDate"));
+				courseVO.setCshelfDate(rs.getTimestamp("cShelfDate"));
 				courseVO.setCintroduction(rs.getString("cIntroduction"));
 				courseVO.setCtype(cType);
 				courseVO.setQuantity(rs.getInt("quantity"));

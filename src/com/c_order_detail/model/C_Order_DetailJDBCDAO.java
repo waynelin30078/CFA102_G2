@@ -12,9 +12,9 @@ import java.util.List;
 import util.Util;
 
 public class C_Order_DetailJDBCDAO implements C_Order_DetailDAO_interface {
-	private static final String INSERT="INSERT INTO C_ORDER_DETAIL (cOrderNo,cNo,cPrice,cProgress) VALUES(?,?,?,default)";
-	private static final String UPDATE= "UPDATE C_ORDER_DETAIL SET cEvaluation=? cReviews=? cProgress=? WHERE cOrderNo=? AND cNo=?";
-	private static final String DELETE="DELECT FROM C_ORDER_DETAIL WHERE cOrderNo=? AND cNo=?";
+	private static final String INSERT="INSERT INTO C_ORDER_DETAIL(cOrderNo,cNo,cPrice) VALUES(?,?,?)";
+	private static final String UPDATE= "UPDATE C_ORDER_DETAIL SET cEvaluation=?,cReviews=?,cProgress=? WHERE cOrderNo=? AND cNo=?";
+	private static final String DELETE="DELETE FROM C_ORDER_DETAIL WHERE cOrderNo=? AND cNo=?";
 	private static final String GETONE="SELECT * FROM C_ORDER_DETAIL WHERE cOrderNo=? AND cNo=?";
 	static {
 		try {
@@ -61,7 +61,7 @@ public class C_Order_DetailJDBCDAO implements C_Order_DetailDAO_interface {
 	public void update(C_Order_DetailVO cOrderDetail) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-
+		
 		try {
 			try {
 				Class.forName(Util.DRIVER);
@@ -70,10 +70,11 @@ public class C_Order_DetailJDBCDAO implements C_Order_DetailDAO_interface {
 			}
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
-			pstmt.setInt(1, cOrderDetail.getCorderno());
-			pstmt.setInt(2, cOrderDetail.getCno());
-			pstmt.setInt(3, cOrderDetail.getCprice());
-			
+			pstmt.setInt(1, cOrderDetail.getCevaluation());
+			pstmt.setString(2, cOrderDetail.getCreviews());
+			pstmt.setInt(3, cOrderDetail.getCprogress());
+			pstmt.setInt(4, cOrderDetail.getCorderno());
+			pstmt.setInt(5, cOrderDetail.getCno());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -122,15 +123,7 @@ public class C_Order_DetailJDBCDAO implements C_Order_DetailDAO_interface {
 				}
 			}
 		}
-		
-		
 	}
-
-	private Integer cprice;
-	private Integer cevaluation;
-	private String creviews;
-	private Integer cprogress;
-
 	@Override
 	public C_Order_DetailVO getOne(Integer corderno,Integer cno) {
 		Connection con = null;
@@ -147,7 +140,7 @@ public class C_Order_DetailJDBCDAO implements C_Order_DetailDAO_interface {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(GETONE);
 			pstmt.setInt(1, corderno);
-			pstmt.setInt(1, cno);
+			pstmt.setInt(2, cno);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				codVO = new C_Order_DetailVO();
@@ -175,11 +168,30 @@ public class C_Order_DetailJDBCDAO implements C_Order_DetailDAO_interface {
 
 		return codVO;
 	}
-
+	
 	@Override
 	public List<C_Order_DetailVO> getAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	public static void main(String[] args) {
+		C_Order_DetailDAO_interface dao = new C_Order_DetailJDBCDAO();
+		C_Order_DetailVO VO = new C_Order_DetailVO();
 
+		VO.setCorderno(2);
+		VO.setCno(1);
+		VO.setCprice(1000);
+		VO.setCevaluation(2);
+		VO.setCreviews("教很好");
+		VO.setCprogress(100);
+		
+
+//	dao.insert(VO);
+		dao.update(VO);
+		dao.delete(VO);
+//		dao.getOne(2,1);
+
+		System.out.println(dao);
+		
+	}
 }

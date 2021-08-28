@@ -11,7 +11,7 @@ public class CourseVO implements Serializable {
 	private String cname;// 課程名稱
 	private Integer cprice;
 	private Integer cstate;
-	private Date cshelfDate;// 上架日期
+	private Timestamp cshelfDate;// 上架日期
 	private String cintroduction;// 課程介紹
 	private Integer ctype;
 	private Integer quantity;// 購買人數
@@ -23,7 +23,7 @@ public class CourseVO implements Serializable {
 	public CourseVO() {
 	};
 
-	public CourseVO(Integer cno, Integer dno, String cname, Integer cprice, Integer cstate, Date cshelfDate,
+	public CourseVO(Integer cno, Integer dno, String cname, Integer cprice, Integer cstate, Timestamp cshelfDate,
 			String cintroduction, Integer ctype, Integer quantity, byte[] cpic, String cdescription,
 			Integer ctotalPeople, Integer ctotalScore) {
 		super();
@@ -82,11 +82,11 @@ public class CourseVO implements Serializable {
 		this.cstate = cstate;
 	}
 
-	public Date getCshelfDate() {
+	public Timestamp getCshelfDate() {
 		return cshelfDate;
 	}
 
-	public void setCshelfDate(Date cshelfDate) {
+	public void setCshelfDate(Timestamp cshelfDate) {
 		this.cshelfDate = cshelfDate;
 	}
 
