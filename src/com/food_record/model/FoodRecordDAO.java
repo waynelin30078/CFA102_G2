@@ -13,9 +13,9 @@ public class FoodRecordDAO implements FoodRecordDAO_interface{
 	public static final String USER = "David";
 	public static final String PASSWORD = "123456";
 	
-	private static final String insert_SQL = "INSERT INTO FoodRecord VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String update_SQL = "UPDATE FoodRecord diaryNo=?, fdNo=?, fdPortion=?, fdWt=?, singlelCal=?, singleCho=?, singlePro=?, singleFat=? WHERE diaryNo=?, fdNo=?;";
-	private static final String delete_SQL = "DELETE FoodRecord WHERE diaryNo=? AND fdNo=?;";
+	private static final String insert_SQL = "INSERT INTO food_record VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String update_SQL = "UPDATE food_record diaryNo=?, fdNo=?, fdPortion=?, fdWt=?, singlelCal=?, singleCho=?, singlePro=?, singleFat=? WHERE diaryNo=?, fdNo=?;";
+	private static final String delete_SQL = "DELETE food_record WHERE diaryNo=? AND fdNo=?;";
 	
 	@Override
 	public void insert(FoodRecordVO foodRecord) {
