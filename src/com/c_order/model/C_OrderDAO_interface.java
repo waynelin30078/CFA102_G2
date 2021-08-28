@@ -7,7 +7,7 @@ public interface C_OrderDAO_interface {
 
 	void updateOrderState(C_OrderVO c_order);
 
-	void updateCprogress(C_OrderVO c_order);
+	
 	void updatePayment(C_OrderVO c_order); 
 
 	C_OrderVO getOne(Integer cOrderno);

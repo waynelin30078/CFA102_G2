@@ -3,13 +3,12 @@ package com.c_order.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class C_OrderVO implements Serializable{
+public class C_OrderVO implements Serializable {
 	private Integer corderno;
 	private Integer mno;
 	private Timestamp orderDate;
 	private Integer total;
 	private Integer orderState;
-	private Integer cprogress;
 	private Integer paymentMethod;
 	private String paymentInfo;
 
@@ -17,14 +16,14 @@ public class C_OrderVO implements Serializable{
 	};
 
 	public C_OrderVO(Integer corderno, Integer mno, Timestamp orderDate, Integer total, Integer orderState,
-			Integer cprogress, Integer paymentMethod, String paymentInfo) {
+			Integer paymentMethod, String paymentInfo) {
 		super();
 		this.corderno = corderno;
 		this.mno = mno;
 		this.orderDate = orderDate;
 		this.total = total;
 		this.orderState = orderState;
-		this.cprogress = cprogress;
+
 		this.paymentMethod = paymentMethod;
 		this.paymentInfo = paymentInfo;
 	}
@@ -67,14 +66,6 @@ public class C_OrderVO implements Serializable{
 
 	public void setOrderState(Integer orderState) {
 		this.orderState = orderState;
-	}
-
-	public Integer getCprogress() {
-		return cprogress;
-	}
-
-	public void setCprogress(Integer cprogress) {
-		this.cprogress = cprogress;
 	}
 
 	public Integer getPaymentMethod() {
