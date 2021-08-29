@@ -1,12 +1,7 @@
 package com.promotion.model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.sql.*;
 
 public class PromotionJDBCDAO implements PromotionDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
@@ -15,17 +10,17 @@ public class PromotionJDBCDAO implements PromotionDAO_interface {
 	String passwd = "123456";
 
 	// 新增商品優惠活動
-	private static final String INSERT_STMT = "INSERT INTO promotion (promNo, promName, promStartTime, promEndTime) VALUES (null, ?, ?, ?)";
+	private static final String INSERT_STMT = "INSERT INTO promotion (promNo, promName, promStartDate, promEndDate) VALUES (null, ?, ?, ?)";
 	// 更新商品優惠活動
-	private static final String UPDATE = "UPDATE promotion SET promName=?, promStartTime=?, promEndTime=? WHERE promNo =?";
+	private static final String UPDATE = "UPDATE promotion SET promName=?, promStartDate=?, promEndDate=? WHERE promNo =?";
 	// 刪除商品優惠活動
 	private static final String DELETE = "DELETE FROM promotion WHERE promNo =?";
 	// 查詢商品優惠活動(用優惠活動編號)
-	private static final String GET_ONE_STMT = "SELECT * FROM promotion WHERE promNo =?";
+	private static final String GET_ONE_STMT = "SELECT promNo, promName, promStartDate, promEndDate FROM promotion WHERE promNo =?";
 	// 查詢商品優惠活動(用優惠活動名稱)
-	private static final String GET_ALL_BY_PROMNAME = "SELECT * FROM promotion WHERE promName LIKE ? ORDER BY promNo";	
+	private static final String GET_ALL_BY_PROMNAME = "SELECT promNo, promName, promStartDate, promEndDate FROM promotion WHERE promName LIKE ? ORDER BY promNo";
 	// 查詢所有商品優惠活動
-	private static final String GET_ALL_STMT = "SELECT * FROM promotion ORDER BY promNo";
+	private static final String GET_ALL_STMT = "SELECT promNo, promName, promStartDate, promEndDate FROM promotion ORDER BY promNo";
 
 	@Override
 	public void insert(PromotionVO promotionVO) {
@@ -39,10 +34,11 @@ public class PromotionJDBCDAO implements PromotionDAO_interface {
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, promotionVO.getPromName());
-			pstmt.setTimestamp(2, promotionVO.getPromStartTime());
-			pstmt.setTimestamp(3, promotionVO.getPromEndTime());
+			pstmt.setDate(2, promotionVO.getPromStartDate());
+			pstmt.setDate(3, promotionVO.getPromEndDate());
 
 			pstmt.executeUpdate();
+			
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
@@ -81,11 +77,9 @@ public class PromotionJDBCDAO implements PromotionDAO_interface {
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, promotionVO.getPromName());
-			pstmt.setTimestamp(2, promotionVO.getPromStartTime());
-			pstmt.setTimestamp(3, promotionVO.getPromEndTime());
+			pstmt.setDate(2, promotionVO.getPromStartDate());
+			pstmt.setDate(3, promotionVO.getPromEndDate());
 			pstmt.setInt(4, promotionVO.getPromNo());
-
-			pstmt.executeUpdate();
 
 			pstmt.executeUpdate();
 
@@ -180,8 +174,8 @@ public class PromotionJDBCDAO implements PromotionDAO_interface {
 				promotionVO = new PromotionVO();
 				promotionVO.setPromNo(rs.getInt("promNo"));
 				promotionVO.setPromName(rs.getString("promName"));
-				promotionVO.setPromStartTime(rs.getTimestamp("promStartTime"));
-				promotionVO.setPromEndTime(rs.getTimestamp("promEndTime"));
+				promotionVO.setPromStartDate(rs.getDate("promStartDate"));
+				promotionVO.setPromEndDate(rs.getDate("promEndDate"));
 
 			}
 
@@ -220,7 +214,7 @@ public class PromotionJDBCDAO implements PromotionDAO_interface {
 
 	@Override
 	public List<PromotionVO> getAll_byPromName(String promName) {
-		
+
 		List<PromotionVO> list = new ArrayList<PromotionVO>();
 		PromotionVO promotionVO = null;
 
@@ -241,8 +235,8 @@ public class PromotionJDBCDAO implements PromotionDAO_interface {
 				promotionVO = new PromotionVO();
 				promotionVO.setPromNo(rs.getInt("promNo"));
 				promotionVO.setPromName(rs.getString("promName"));
-				promotionVO.setPromStartTime(rs.getTimestamp("promStartTime"));
-				promotionVO.setPromEndTime(rs.getTimestamp("promEndTime"));
+				promotionVO.setPromStartDate(rs.getDate("promStartDate"));
+				promotionVO.setPromEndDate(rs.getDate("promEndDate"));
 				list.add(promotionVO);
 			}
 
@@ -277,8 +271,8 @@ public class PromotionJDBCDAO implements PromotionDAO_interface {
 			}
 		}
 		return list;
-	}	
-	
+	}
+
 	@Override
 	public List<PromotionVO> getAll() {
 
@@ -301,8 +295,8 @@ public class PromotionJDBCDAO implements PromotionDAO_interface {
 				promotionVO = new PromotionVO();
 				promotionVO.setPromNo(rs.getInt("promNo"));
 				promotionVO.setPromName(rs.getString("promName"));
-				promotionVO.setPromStartTime(rs.getTimestamp("promStartTime"));
-				promotionVO.setPromEndTime(rs.getTimestamp("promEndTime"));
+				promotionVO.setPromStartDate(rs.getDate("promStartDate"));
+				promotionVO.setPromEndDate(rs.getDate("promEndDate"));
 				list.add(promotionVO);
 			}
 
@@ -343,16 +337,16 @@ public class PromotionJDBCDAO implements PromotionDAO_interface {
 		PromotionJDBCDAO dao = new PromotionJDBCDAO();
 		// INSERT
 //		PromotionVO promotionVO1 = new PromotionVO();
-//		promotionVO1.setPromName("測試活動");
-//		promotionVO1.setPromStartTime(java.sql.Timestamp.valueOf("2021-08-23 11:45:31"));
-//		promotionVO1.setPromEndTime(java.sql.Timestamp.valueOf("2021-08-23 11:45:31"));
+//		promotionVO1.setPromName("測試活動555");
+//		promotionVO1.setPromStartDate(java.sql.Date.valueOf("2021-08-23"));
+//		promotionVO1.setPromEndDate(java.sql.Date.valueOf("2021-08-23"));
 //		dao.insert(promotionVO1);
 
 //		UPDATE
 //		PromotionVO promotionVO2 = new PromotionVO();
 //		promotionVO2.setPromName("測試活動3");
-//		promotionVO2.setPromStartTime(java.sql.Timestamp.valueOf("2021-09-23 11:45:31"));
-//		promotionVO2.setPromEndTime(java.sql.Timestamp.valueOf("2021-09-23 11:45:31"));
+//		promotionVO2.setPromStartDate(java.sql.Date.valueOf("2021-09-23"));
+//		promotionVO2.setPromEndDate(java.sql.Date.valueOf("2021-09-23"));
 //		promotionVO2.setPromNo(6);
 //		dao.update(promotionVO2);
 
@@ -363,8 +357,8 @@ public class PromotionJDBCDAO implements PromotionDAO_interface {
 		PromotionVO promotionVO3 = dao.findByPrimaryKey(2);
 		System.out.print(promotionVO3.getPromNo() + ",");
 		System.out.print(promotionVO3.getPromName() + ",");
-		System.out.print(promotionVO3.getPromStartTime() + ",");
-		System.out.println(promotionVO3.getPromEndTime());
+		System.out.print(promotionVO3.getPromStartDate() + ",");
+		System.out.println(promotionVO3.getPromEndDate());
 		System.out.println("----------------------------------------------------");
 		
 		//	GET_ALL_BY_PROMNAME
@@ -372,8 +366,8 @@ public class PromotionJDBCDAO implements PromotionDAO_interface {
 		for (PromotionVO aPromotion : list) {
 			System.out.print(aPromotion.getPromNo() + ",");
 			System.out.print(aPromotion.getPromName() + ",");
-			System.out.print(aPromotion.getPromStartTime() + ",");
-			System.out.println(aPromotion.getPromEndTime());
+			System.out.print(aPromotion.getPromStartDate() + ",");
+			System.out.println(aPromotion.getPromEndDate());
 			System.out.println();
 		}
 		
@@ -384,8 +378,8 @@ public class PromotionJDBCDAO implements PromotionDAO_interface {
 		for (PromotionVO aPromotion1 : list1) {
 			System.out.print(aPromotion1.getPromNo() + ",");
 			System.out.print(aPromotion1.getPromName() + ",");
-			System.out.print(aPromotion1.getPromStartTime() + ",");
-			System.out.println(aPromotion1.getPromEndTime());
+			System.out.print(aPromotion1.getPromStartDate() + ",");
+			System.out.println(aPromotion1.getPromEndDate());
 			System.out.println();
 		}
 	}

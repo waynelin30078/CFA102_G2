@@ -1,24 +1,24 @@
 package com.promotion.model;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 public class PromotionVO implements java.io.Serializable {
 
 	private Integer promNo;
 	private String promName;
-	private Timestamp promStartTime;
-	private Timestamp promEndTime;
+	private Date promStartDate;
+	private Date promEndDate;
 
 	public PromotionVO() {
 		super();
 	}
 
-	public PromotionVO(Integer promNo, String promName, Timestamp promStartTime, Timestamp promEndTime) {
+	public PromotionVO(Integer promNo, String promName, Date promStartDate, Date promEndDate) {
 		super();
 		this.promNo = promNo;
 		this.promName = promName;
-		this.promStartTime = promStartTime;
-		this.promEndTime = promEndTime;
+		this.promStartDate = promStartDate;
+		this.promEndDate = promEndDate;
 	}
 
 	public Integer getPromNo() {
@@ -37,20 +37,20 @@ public class PromotionVO implements java.io.Serializable {
 		this.promName = promName;
 	}
 
-	public Timestamp getPromStartTime() {
-		return promStartTime;
+	public Date getPromStartDate() {
+		return promStartDate;
 	}
 
-	public void setPromStartTime(Timestamp promStartTime) {
-		this.promStartTime = promStartTime;
+	public void setPromStartDate(Date promStartDate) {
+		this.promStartDate = promStartDate;
 	}
 
-	public Timestamp getPromEndTime() {
-		return promEndTime;
+	public Date getPromEndDate() {
+		return promEndDate;
 	}
 
-	public void setPromEndTime(Timestamp promEndTime) {
-		this.promEndTime = promEndTime;
+	public void setPromEndDate(Date promEndDate) {
+		this.promEndDate = promEndDate;
 	}
 
 }
