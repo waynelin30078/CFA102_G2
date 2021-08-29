@@ -252,11 +252,11 @@ public class AppointmentJDBCDAO implements AppointmentDAO_interface {
 	public static void main(String[] args) {
 		AppointmentJDBCDAO dao = new AppointmentJDBCDAO();
 		//新增
-		AppointmentVO appointMent1 = new AppointmentVO();
-		appointMent1.setDno(1);;
-		appointMent1.setRdate(java.sql.Date.valueOf("2021-09-08"));
-		appointMent1.setRstate("11111222223333333");
-		dao.insert(appointMent1);
+//		AppointmentVO appointMent1 = new AppointmentVO();
+//		appointMent1.setDno(1);;
+//		appointMent1.setRdate(java.sql.Date.valueOf("2021-09-08"));
+//		appointMent1.setRstate("11111222223333333");
+//		dao.insert(appointMent1);
 //		
 		//修改
 //		AppointmentVO appointMent2 = new AppointmentVO();
@@ -266,7 +266,7 @@ public class AppointmentJDBCDAO implements AppointmentDAO_interface {
 //		appointMent2.setRstate("222222222222");
 //		dao.update(appointMent2);
 		//刪除
-//		dao.delete(2);
+		dao.delete(2);
 		//查詢
 //		AppointmentVO appointMent3 = dao.findByPrimaryKey(1);
 //		System.out.print(appointMent3.getAptNo() + ",");
