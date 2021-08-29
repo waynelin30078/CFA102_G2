@@ -110,14 +110,14 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 	}
 
 	@Override
-	public void cState(Integer cState, Integer cNo) {
+	public void cState(Integer cState, Integer cno) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(STATE);
 			pstmt.setInt(1, cState);
-			pstmt.setInt(2, cNo);
+			pstmt.setInt(2, cno);
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -144,7 +144,7 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 	}
 
 	@Override
-	public CourseVO getOneBy_cNO(Integer cNo) {
+	public CourseVO getOneBy_cNO(Integer cno) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -152,12 +152,12 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(FIND_BY_CNO);
-			pstmt.setInt(1, cNo);
+			pstmt.setInt(1, cno);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				courseVO = new CourseVO();
-				courseVO.setCno(cNo);
+				courseVO.setCno(cno);
 				courseVO.setDno(rs.getInt("dNo"));
 				courseVO.setCname(rs.getString("cName"));
 				courseVO.setCprice(rs.getInt("cPrice"));
@@ -207,7 +207,7 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 	}
 
 	@Override
-	public List<CourseVO> getBy_dNo(Integer dNo) {
+	public List<CourseVO> getBy_dNo(Integer dno) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -215,13 +215,13 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(FIND_BY_DNO);
-			pstmt.setInt(1, dNo);
+			pstmt.setInt(1, dno);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				CourseVO courseVO = new CourseVO();
 				courseVO.setCno(rs.getInt("cNo"));
-				courseVO.setDno(dNo);
+				courseVO.setDno(dno);
 				courseVO.setCname(rs.getString("cName"));
 				courseVO.setCprice(rs.getInt("cPrice"));
 				courseVO.setCstate(rs.getInt("cState"));
