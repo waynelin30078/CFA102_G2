@@ -5,26 +5,26 @@ import java.sql.Date;
 
 public class DieticianVO implements Serializable {
 
-	private Integer dNo;
-	private String dName;
-	private String dAccount;
-	private String dPassword;
-	private Date dBirthDay;
-	private String dPic;
-	private String dPhone;
-	private String dAddress;
-	private String dEmail;
+	private Integer dno;
+	private String dname;
+	private String daccount;
+	private String dpassword;
+	private Date dbirthDay;
+	private String dpic;
+	private String dphone;
+	private String daddress;
+	private String demail;
 	private String edu;
 	private String exp;
 	private String lic;
 	private String prof;
 	private Integer clPrice;
-	private Integer mPrice;
+	private Integer mprice;
 	private String intro;
-	private Integer dState;
+	private Integer dstate;
 	private Integer totalScore;
 	private Integer totalReviewer;
-	private Integer dOnState;
+	private Integer donState;
 	private String offDay;
 	private String optTime;
 
@@ -32,106 +32,104 @@ public class DieticianVO implements Serializable {
 		super();
 	}
 
-	public DieticianVO(String dName, String dAccount, String dPassword, Date dBirthDay, String dPic, String dPhone,
-			String dAddress, String dEmail, String edu, String exp, String lic, String prof, Integer clPrice,
-			Integer mPrice, String intro, Integer dState, Integer totalScore, Integer totalReviewer, Integer dOnState,
+	public DieticianVO(String dname, String daccount, String dpassword, Date dbirthDay, String dpic, String dphone,
+			String daddress, String demail, String edu, String exp, String lic, String prof, Integer clPrice,
+			Integer mprice, String intro, Integer dstate, Integer totalScore, Integer totalReviewer, Integer donState,
 			String offDay, String optTime) {
 		super();
-
-		this.dName = dName;
-		this.dAccount = dAccount;
-		this.dPassword = dPassword;
-		this.dBirthDay = dBirthDay;
-		this.dPic = dPic;
-		this.dPhone = dPhone;
-		this.dAddress = dAddress;
-		this.dEmail = dEmail;
+		this.dname = dname;
+		this.daccount = daccount;
+		this.dpassword = dpassword;
+		this.dbirthDay = dbirthDay;
+		this.dpic = dpic;
+		this.dphone = dphone;
+		this.daddress = daddress;
+		this.demail = demail;
 		this.edu = edu;
 		this.exp = exp;
 		this.lic = lic;
 		this.prof = prof;
 		this.clPrice = clPrice;
-		this.mPrice = mPrice;
+		this.mprice = mprice;
 		this.intro = intro;
-		this.dState = dState;
+		this.dstate = dstate;
 		this.totalScore = totalScore;
 		this.totalReviewer = totalReviewer;
-		this.dOnState = dOnState;
+		this.donState = donState;
 		this.offDay = offDay;
 		this.optTime = optTime;
-
 	}
 
-	public Integer getdNo() {
-		return dNo;
+	public Integer getDno() {
+		return dno;
 	}
 
-	public void setdNo(Integer dNo) {
-		this.dNo = dNo;
+	public void setDno(Integer dno) {
+		this.dno = dno;
 	}
 
-	public String getdName() {
-		return dName;
+	public String getDname() {
+		return dname;
 	}
 
-	public void setdName(String dName) {
-		this.dName = dName;
+	public void setDname(String dname) {
+		this.dname = dname;
 	}
 
-	public String getdAccount() {
-		return dAccount;
+	public String getDaccount() {
+		return daccount;
 	}
 
-	public void setdAccount(String dAccount) {
-		this.dAccount = dAccount;
+	public void setDaccount(String daccount) {
+		this.daccount = daccount;
 	}
 
-	public String getdPassword() {
-		return dPassword;
+	public String getDpassword() {
+		return dpassword;
 	}
 
-	public void setdPassword(String dPassword) {
-		this.dPassword = dPassword;
+	public void setDpassword(String dpassword) {
+		this.dpassword = dpassword;
 	}
 
-	public Date getdBirthDay() {
-		return dBirthDay;
+	public Date getDbirthDay() {
+		return dbirthDay;
 	}
 
-	public void setdBirthDay(Date dBirthDay) {
-		this.dBirthDay = dBirthDay;
+	public void setDbirthDay(Date dbirthDay) {
+		this.dbirthDay = dbirthDay;
 	}
 
-	public String getdPic() {
-		return dPic;
+	public String getDpic() {
+		return dpic;
 	}
 
-	public void setdPic(String dPic) {
-		this.dPic = dPic;
+	public void setDpic(String dpic) {
+		this.dpic = dpic;
 	}
 
-	public String getdPhone() {
-		return dPhone;
+	public String getDphone() {
+		return dphone;
 	}
 
-	public void setdPhone(String dPhone) {
-		this.dPhone = dPhone;
+	public void setDphone(String dphone) {
+		this.dphone = dphone;
 	}
 
-	public String getdAddress() {
-		return dAddress;
+	public String getDaddress() {
+		return daddress;
 	}
 
-	public void setdAddress(String dAddress) {
-		this.dAddress = dAddress;
+	public void setDaddress(String daddress) {
+		this.daddress = daddress;
 	}
 
-	public String getdEmail() {
-		return dEmail;
+	public String getDemail() {
+		return demail;
 	}
 
-	public void setdEmail(String dEmail) {
-		this.dEmail = dEmail;
+	public void setDemail(String demail) {
+		this.demail = demail;
 	}
 
 	public String getEdu() {
@@ -174,12 +172,12 @@ public class DieticianVO implements Serializable {
 		this.clPrice = clPrice;
 	}
 
-	public Integer getmPrice() {
-		return mPrice;
+	public Integer getMprice() {
+		return mprice;
 	}
 
-	public void setmPrice(Integer mPrice) {
-		this.mPrice = mPrice;
+	public void setMprice(Integer mprice) {
+		this.mprice = mprice;
 	}
 
 	public String getIntro() {
@@ -190,12 +188,12 @@ public class DieticianVO implements Serializable {
 		this.intro = intro;
 	}
 
-	public Integer getdState() {
-		return dState;
+	public Integer getDstate() {
+		return dstate;
 	}
 
-	public void setdState(Integer dState) {
-		this.dState = dState;
+	public void setDstate(Integer dstate) {
+		this.dstate = dstate;
 	}
 
 	public Integer getTotalScore() {
@@ -214,12 +212,12 @@ public class DieticianVO implements Serializable {
 		this.totalReviewer = totalReviewer;
 	}
 
-	public Integer getdOnState() {
-		return dOnState;
+	public Integer getDonState() {
+		return donState;
 	}
 
-	public void setdOnState(Integer dOnState) {
-		this.dOnState = dOnState;
+	public void setDonState(Integer donState) {
+		this.donState = donState;
 	}
 
 	public String getOffDay() {

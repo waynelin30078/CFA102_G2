@@ -1,38 +1,88 @@
 package com.d_order.model;
 
 import java.sql.Date;
+<<<<<<< HEAD
 import java.sql.Timestamp;
 
 public class DorderVO {
 
-	private Integer dOrderNo;
-	private Integer dNo;
-	private Integer mNo;
+	private Integer dorderNo;
+	private Integer dno;
+	private Integer mno;
 	private Timestamp subStart;
 	private Timestamp subEnd;
 	private Integer mthFee;
-	private String dReview;
-	private Integer dScore;
+	private String dreview;
+	private Integer dscore;
 	private Integer autoSubs;
 
 	public DorderVO() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
-	public DorderVO(Integer dNo, Integer mNo, Timestamp subStart, Timestamp subEnd, Integer mthFee,
-			String dReview, Integer dScore, Integer autoSubs) {
+	public DorderVO(Integer dno, Integer mno, Timestamp subStart, Timestamp subEnd, Integer mthFee, String dreview,
+			Integer dscore, Integer autoSubs) {
 		super();
-		
-		this.dNo = dNo;
-		this.mNo = mNo;
+
+		this.dno = dno;
+		this.mno = mno;
 		this.subStart = subStart;
 		this.subEnd = subEnd;
 		this.mthFee = mthFee;
-		this.dReview = dReview;
-		this.dScore = dScore;
+		this.dreview = dreview;
+		this.dscore = dscore;
 		this.autoSubs = autoSubs;
 	}
+
+	public Integer getDorderNo() {
+		return dorderNo;
+	}
+
+	public void setDorderNo(Integer dorderNo) {
+		this.dorderNo = dorderNo;
+	}
+
+	public Integer getDno() {
+		return dno;
+	}
+
+	public void setDno(Integer dno) {
+		this.dno = dno;
+	}
+
+	public Integer getMno() {
+		return mno;
+	}
+
+	public void setMno(Integer mno) {
+		this.mno = mno;
+	}
+
+	public Timestamp getSubStart() {
+		return subStart;
+	}
+
+	public void setSubStart(Timestamp subStart) {
+		this.subStart = subStart;
+	}
+
+	public Timestamp getSubEnd() {
+		return subEnd;
+	}
+
+	public void setSubEnd(Timestamp subEnd) {
+=======
+
+public class DorderVO {
+	private Integer dOrderNo;
+	private Integer dNo;
+	private Integer mNo;
+	private Date subStart;
+	private Date subEnd;
+	private Integer mthFee;
+	private String dReview;
+	private Integer dScore;
 
 	public Integer getdOrderNo() {
 		return dOrderNo;
@@ -58,19 +108,20 @@ public class DorderVO {
 		this.mNo = mNo;
 	}
 
-	public Timestamp getSubStart() {
+	public Date getSubStart() {
 		return subStart;
 	}
- 
-	public void setSubStart(Timestamp subStart) {
+
+	public void setSubStart(Date subStart) {
 		this.subStart = subStart;
 	}
 
-	public Timestamp getSubEnd() {
+	public Date getSubEnd() {
 		return subEnd;
 	}
 
-	public void setSubEnd(Timestamp subEnd) {
+	public void setSubEnd(Date subEnd) {
+>>>>>>> COURSE
 		this.subEnd = subEnd;
 	}
 
@@ -82,6 +133,30 @@ public class DorderVO {
 		this.mthFee = mthFee;
 	}
 
+<<<<<<< HEAD
+	public String getDreview() {
+		return dreview;
+	}
+
+	public void setDreview(String dreview) {
+		this.dreview = dreview;
+	}
+
+	public Integer getDscore() {
+		return dscore;
+	}
+
+	public void setDscore(Integer dscore) {
+		this.dscore = dscore;
+	}
+
+	public Integer getAutoSubs() {
+		return autoSubs;
+	}
+
+	public void setAutoSubs(Integer autoSubs) {
+		this.autoSubs = autoSubs;
+=======
 	public String getdReview() {
 		return dReview;
 	}
@@ -96,14 +171,7 @@ public class DorderVO {
 
 	public void setdScore(Integer dScore) {
 		this.dScore = dScore;
-	}
-
-	public Integer getAutoSubs() {
-		return autoSubs;
-	}
-
-	public void setAutoSubs(Integer autoSubs) {
-		this.autoSubs = autoSubs;
+>>>>>>> COURSE
 	}
 
 }

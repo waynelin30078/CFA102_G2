@@ -9,10 +9,10 @@ public interface DorderDAO_interface {
 
 	void insert(DorderVO dOrder);   //新增訂單     會員訂閱
 	void update(DorderVO dOrder);	 //修改訂單      會員 取消訂閱
-	DorderVO findByPrimaryKey(int dOrderNo);  //訂單編號找訂單
+	DorderVO findByPrimaryKey(int dorderNo);  //訂單編號找訂單
 	List<DorderVO> getAll();   //找全部訂單
 	List<DorderVO> getActiveOrder();  //找現有訂單
-	List<DorderVO> getActiveOrderByDNo(int dNo); //營養師編號找現有客戶   營養師管理客戶
+	List<DorderVO> getActiveOrderByDNo(int dno); //營養師編號找現有客戶   營養師管理客戶
 	
 	
 	

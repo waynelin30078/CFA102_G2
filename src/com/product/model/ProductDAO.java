@@ -1,5 +1,6 @@
 package com.product.model;
 
+<<<<<<< HEAD
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,15 +8,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+=======
+>>>>>>> COURSE
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+<<<<<<< HEAD
 public class ProductDAO implements ProductDAO_interface {
 
 	private static DataSource ds = null;
 
+=======
+public class ProductDAO {
+
+	// ¤@­ÓÀ³¥Îµ{¦¡¤¤,°w¹ï¤@­Ó¸ê®Æ®w ,¦@¥Î¤@­ÓDataSource§Y¥i
+	private static DataSource ds = null;
+>>>>>>> COURSE
 	static {
 		try {
 			Context ctx = new InitialContext();
@@ -25,6 +35,7 @@ public class ProductDAO implements ProductDAO_interface {
 		}
 	}
 
+<<<<<<< HEAD
 	// æ–°å¢žå•†å“
 	private static final String INSERT_STMT = "INSERT INTO product (pNo, categoryName, pName, pPrice, pInfo, pQuantity, pOnDate, pOffDate, pImage1, pImage2, pImage3,"
 			+ "pRatingsQuantity, pTotalRatings, pState) VALUES (NULL, ?, ?, ?, ?, ?, CURDATE(), DEFAULT, ?, ?, ?, ?, ?, DEFAULT)";
@@ -442,4 +453,13 @@ public class ProductDAO implements ProductDAO_interface {
 		}
 		return list;
 	}	
+=======
+	private static final String INSERT_STMT = "INSERT INTO product (pNo,categoryName,pName,pPrice,pInfo,pQuantity,pOnDate,pOffDate,pImage1,pImage2,pImage3,pRatingsQuantity,pTotalRatings,pState) "
+												+"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT pNo,categoryName,pName,pPrice,pOnDate,pOffDate,pState FROM product order by pNo";
+	private static final String GET_ONE_STMT = "SELECT empno,ename,job,hiredate,sal,comm,deptno FROM emp2 where pNo = ?";
+	private static final String DELETE = "DELETE FROM product where empno = ?";
+	private static final String UPDATE = "UPDATE product set ename=?, job=?, hiredate=?, sal=?, comm=?, deptno=? where pNo = ?";
+
+>>>>>>> COURSE
 }
