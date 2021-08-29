@@ -16,7 +16,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 
 	// 新增商品
 	private static final String INSERT_STMT = "INSERT INTO product (pNo, categoryName, pName, pPrice, pInfo, pQuantity, pOnDate, pOffDate, pImage1, pImage2, pImage3,"
-			+ "pRatingsQuantity, pTotalRatings, pState) VALUES (null, ?, ?, ?, ?, ?, now(), default, ?, ?, ?, ?, ?, default)";
+			+ "pRatingsQuantity, pTotalRatings, pState) VALUES (NULL, ?, ?, ?, ?, ?, CURDATE(), DEFAULT, ?, ?, ?, ?, ?, DEFAULT)";
 	// 更新商品資訊
 	private static final String UPDATE = "UPDATE product SET categoryName=?, pName=?, pPrice=?, pInfo=?, pQuantity=?, pOnDate=?, pOffDate=?, pImage1=?, pImage2=?, pImage3=?,"
 			+ " pState=? WHERE pNo =?";
@@ -45,15 +45,15 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, productVO.getCategoryName());
-			pstmt.setString(2, productVO.getpName());
-			pstmt.setInt(3, productVO.getpPrice());
-			pstmt.setString(4, productVO.getpInfo());
-			pstmt.setInt(5, productVO.getpQuantity());
-			pstmt.setString(6, productVO.getpImage1());
-			pstmt.setString(7, productVO.getpImage2());
-			pstmt.setString(8, productVO.getpImage3());
-			pstmt.setInt(9, productVO.getpRatingsQuantity());
-			pstmt.setInt(10, productVO.getpTotalRatings());
+			pstmt.setString(2, productVO.getPname());
+			pstmt.setInt(3, productVO.getPprice());
+			pstmt.setString(4, productVO.getPinfo());
+			pstmt.setInt(5, productVO.getPquantity());
+			pstmt.setString(6, productVO.getPimage1());
+			pstmt.setString(7, productVO.getPimage2());
+			pstmt.setString(8, productVO.getPimage3());
+			pstmt.setInt(9, productVO.getPratingsQuantity());
+			pstmt.setInt(10, productVO.getPtotalRatings());
 
 			pstmt.executeUpdate();
 
@@ -95,19 +95,19 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, productVO.getCategoryName());
-			pstmt.setString(2, productVO.getpName());
-			pstmt.setInt(3, productVO.getpPrice());
-			pstmt.setString(4, productVO.getpInfo());
-			pstmt.setInt(5, productVO.getpQuantity());
-			pstmt.setTimestamp(6, productVO.getpOnDate());
-			pstmt.setTimestamp(7, productVO.getpOffDate());
-			pstmt.setString(8, productVO.getpImage1());
-			pstmt.setString(9, productVO.getpImage2());
-			pstmt.setString(10, productVO.getpImage3());
-			pstmt.setInt(11, productVO.getpRatingsQuantity());
-			pstmt.setInt(12, productVO.getpTotalRatings());
-			pstmt.setInt(13, productVO.getpState());
-			pstmt.setInt(14, productVO.getpNo());
+			pstmt.setString(2, productVO.getPname());
+			pstmt.setInt(3, productVO.getPprice());
+			pstmt.setString(4, productVO.getPinfo());
+			pstmt.setInt(5, productVO.getPquantity());
+			pstmt.setDate(6, productVO.getPonDate());
+			pstmt.setDate(7, productVO.getPoffDate());
+			pstmt.setString(8, productVO.getPimage1());
+			pstmt.setString(9, productVO.getPimage2());
+			pstmt.setString(10, productVO.getPimage3());
+			pstmt.setInt(11, productVO.getPratingsQuantity());
+			pstmt.setInt(12, productVO.getPtotalRatings());
+			pstmt.setInt(13, productVO.getPstate());
+			pstmt.setInt(14, productVO.getPno());
 
 			pstmt.executeUpdate();
 
@@ -138,7 +138,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer pNo) {
+	public void delete(Integer Pno) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -149,7 +149,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, pNo);
+			pstmt.setInt(1, Pno);
 
 			pstmt.executeUpdate();
 
@@ -180,7 +180,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 	}
 
 	@Override
-	public ProductVO findByPrimaryKey(Integer pNo) {
+	public ProductVO findByPrimaryKey(Integer Pno) {
 
 		ProductVO productVO = null;
 		Connection con = null;
@@ -193,27 +193,27 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, pNo);
+			pstmt.setInt(1, Pno);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 
 				productVO = new ProductVO();
-				productVO.setpNo(rs.getInt("pNo"));
+				productVO.setPno(rs.getInt("pNo"));
 				productVO.setCategoryName(rs.getString("categoryName"));
-				productVO.setpName(rs.getString("pName"));
-				productVO.setpPrice(rs.getInt("pPrice"));
-				productVO.setpInfo(rs.getString("pInfo"));
-				productVO.setpQuantity(rs.getInt("pQuantity"));
-				productVO.setpOnDate(rs.getTimestamp("pOnDate"));
-				productVO.setpOffDate(rs.getTimestamp("pOffDate"));
-				productVO.setpImage1(rs.getString("pImage1"));
-				productVO.setpImage2(rs.getString("pImage2"));
-				productVO.setpImage3(rs.getString("pImage3"));
-				productVO.setpRatingsQuantity(rs.getInt("pRatingsQuantity"));
-				productVO.setpTotalRatings(rs.getInt("pTotalRatings"));
-				productVO.setpState(rs.getInt("pState"));
+				productVO.setPname(rs.getString("pName"));
+				productVO.setPprice(rs.getInt("pPrice"));
+				productVO.setPinfo(rs.getString("pInfo"));
+				productVO.setPquantity(rs.getInt("pQuantity"));
+				productVO.setPonDate(rs.getDate("pOnDate"));
+				productVO.setPoffDate(rs.getDate("pOffDate"));
+				productVO.setPimage1(rs.getString("pImage1"));
+				productVO.setPimage2(rs.getString("pImage2"));
+				productVO.setPimage3(rs.getString("pImage3"));
+				productVO.setPratingsQuantity(rs.getInt("pRatingsQuantity"));
+				productVO.setPtotalRatings(rs.getInt("pTotalRatings"));
+				productVO.setPstate(rs.getInt("pState"));
 
 			}
 
@@ -251,7 +251,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 	}
 
 	@Override
-	public List<ProductVO> getAll_bypName(String pName) {
+	public List<ProductVO> getAll_bypName(String pname) {
 
 		List<ProductVO> list = new ArrayList<ProductVO>();
 		ProductVO productVO = null;
@@ -265,26 +265,26 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ALL_BY_PNAME);
-			pstmt.setString(1, "%" + pName + "%");
+			pstmt.setString(1, "%" + pname + "%");
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 
 				productVO = new ProductVO();
-				productVO.setpNo(rs.getInt("pNo"));
+				productVO.setPno(rs.getInt("pNo"));
 				productVO.setCategoryName(rs.getString("categoryName"));
-				productVO.setpName(rs.getString("pName"));
-				productVO.setpPrice(rs.getInt("pPrice"));
-				productVO.setpInfo(rs.getString("pInfo"));
-				productVO.setpQuantity(rs.getInt("pQuantity"));
-				productVO.setpOnDate(rs.getTimestamp("pOnDate"));
-				productVO.setpOffDate(rs.getTimestamp("pOffDate"));
-				productVO.setpImage1(rs.getString("pImage1"));
-				productVO.setpImage2(rs.getString("pImage2"));
-				productVO.setpImage3(rs.getString("pImage3"));
-				productVO.setpRatingsQuantity(rs.getInt("pRatingsQuantity"));
-				productVO.setpTotalRatings(rs.getInt("pTotalRatings"));
-				productVO.setpState(rs.getInt("pState"));
+				productVO.setPname(rs.getString("pName"));
+				productVO.setPprice(rs.getInt("pPrice"));
+				productVO.setPinfo(rs.getString("pInfo"));
+				productVO.setPquantity(rs.getInt("pQuantity"));
+				productVO.setPonDate(rs.getDate("pOnDate"));
+				productVO.setPoffDate(rs.getDate("pOffDate"));
+				productVO.setPimage1(rs.getString("pImage1"));
+				productVO.setPimage2(rs.getString("pImage2"));
+				productVO.setPimage3(rs.getString("pImage3"));
+				productVO.setPratingsQuantity(rs.getInt("pRatingsQuantity"));
+				productVO.setPtotalRatings(rs.getInt("pTotalRatings"));
+				productVO.setPstate(rs.getInt("pState"));
 				list.add(productVO); // Store the row in the list
 			}
 
@@ -342,20 +342,20 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			while (rs.next()) {
 
 				productVO = new ProductVO();
-				productVO.setpNo(rs.getInt("pNo"));
+				productVO.setPno(rs.getInt("pNo"));
 				productVO.setCategoryName(rs.getString("categoryName"));
-				productVO.setpName(rs.getString("pName"));
-				productVO.setpPrice(rs.getInt("pPrice"));
-				productVO.setpInfo(rs.getString("pInfo"));
-				productVO.setpQuantity(rs.getInt("pQuantity"));
-				productVO.setpOnDate(rs.getTimestamp("pOnDate"));
-				productVO.setpOffDate(rs.getTimestamp("pOffDate"));
-				productVO.setpImage1(rs.getString("pImage1"));
-				productVO.setpImage2(rs.getString("pImage2"));
-				productVO.setpImage3(rs.getString("pImage3"));
-				productVO.setpRatingsQuantity(rs.getInt("pRatingsQuantity"));
-				productVO.setpTotalRatings(rs.getInt("pTotalRatings"));
-				productVO.setpState(rs.getInt("pState"));
+				productVO.setPname(rs.getString("pName"));
+				productVO.setPprice(rs.getInt("pPrice"));
+				productVO.setPinfo(rs.getString("pInfo"));
+				productVO.setPquantity(rs.getInt("pQuantity"));
+				productVO.setPonDate(rs.getDate("pOnDate"));
+				productVO.setPoffDate(rs.getDate("pOffDate"));
+				productVO.setPimage1(rs.getString("pImage1"));
+				productVO.setPimage2(rs.getString("pImage2"));
+				productVO.setPimage3(rs.getString("pImage3"));
+				productVO.setPratingsQuantity(rs.getInt("pRatingsQuantity"));
+				productVO.setPtotalRatings(rs.getInt("pTotalRatings"));
+				productVO.setPstate(rs.getInt("pState"));
 				list.add(productVO); // Store the row in the list
 			}
 
@@ -412,20 +412,20 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			while (rs.next()) {
 
 				productVO = new ProductVO();
-				productVO.setpNo(rs.getInt("pNo"));
+				productVO.setPno(rs.getInt("pNo"));
 				productVO.setCategoryName(rs.getString("categoryName"));
-				productVO.setpName(rs.getString("pName"));
-				productVO.setpPrice(rs.getInt("pPrice"));
-				productVO.setpInfo(rs.getString("pInfo"));
-				productVO.setpQuantity(rs.getInt("pQuantity"));
-				productVO.setpOnDate(rs.getTimestamp("pOnDate"));
-				productVO.setpOffDate(rs.getTimestamp("pOffDate"));
-				productVO.setpImage1(rs.getString("pImage1"));
-				productVO.setpImage2(rs.getString("pImage2"));
-				productVO.setpImage3(rs.getString("pImage3"));
-				productVO.setpRatingsQuantity(rs.getInt("pRatingsQuantity"));
-				productVO.setpTotalRatings(rs.getInt("pTotalRatings"));
-				productVO.setpState(rs.getInt("pState"));
+				productVO.setPname(rs.getString("pName"));
+				productVO.setPprice(rs.getInt("pPrice"));
+				productVO.setPinfo(rs.getString("pInfo"));
+				productVO.setPquantity(rs.getInt("pQuantity"));
+				productVO.setPonDate(rs.getDate("pOnDate"));
+				productVO.setPoffDate(rs.getDate("pOffDate"));
+				productVO.setPimage1(rs.getString("pImage1"));
+				productVO.setPimage2(rs.getString("pImage2"));
+				productVO.setPimage3(rs.getString("pImage3"));
+				productVO.setPratingsQuantity(rs.getInt("pRatingsQuantity"));
+				productVO.setPtotalRatings(rs.getInt("pTotalRatings"));
+				productVO.setPstate(rs.getInt("pState"));
 				list.add(productVO); // Store the row in the list
 			}
 
@@ -469,33 +469,33 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		// INSERT_STMT
 //		ProductVO productVO1 = new ProductVO();
 //		productVO1.setCategoryName("魚油/DHA");
-//		productVO1.setpName("澳佳寶Blackmores無腥味濃縮深海魚油");
-//		productVO1.setpPrice(1980);
-//		productVO1.setpInfo("Info");
-//		productVO1.setpQuantity(250);
-//		productVO1.setpImage1("images/4.jpg");
-//		productVO1.setpImage2("images/5.jpg");
-//		productVO1.setpImage3("images/6.jpg");
-//		productVO1.setpRatingsQuantity(8);
-//		productVO1.setpTotalRatings(32);
+//		productVO1.setPname("澳佳寶Blackmores無腥味濃縮深海魚油");
+//		productVO1.setPprice(1980);
+//		productVO1.setPinfo("Info");
+//		productVO1.setPquantity(250);
+//		productVO1.setPimage1("images/4.jpg");
+//		productVO1.setPimage2("images/5.jpg");
+//		productVO1.setPimage3("images/6.jpg");
+//		productVO1.setPratingsQuantity(8);
+//		productVO1.setPtotalRatings(32);
 //		dao.insert(productVO1);
 
 		// UPDATE
 //		ProductVO productVO2 = new ProductVO();
 //		productVO2.setCategoryName("魚油/DHA");
-//		productVO2.setpName("澳佳寶Blackmores無腥味濃縮深海魚油");
-//		productVO2.setpPrice(550);
-//		productVO2.setpInfo("澳佳寶Blackmores無腥味濃縮深海魚油");
-//		productVO2.setpQuantity(100);
-//		productVO2.setpOnDate(java.sql.Timestamp.valueOf("2021-08-22 11:45:31"));
-//		productVO2.setpOffDate(java.sql.Timestamp.valueOf("9999-12-31 23:59:59"));
-//		productVO2.setpImage1("images/1.jpg");
-//		productVO2.setpImage2("images/2.jpg");
-//		productVO2.setpImage3("images/3.jpg");
-//		productVO2.setpRatingsQuantity(3);
-//		productVO2.setpTotalRatings(12);
-//		productVO2.setpState(1);
-//		productVO2.setpNo(1);
+//		productVO2.setPname("澳佳寶Blackmores無腥味濃縮深海魚油");
+//		productVO2.setPprice(550);
+//		productVO2.setPinfo("澳佳寶Blackmores無腥味濃縮深海魚油");
+//		productVO2.setPquantity(100);
+//		productVO2.setPonDate(java.sql.Date.valueOf("2021-08-22"));
+//		productVO2.setPoffDate(java.sql.Date.valueOf("9999-12-31"));
+//		productVO2.setPimage1("images/1.jpg");
+//		productVO2.setPimage2("images/2.jpg");
+//		productVO2.setPimage3("images/3.jpg");
+//		productVO2.setPratingsQuantity(3);
+//		productVO2.setPtotalRatings(12);
+//		productVO2.setPstate(1);
+//		productVO2.setPno(1);
 //		dao.update(productVO2);
 
 		// DELETE
@@ -503,40 +503,40 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 
 		// GET_ONE_STMT
 		ProductVO productVO3 = dao.findByPrimaryKey(1);
-		System.out.print(productVO3.getpNo() + ",");
+		System.out.print(productVO3.getPno() + ",");
 		System.out.print(productVO3.getCategoryName() + ",");
-		System.out.print(productVO3.getpName() + ",");
-		System.out.print(productVO3.getpPrice() + ",");
-		System.out.print(productVO3.getpInfo() + ",");
-		System.out.print(productVO3.getpQuantity() + ",");
-		System.out.print(productVO3.getpOnDate() + ",");
-		System.out.print(productVO3.getpOffDate() + ",");
-		System.out.print(productVO3.getpImage1() + ",");
-		System.out.print(productVO3.getpImage2() + ",");
-		System.out.print(productVO3.getpImage3() + ",");
-		System.out.print(productVO3.getpRatingsQuantity() + ",");
-		System.out.print(productVO3.getpTotalRatings() + ",");
-		System.out.println(productVO3.getpState());
+		System.out.print(productVO3.getPname() + ",");
+		System.out.print(productVO3.getPprice() + ",");
+		System.out.print(productVO3.getPinfo() + ",");
+		System.out.print(productVO3.getPquantity() + ",");
+		System.out.print(productVO3.getPonDate() + ",");
+		System.out.print(productVO3.getPoffDate() + ",");
+		System.out.print(productVO3.getPimage1() + ",");
+		System.out.print(productVO3.getPimage2() + ",");
+		System.out.print(productVO3.getPimage3() + ",");
+		System.out.print(productVO3.getPratingsQuantity() + ",");
+		System.out.print(productVO3.getPtotalRatings() + ",");
+		System.out.println(productVO3.getPstate());
 
 		System.out.println("--------------------------------------------------------");
 		
 		// GET_ALL_BYPNAME
 		List<ProductVO> list = dao.getAll_bypName("澳");
 		for (ProductVO aProduct4 : list) {
-			System.out.print(aProduct4.getpNo() + ",");
+			System.out.print(aProduct4.getPno() + ",");
 			System.out.print(aProduct4.getCategoryName() + ",");
-			System.out.print(aProduct4.getpName() + ",");
-			System.out.print(aProduct4.getpPrice() + ",");
-			System.out.print(aProduct4.getpInfo() + ",");
-			System.out.print(aProduct4.getpQuantity() + ",");
-			System.out.print(aProduct4.getpOnDate() + ",");
-			System.out.print(aProduct4.getpOffDate() + ",");
-			System.out.print(aProduct4.getpImage1() + ",");
-			System.out.print(aProduct4.getpImage2() + ",");
-			System.out.print(aProduct4.getpImage3() + ",");
-			System.out.print(aProduct4.getpRatingsQuantity() + ",");
-			System.out.print(aProduct4.getpTotalRatings() + ",");
-			System.out.println(aProduct4.getpState());
+			System.out.print(aProduct4.getPname() + ",");
+			System.out.print(aProduct4.getPprice() + ",");
+			System.out.print(aProduct4.getPinfo() + ",");
+			System.out.print(aProduct4.getPquantity() + ",");
+			System.out.print(aProduct4.getPonDate() + ",");
+			System.out.print(aProduct4.getPoffDate() + ",");
+			System.out.print(aProduct4.getPimage1() + ",");
+			System.out.print(aProduct4.getPimage2() + ",");
+			System.out.print(aProduct4.getPimage3() + ",");
+			System.out.print(aProduct4.getPratingsQuantity() + ",");
+			System.out.print(aProduct4.getPtotalRatings() + ",");
+			System.out.println(aProduct4.getPstate());
 			System.out.println();
 		}
 
@@ -545,20 +545,20 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		// GET_ALL_BYCATEGORYNAME
 		List<ProductVO> list2 = dao.getAll_byCategoryName("魚");
 		for (ProductVO aProduct5 : list2) {
-			System.out.print(aProduct5.getpNo() + ",");
+			System.out.print(aProduct5.getPno() + ",");
 			System.out.print(aProduct5.getCategoryName() + ",");
-			System.out.print(aProduct5.getpName() + ",");
-			System.out.print(aProduct5.getpPrice() + ",");
-			System.out.print(aProduct5.getpInfo() + ",");
-			System.out.print(aProduct5.getpQuantity() + ",");
-			System.out.print(aProduct5.getpOnDate() + ",");
-			System.out.print(aProduct5.getpOffDate() + ",");
-			System.out.print(aProduct5.getpImage1() + ",");
-			System.out.print(aProduct5.getpImage2() + ",");
-			System.out.print(aProduct5.getpImage3() + ",");
-			System.out.print(aProduct5.getpRatingsQuantity() + ",");
-			System.out.print(aProduct5.getpTotalRatings() + ",");
-			System.out.println(aProduct5.getpState());
+			System.out.print(aProduct5.getPname() + ",");
+			System.out.print(aProduct5.getPprice() + ",");
+			System.out.print(aProduct5.getPinfo() + ",");
+			System.out.print(aProduct5.getPquantity() + ",");
+			System.out.print(aProduct5.getPonDate() + ",");
+			System.out.print(aProduct5.getPoffDate() + ",");
+			System.out.print(aProduct5.getPimage1() + ",");
+			System.out.print(aProduct5.getPimage2() + ",");
+			System.out.print(aProduct5.getPimage3() + ",");
+			System.out.print(aProduct5.getPratingsQuantity() + ",");
+			System.out.print(aProduct5.getPtotalRatings() + ",");
+			System.out.println(aProduct5.getPstate());
 			System.out.println();
 		}
 	
@@ -568,20 +568,20 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		// GET_ALL_STMT
 		List<ProductVO> list3 = dao.getAll();
 		for (ProductVO aProduct6 : list3) {
-			System.out.print(aProduct6.getpNo() + ",");
+			System.out.print(aProduct6.getPno() + ",");
 			System.out.print(aProduct6.getCategoryName() + ",");
-			System.out.print(aProduct6.getpName() + ",");
-			System.out.print(aProduct6.getpPrice() + ",");
-			System.out.print(aProduct6.getpInfo() + ",");
-			System.out.print(aProduct6.getpQuantity() + ",");
-			System.out.print(aProduct6.getpOnDate() + ",");
-			System.out.print(aProduct6.getpOffDate() + ",");
-			System.out.print(aProduct6.getpImage1() + ",");
-			System.out.print(aProduct6.getpImage2() + ",");
-			System.out.print(aProduct6.getpImage3() + ",");
-			System.out.print(aProduct6.getpRatingsQuantity() + ",");
-			System.out.print(aProduct6.getpTotalRatings() + ",");
-			System.out.println(aProduct6.getpState());
+			System.out.print(aProduct6.getPname() + ",");
+			System.out.print(aProduct6.getPprice() + ",");
+			System.out.print(aProduct6.getPinfo() + ",");
+			System.out.print(aProduct6.getPquantity() + ",");
+			System.out.print(aProduct6.getPonDate() + ",");
+			System.out.print(aProduct6.getPoffDate() + ",");
+			System.out.print(aProduct6.getPimage1() + ",");
+			System.out.print(aProduct6.getPimage2() + ",");
+			System.out.print(aProduct6.getPimage3() + ",");
+			System.out.print(aProduct6.getPratingsQuantity() + ",");
+			System.out.print(aProduct6.getPtotalRatings() + ",");
+			System.out.println(aProduct6.getPstate());
 			System.out.println();
 		}		
 
