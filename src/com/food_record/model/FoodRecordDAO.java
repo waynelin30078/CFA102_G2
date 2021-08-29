@@ -14,8 +14,8 @@ public class FoodRecordDAO implements FoodRecordDAO_interface{
 	public static final String PASSWORD = "123456";
 	
 	private static final String insert_SQL = "INSERT INTO food_record VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String update_SQL = "UPDATE food_record diaryNo=?, fdNo=?, fdPortion=?, fdWt=?, singlelCal=?, singleCho=?, singlePro=?, singleFat=? WHERE diaryNo=?, fdNo=?;";
-	private static final String delete_SQL = "DELETE food_record WHERE diaryNo=? AND fdNo=?;";
+	private static final String update_SQL = "UPDATE food_record mealNo=?, fdNo=?, fdPortion=?, fdWt=?, singlelCal=?, singleCho=?, singlePro=?, singleFat=? WHERE mealNo=?, fdNo=?;";
+	private static final String delete_SQL = "DELETE food_record WHERE mealNo=? AND fdNo=?;";
 	
 	@Override
 	public void insert(FoodRecordVO foodRecord) {
@@ -24,7 +24,7 @@ public class FoodRecordDAO implements FoodRecordDAO_interface{
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(insert_SQL);
 			
-			pstmt.setInt(1 ,foodRecord.getDiaryNo());
+			pstmt.setInt(1 ,foodRecord.getMealNo());
 			pstmt.setInt(2 ,foodRecord.getFdNo());
 			pstmt.setInt(3 ,foodRecord.getFdPortion());
 			pstmt.setInt(4 ,foodRecord.getFdWt());
@@ -61,7 +61,7 @@ public class FoodRecordDAO implements FoodRecordDAO_interface{
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(update_SQL);
 
-			pstmt.setInt(1 ,foodRecord.getDiaryNo());
+			pstmt.setInt(1 ,foodRecord.getMealNo());
 			pstmt.setInt(2 ,foodRecord.getFdNo());
 			pstmt.setInt(3 ,foodRecord.getFdPortion());
 			pstmt.setInt(4 ,foodRecord.getFdWt());
@@ -70,7 +70,7 @@ public class FoodRecordDAO implements FoodRecordDAO_interface{
 			pstmt.setDouble(7 ,foodRecord.getSinglePro());
 			pstmt.setDouble(8 ,foodRecord.getSingleFat());
 			
-			pstmt.setInt(9 ,foodRecord.getDiaryNo());
+			pstmt.setInt(9 ,foodRecord.getMealNo());
 			pstmt.setInt(10 ,foodRecord.getFdNo());
 
 			pstmt.executeUpdate();
@@ -97,7 +97,7 @@ public class FoodRecordDAO implements FoodRecordDAO_interface{
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(delete_SQL);
 
-			pstmt.setInt(1 ,foodRecord.getDiaryNo());
+			pstmt.setInt(1 ,foodRecord.getMealNo());
 			pstmt.setInt(2 ,foodRecord.getFdNo());
 
 			pstmt.executeUpdate();

@@ -2,7 +2,7 @@ package com.food_record.model;
 
 public class FoodRecordVO {
 
-	private Integer diaryNo;
+	private Integer mealNo;
 	private Integer fdNo;
 	private Integer fdPortion;
 	private Integer fdWt;
@@ -16,10 +16,10 @@ public class FoodRecordVO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public FoodRecordVO(Integer diaryNo, Integer fdNo, Integer fdPortion, Integer fdWt, Double singlelCal,
+	public FoodRecordVO(Integer mealNo, Integer fdNo, Integer fdPortion, Integer fdWt, Double singlelCal,
 			Double singleCho, Double singlePro, Double singleFat) {
 		super();
-		this.diaryNo = diaryNo;
+		this.mealNo = mealNo;
 		this.fdNo = fdNo;
 		this.fdPortion = fdPortion;
 		this.fdWt = fdWt;
@@ -29,12 +29,12 @@ public class FoodRecordVO {
 		this.singleFat = singleFat;
 	}
 
-	public Integer getDiaryNo() {
-		return diaryNo;
+	public Integer getMealNo() {
+		return mealNo;
 	}
 
-	public void setDiaryNo(Integer diaryNo) {
-		this.diaryNo = diaryNo;
+	public void setMealNo(Integer mealNo) {
+		this.mealNo = mealNo;
 	}
 
 	public Integer getFdNo() {
