@@ -1,6 +1,8 @@
 package com.member.model;
 
 import java.util.*;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.*;
 
 public class MemberJDBCDAO implements MemberDAO_interface{
@@ -40,11 +42,11 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			pstmt.setString(3, memberVO.getMpsw());
 			pstmt.setString(4, memberVO.getMmail());
 			pstmt.setString(5, memberVO.getMphone());
-			pstmt.setString(6, memberVO.getMimg());
+			pstmt.setBytes(6, memberVO.getMimg());
 			pstmt.setDate(7, memberVO.getMbday());
-			pstmt.setByte(8, memberVO.getMsex());
+			pstmt.setInt(8, memberVO.getMsex());
 			pstmt.setString(9, memberVO.getMintro());
-			pstmt.setByte(10, memberVO.getMstate());
+			pstmt.setInt(10, memberVO.getMstate());
 			pstmt.setInt(11, memberVO.getCardID());
 			pstmt.setInt(12, memberVO.getCardDate());
 			pstmt.setInt(13, memberVO.getCardNum());
@@ -98,11 +100,11 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			pstmt.setString(3, memberVO.getMpsw());
 			pstmt.setString(4, memberVO.getMmail());
 			pstmt.setString(5, memberVO.getMphone());
-			pstmt.setString(6, memberVO.getMimg());
+			pstmt.setBytes(6, memberVO.getMimg());
 			pstmt.setDate(7, memberVO.getMbday());
-			pstmt.setByte(8, memberVO.getMsex());
+			pstmt.setInt(8, memberVO.getMsex());
 			pstmt.setString(9, memberVO.getMintro());
-			pstmt.setByte(10, memberVO.getMstate());
+			pstmt.setInt(10, memberVO.getMstate());
 			pstmt.setInt(11, memberVO.getCardID());
 			pstmt.setInt(12, memberVO.getCardDate());
 			pstmt.setInt(13, memberVO.getCardNum());
@@ -161,11 +163,11 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 				memberVO.setMpsw(rs.getString("mPsw"));
 				memberVO.setMmail(rs.getString("mMail"));
 				memberVO.setMphone(rs.getString("mPhone"));
-				memberVO.setMimg(rs.getString("mImg"));
+				memberVO.setMimg(rs.getBytes("mImg"));
 				memberVO.setMbday(rs.getDate("mbday"));
-				memberVO.setMsex(rs.getByte("msex"));
+				memberVO.setMsex(rs.getInt("msex"));
 				memberVO.setMintro(rs.getString("mintro"));
-				memberVO.setMstate(rs.getByte("mState"));
+				memberVO.setMstate(rs.getInt("mState"));
 				memberVO.setCardID(rs.getInt("CardID"));
 				memberVO.setCardDate(rs.getInt("CardDate"));
 				memberVO.setCardNum(rs.getInt("CardNum"));
@@ -227,11 +229,11 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 				memberVO.setMpsw(rs.getString("mPsw"));
 				memberVO.setMmail(rs.getString("mMail"));
 				memberVO.setMphone(rs.getString("mPhone"));
-				memberVO.setMimg(rs.getString("mImg"));
+				memberVO.setMimg(rs.getBytes("mImg"));
 				memberVO.setMbday(rs.getDate("mbday"));
-				memberVO.setMsex(rs.getByte("msex"));
+				memberVO.setMsex(rs.getInt("msex"));
 				memberVO.setMintro(rs.getString("mintro"));
-				memberVO.setMstate(rs.getByte("mState"));
+				memberVO.setMstate(rs.getInt("mState"));
 				memberVO.setCardID(rs.getInt("CardID"));
 				memberVO.setCardDate(rs.getInt("CardDate"));
 				memberVO.setCardNum(rs.getInt("CardNum"));
@@ -274,45 +276,47 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 		
 		return list;
 	}
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		MemberJDBCDAO dao = new MemberJDBCDAO();
 		//新增
-		MemberVO memberVO1 = new MemberVO();
-		memberVO1.setMname("老闆娘女兒2");
-		memberVO1.setMid("1233232");
-		memberVO1.setMpsw("1232");
-		memberVO1.setMmail("12343322");
-		memberVO1.setMphone("12333422");
-		memberVO1.setMimg("12342");
-		memberVO1.setMbday(java.sql.Date.valueOf("2005-01-01"));
-		memberVO1.setMsex((byte)1); //
-		memberVO1.setMintro("213");
-		memberVO1.setMstate((byte)1); //
-		memberVO1.setCardID(123);
-		memberVO1.setCardDate(123);
-		memberVO1.setCardNum(123);
-		memberVO1.setDno(123);
-		memberVO1.setDailyCal(123);
-		memberVO1.setDailyCho(213);
-		memberVO1.setDailyPro(123);
-		memberVO1.setDailyFat(2132);
-		memberVO1.setDietPlan("ㄚㄚㄚㄚ");
-		dao.insert(memberVO1);
+//		MemberVO memberVO1 = new MemberVO();
+//		memberVO1.setMname("蟹老闆");
+//		memberVO1.setMid("shi123");
+//		memberVO1.setMpsw("8888");
+//		memberVO1.setMmail("shi@gmail.com");
+//		memberVO1.setMphone("08099941733");
+//		byte[] pic = getPictureByteArray("items/Krabs.jpg");
+//		memberVO1.setMimg(pic);
+//		memberVO1.setMbday(java.sql.Date.valueOf("1942-11-30"));
+//		memberVO1.setMsex(1); //(1:Male / 2:Female)
+//		memberVO1.setMintro("在海軍服役的外號為「鐵甲金鐘罩（Armor Abs）」。視錢如命（為了金錢連命都可以不要），極為小氣（包括女兒），甚至一度搶走章魚哥的獎金，但有時候會請海綿寶寶吃美味蟹堡並給他小額增幅的工資。育有一女抹香鯨珍珍。外祖父紅鬍子是名海盜");
+//		memberVO1.setMstate(1); //(0:停權 / 1:正常 / 預設:1)
+//		memberVO1.setCardID(88889955);
+//		memberVO1.setCardDate(2110);
+//		memberVO1.setCardNum(883);
+//		memberVO1.setDno(1);
+//		memberVO1.setDailyCal(1000);
+//		memberVO1.setDailyCho(270);
+//		memberVO1.setDailyPro(100);
+//		memberVO1.setDailyFat(300);
+//		memberVO1.setDietPlan("錢錢");
+//		dao.insert(memberVO1);
 //		
 		
 		
 		//修改
-//		MemberVO memberVO2 = new MemberVO();
+		MemberVO memberVO2 = new MemberVO();
 //		memberVO2.setMname("皮皮皮老闆");
 //		memberVO2.setMid("123");
 //		memberVO2.setMpsw("123");
 //		memberVO2.setMmail("1234");
 //		memberVO2.setMphone("1234");
-//		memberVO2.setMimg("1234");
+		byte[] pic1 = getPictureByteArray("items/Plankton.jpg");
+		memberVO2.setMimg(pic1);
 //		memberVO2.setMbday(java.sql.Date.valueOf("2005-01-01"));
-//		memberVO2.setMsex((byte)1); //
+//		memberVO2.setMsex(1); //(1:Male / 2:Female)
 //		memberVO2.setMintro("213");
-//		memberVO2.setMstate((byte)1); //
+//		memberVO2.setMstate(1); //(0:停權 / 1:正常 / 預設:1)
 //		memberVO2.setCardID(123);
 //		memberVO2.setCardDate(123);
 //		memberVO2.setCardNum(123);
@@ -322,8 +326,8 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 //		memberVO2.setDailyPro(123);
 //		memberVO2.setDailyFat(2132);
 //		memberVO2.setDietPlan("喔喔喔喔");
-//		memberVO2.setMno(1);
-//		dao.update(memberVO2);
+		memberVO2.setMno(1);
+		dao.update(memberVO2);
 		
 		//查詢
 //		MemberVO memberVO3 = dao.findByPrimaryKey(1);
@@ -341,5 +345,12 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 		
 		
 		
+	}
+	public static byte[] getPictureByteArray(String path) throws IOException {
+		FileInputStream fis = new FileInputStream(path);
+		byte[] buffer = new byte[fis.available()];
+		fis.read(buffer);
+		fis.close();
+		return buffer;
 	}
 }

@@ -9,8 +9,20 @@ public class MemberVO implements java.io.Serializable{
 	private String mpsw;
 	private String mmail;
 	private String mphone;
-	private String mimg;
+	private byte[] mimg;
 	private Date mbday;
+	private Integer msex;  
+	private String mintro;
+	private Integer mstate;
+	private Integer cardID;
+	private Integer cardDate;
+	private Integer cardNum;
+	private Integer dno;
+	private Integer dailyCal;
+	private Integer dailyCho;
+	private Integer dailyPro;
+	private Integer dailyFat;
+	private String dietPlan;
 	public Integer getMno() {
 		return mno;
 	}
@@ -47,10 +59,10 @@ public class MemberVO implements java.io.Serializable{
 	public void setMphone(String mphone) {
 		this.mphone = mphone;
 	}
-	public String getMimg() {
+	public byte[] getMimg() {
 		return mimg;
 	}
-	public void setMimg(String mimg) {
+	public void setMimg(byte[] mimg) {
 		this.mimg = mimg;
 	}
 	public Date getMbday() {
@@ -59,10 +71,10 @@ public class MemberVO implements java.io.Serializable{
 	public void setMbday(Date mbday) {
 		this.mbday = mbday;
 	}
-	public Byte getMsex() {
+	public Integer getMsex() {
 		return msex;
 	}
-	public void setMsex(Byte msex) {
+	public void setMsex(Integer msex) {
 		this.msex = msex;
 	}
 	public String getMintro() {
@@ -71,10 +83,10 @@ public class MemberVO implements java.io.Serializable{
 	public void setMintro(String mintro) {
 		this.mintro = mintro;
 	}
-	public Byte getMstate() {
+	public Integer getMstate() {
 		return mstate;
 	}
-	public void setMstate(Byte mstate) {
+	public void setMstate(Integer mstate) {
 		this.mstate = mstate;
 	}
 	public Integer getCardID() {
@@ -131,18 +143,7 @@ public class MemberVO implements java.io.Serializable{
 	public void setDietPlan(String dietPlan) {
 		this.dietPlan = dietPlan;
 	}
-	private Byte msex;  //tinyint ??
-	private String mintro;
-	private Byte mstate;
-	private Integer cardID;
-	private Integer cardDate;
-	private Integer cardNum;
-	private Integer dno;
-	private Integer dailyCal;
-	private Integer dailyCho;
-	private Integer dailyPro;
-	private Integer dailyFat;
-	private String dietPlan;
+	
 	
 	
 	
