@@ -24,9 +24,9 @@ public class AppointmentJDBCDAO implements AppointmentDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, appointmentVO.getdNo());
-			pstmt.setDate(2, appointmentVO.getrDate());
-			pstmt.setString(3, appointmentVO.getrState());
+			pstmt.setInt(1, appointmentVO.getDno());
+			pstmt.setDate(2, appointmentVO.getRdate());
+			pstmt.setString(3, appointmentVO.getRstate());
 
 			pstmt.executeUpdate();
 		}catch (ClassNotFoundException e){
@@ -62,9 +62,9 @@ public class AppointmentJDBCDAO implements AppointmentDAO_interface {
 				con = DriverManager.getConnection(url, userid, passwd);
 				pstmt = con.prepareStatement(UPDATE);
 				
-				pstmt.setInt(1, appointmentVO.getdNo());
-				pstmt.setDate(2, appointmentVO.getrDate());
-				pstmt.setString(3, appointmentVO.getrState());
+				pstmt.setInt(1, appointmentVO.getDno());
+				pstmt.setDate(2, appointmentVO.getRdate());
+				pstmt.setString(3, appointmentVO.getRstate());
 				pstmt.setInt(4, appointmentVO.getAptNo());
 				
 				pstmt.executeUpdate();
@@ -152,9 +152,9 @@ public class AppointmentJDBCDAO implements AppointmentDAO_interface {
 				
 				appointmentVO = new AppointmentVO();
 				appointmentVO.setAptNo(rs.getInt("aptNo"));
-				appointmentVO.setdNo(rs.getInt("dNo"));
-				appointmentVO.setrDate(rs.getDate("rDate"));
-				appointmentVO.setrState(rs.getString("rState"));
+				appointmentVO.setDno(rs.getInt("dNo"));
+				appointmentVO.setRdate(rs.getDate("rDate"));
+				appointmentVO.setRstate(rs.getString("rState"));
 				
 			}
 			
@@ -212,9 +212,9 @@ public class AppointmentJDBCDAO implements AppointmentDAO_interface {
 				
 				appointmentVO = new AppointmentVO();
 				appointmentVO.setAptNo(rs.getInt("aptNo"));
-				appointmentVO.setdNo(rs.getInt("dNo"));
-				appointmentVO.setrDate(rs.getDate("rDate"));
-				appointmentVO.setrState(rs.getString("rState"));
+				appointmentVO.setDno(rs.getInt("dNo"));
+				appointmentVO.setRdate(rs.getDate("rDate"));
+				appointmentVO.setRstate(rs.getString("rState"));
 				list.add(appointmentVO);
 			}
 		} catch (ClassNotFoundException e) {
@@ -253,35 +253,35 @@ public class AppointmentJDBCDAO implements AppointmentDAO_interface {
 		AppointmentJDBCDAO dao = new AppointmentJDBCDAO();
 		//新增
 		AppointmentVO appointMent1 = new AppointmentVO();
-		appointMent1.setdNo(7);;
-		appointMent1.setrDate(java.sql.Date.valueOf("2005-01-01"));
-		appointMent1.setrState("11111222223333333");
+		appointMent1.setDno(1);;
+		appointMent1.setRdate(java.sql.Date.valueOf("2021-09-08"));
+		appointMent1.setRstate("11111222223333333");
 		dao.insert(appointMent1);
 //		
 		//修改
 //		AppointmentVO appointMent2 = new AppointmentVO();
 //		appointMent2.setAptNo(1);
-//		appointMent2.setdNo(2);;
-//		appointMent2.setrDate(java.sql.Date.valueOf("2022-01-01"));
-//		appointMent2.setrState("222222222222");
+//		appointMent2.setDno(2);;
+//		appointMent2.setRdate(java.sql.Date.valueOf("2022-01-01"));
+//		appointMent2.setRstate("222222222222");
 //		dao.update(appointMent2);
 		//刪除
 //		dao.delete(2);
 		//查詢
 //		AppointmentVO appointMent3 = dao.findByPrimaryKey(1);
 //		System.out.print(appointMent3.getAptNo() + ",");
-//		System.out.print(appointMent3.getdNo() + ",");
-//		System.out.print(appointMent3.getrDate() + ",");
-//		System.out.println(appointMent3.getrState() + ",");
+//		System.out.print(appointMent3.getDno() + ",");
+//		System.out.print(appointMent3.getRdate() + ",");
+//		System.out.println(appointMent3.getRstate() + ",");
 //		System.out.println("------------------");
 		//查詢
-		List<AppointmentVO> list = dao.getAll();
-		for (AppointmentVO aapp : list) {
-			System.out.print(aapp.getAptNo() + ",");
-			System.out.print(aapp.getdNo() + ",");
-			System.out.print(aapp.getrDate() + ",");
-			System.out.println(aapp.getrState() + ",");
-		}
+//		List<AppointmentVO> list = dao.getAll();
+//		for (AppointmentVO aapp : list) {
+//			System.out.print(aapp.getAptNo() + ",");
+//			System.out.print(aapp.getDno() + ",");
+//			System.out.print(aapp.getRdate() + ",");
+//			System.out.println(aapp.getRstate() + ",");
+//		}
 		
 	}
 

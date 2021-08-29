@@ -4,35 +4,28 @@ import java.sql.Timestamp;
 
 public class Apt_orderVO implements java.io.Serializable{
 	private Integer aptOrderNo;
-	private Integer mNo;
-	private Integer dNo;
+	private Integer mno;
+	private Integer dno;
 	private Timestamp orderTime;
 	private Timestamp orderDate;
 	private Integer clPrice;
-	private Integer clState;
-	private String aptReviews;
-	
-	public Apt_orderVO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 	public Integer getAptOrderNo() {
 		return aptOrderNo;
 	}
 	public void setAptOrderNo(Integer aptOrderNo) {
 		this.aptOrderNo = aptOrderNo;
 	}
-	public Integer getmNo() {
-		return mNo;
+	public Integer getMno() {
+		return mno;
 	}
-	public void setmNo(Integer mNo) {
-		this.mNo = mNo;
+	public void setMno(Integer mno) {
+		this.mno = mno;
 	}
-	public Integer getdNo() {
-		return dNo;
+	public Integer getDno() {
+		return dno;
 	}
-	public void setdNo(Integer dNo) {
-		this.dNo = dNo;
+	public void setDno(Integer dno) {
+		this.dno = dno;
 	}
 	public Timestamp getOrderTime() {
 		return orderTime;
@@ -64,5 +57,9 @@ public class Apt_orderVO implements java.io.Serializable{
 	public void setAptReviews(String aptReviews) {
 		this.aptReviews = aptReviews;
 	}
+	private Integer clState;
+	private String aptReviews;
+	
+
 
 }

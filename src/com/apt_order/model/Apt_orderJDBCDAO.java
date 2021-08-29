@@ -28,8 +28,8 @@ public class Apt_orderJDBCDAO implements Apt_orderDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
-			pstmt.setInt(1, apt_orderVO.getmNo());
-			pstmt.setInt(2, apt_orderVO.getdNo());
+			pstmt.setInt(1, apt_orderVO.getMno());
+			pstmt.setInt(2, apt_orderVO.getDno());
 			pstmt.setTimestamp(3, apt_orderVO.getOrderTime());
 			pstmt.setTimestamp(4, apt_orderVO.getOrderDate());
 			pstmt.setInt(5, apt_orderVO.getClPrice());
@@ -75,8 +75,8 @@ public class Apt_orderJDBCDAO implements Apt_orderDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 			
-			pstmt.setInt(1, apt_orderVO.getmNo());
-			pstmt.setInt(2, apt_orderVO.getdNo());
+			pstmt.setInt(1, apt_orderVO.getMno());
+			pstmt.setInt(2, apt_orderVO.getDno());
 			pstmt.setTimestamp(3, apt_orderVO.getOrderTime());
 			pstmt.setTimestamp(4, apt_orderVO.getOrderDate());
 			pstmt.setInt(5, apt_orderVO.getClPrice());
@@ -166,8 +166,8 @@ public class Apt_orderJDBCDAO implements Apt_orderDAO_interface {
 			while (rs.next()) {
 				apt_orderVO = new Apt_orderVO();
 				apt_orderVO.setAptOrderNo(rs.getInt("aptOrderNo"));
-				apt_orderVO.setmNo(rs.getInt("mNo"));
-				apt_orderVO.setdNo(rs.getInt("dNo"));
+				apt_orderVO.setMno(rs.getInt("mNo"));
+				apt_orderVO.setDno(rs.getInt("dNo"));
 				apt_orderVO.setOrderTime(rs.getTimestamp("orderTime"));
 				apt_orderVO.setOrderDate(rs.getTimestamp("orderDate"));
 				apt_orderVO.setClPrice(rs.getInt("clPrice"));
@@ -224,8 +224,8 @@ public class Apt_orderJDBCDAO implements Apt_orderDAO_interface {
 				
 				apt_orderVO = new Apt_orderVO();
 				apt_orderVO.setAptOrderNo(rs.getInt("aptOrderNo"));
-				apt_orderVO.setmNo(rs.getInt("mNo"));
-				apt_orderVO.setdNo(rs.getInt("dNo"));
+				apt_orderVO.setMno(rs.getInt("mNo"));
+				apt_orderVO.setDno(rs.getInt("dNo"));
 				apt_orderVO.setOrderTime(rs.getTimestamp("orderTime"));
 				apt_orderVO.setOrderDate(rs.getTimestamp("orderDate"));
 				apt_orderVO.setClPrice(rs.getInt("clPrice"));
@@ -268,37 +268,37 @@ public class Apt_orderJDBCDAO implements Apt_orderDAO_interface {
 	public static void main(String[] args) {
 		Apt_orderJDBCDAO dao = new Apt_orderJDBCDAO();
 		
-		//·s¼W
+		//ï¿½sï¿½W
 //		Apt_orderVO apt_orderVO1 = new Apt_orderVO();
-//		apt_orderVO1.setmNo(1);
-//		apt_orderVO1.setdNo(2);
+//		apt_orderVO1.setMno(1);
+//		apt_orderVO1.setDno(2);
 //		apt_orderVO1.setOrderTime(java.sql.Timestamp.valueOf("2005-01-01 14:20:00"));
 //		apt_orderVO1.setOrderDate(java.sql.Timestamp.valueOf("2005-01-01 14:20:00"));
 //		apt_orderVO1.setClPrice(1000);
 //		apt_orderVO1.setClState(1);;
-//		apt_orderVO1.setAptReviews("¶WÄê");
+//		apt_orderVO1.setAptReviews("ï¿½Wï¿½ï¿½");
 //		dao.insert(apt_orderVO1);
 //		
 //		
 //		
-//		//­×§ï
+//		//ï¿½×§ï¿½
 //		Apt_orderVO apt_orderVO2 = new Apt_orderVO();
-//		apt_orderVO2.setmNo(1);
-//		apt_orderVO2.setdNo(2);
+//		apt_orderVO2.setMno(1);
+//		apt_orderVO2.setDno(2);
 //		apt_orderVO2.setOrderTime(java.sql.Timestamp.valueOf("2005-01-01 14:20:00"));
 //		apt_orderVO2.setOrderDate(java.sql.Timestamp.valueOf("2005-01-01 14:20:00"));
 //		apt_orderVO2.setClPrice(1000);
 //		apt_orderVO2.setClState(1);;
-//		apt_orderVO2.setAptReviews("§ï¹L");
+//		apt_orderVO2.setAptReviews("ï¿½ï¿½L");
 //		apt_orderVO2.setAptOrderNo(1);
 //		dao.update(apt_orderVO2);
-//		//§R°£
+//		//ï¿½Rï¿½ï¿½
 //		dao.delete(1);
-//		//¬d¸ß
+//		//ï¿½dï¿½ï¿½
 //		Apt_orderVO apt_orderVO3 = dao.findByPrimaryKey(2);
 //		System.out.print(apt_orderVO3.getAptOrderNo() + ",");
-//		System.out.print(apt_orderVO3.getmNo() + ",");
-//		System.out.print(apt_orderVO3.getdNo() + ",");
+//		System.out.print(apt_orderVO3.getMno() + ",");
+//		System.out.print(apt_orderVO3.getDno() + ",");
 //		System.out.print(apt_orderVO3.getOrderTime() + ",");
 //		System.out.print(apt_orderVO3.getOrderDate() + ",");
 //		System.out.print(apt_orderVO3.getClPrice() + ",");
@@ -306,12 +306,12 @@ public class Apt_orderJDBCDAO implements Apt_orderDAO_interface {
 //		System.out.println(apt_orderVO3.getAptReviews());
 //		System.out.println("----------------------");
 //		
-//		//¬d¸ß
+//		//ï¿½dï¿½ï¿½
 		List<Apt_orderVO> list = dao.getAll();
 		for (Apt_orderVO apt_orderVO3 : list) {
 			System.out.print(apt_orderVO3.getAptOrderNo() + ",");
-			System.out.print(apt_orderVO3.getmNo() + ",");
-			System.out.print(apt_orderVO3.getdNo() + ",");
+			System.out.print(apt_orderVO3.getMno() + ",");
+			System.out.print(apt_orderVO3.getDno() + ",");
 			System.out.print(apt_orderVO3.getOrderTime() + ",");
 			System.out.print(apt_orderVO3.getOrderDate() + ",");
 			System.out.print(apt_orderVO3.getClPrice() + ",");
