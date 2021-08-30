@@ -2,93 +2,92 @@ package com.member.model;
 
 import java.sql.Date;
 
-public class MemberVO {
-	private	Integer	mNo;
-	private	String	mName;
-	private	String	mId;
-	private	String	mPsw;
-	private	String	mMail;
-	private	String	mPhone;
-	private	String	mImg;
-	private	Date	mBday;
-	private	Integer	mSex;
-	private	String	mIntro;
-	private	Integer	mState;
-	private	Integer	cardID;
-	private	Integer	cardDate;
-	private	Integer	cardNum;
-	private	Integer	dNo;
-	private	Integer	dailyCal;
-	private	Integer	dailyCho;
-	private	Integer	dailyPro;
-	private	Integer	dailyFat;
-	private	String	dietPlan;
-	
-	public Integer getmNo() {
-		return mNo;
+public class MemberVO implements java.io.Serializable{
+	private Integer mno;
+	private String mname;
+	private String mid;
+	private String mpsw;
+	private String mmail;
+	private String mphone;
+	private byte[] mimg;
+	private Date mbday;
+	private Integer msex;  
+	private String mintro;
+	private Integer mstate;
+	private Integer cardID;
+	private Integer cardDate;
+	private Integer cardNum;
+	private Integer dno;
+	private Integer dailyCal;
+	private Integer dailyCho;
+	private Integer dailyPro;
+	private Integer dailyFat;
+	private String dietPlan;
+	public Integer getMno() {
+		return mno;
 	}
-	public void setmNo(Integer mNo) {
-		this.mNo = mNo;
+	public void setMno(Integer mno) {
+		this.mno = mno;
 	}
-	public String getmName() {
-		return mName;
+	public String getMname() {
+		return mname;
 	}
-	public void setmName(String mName) {
-		this.mName = mName;
+	public void setMname(String mname) {
+		this.mname = mname;
 	}
-	public String getmId() {
-		return mId;
+	public String getMid() {
+		return mid;
 	}
-	public void setmId(String mId) {
-		this.mId = mId;
+	public void setMid(String mid) {
+		this.mid = mid;
 	}
-	public String getmPsw() {
-		return mPsw;
+	public String getMpsw() {
+		return mpsw;
 	}
-	public void setmPsw(String mPsw) {
-		this.mPsw = mPsw;
+	public void setMpsw(String mpsw) {
+		this.mpsw = mpsw;
 	}
-	public String getmMail() {
-		return mMail;
+	public String getMmail() {
+		return mmail;
 	}
-	public void setmMail(String mMail) {
-		this.mMail = mMail;
+	public void setMmail(String mmail) {
+		this.mmail = mmail;
 	}
-	public String getmPhone() {
-		return mPhone;
+	public String getMphone() {
+		return mphone;
 	}
-	public void setmPhone(String mPhone) {
-		this.mPhone = mPhone;
+	public void setMphone(String mphone) {
+		this.mphone = mphone;
 	}
-	public String getmImg() {
-		return mImg;
+	public byte[] getMimg() {
+		return mimg;
 	}
-	public void setmImg(String mImg) {
-		this.mImg = mImg;
+	public void setMimg(byte[] mimg) {
+		this.mimg = mimg;
 	}
-	public Date getmBday() {
-		return mBday;
+	public Date getMbday() {
+		return mbday;
 	}
-	public void setmBday(Date mBday) {
-		this.mBday = mBday;
+	public void setMbday(Date mbday) {
+		this.mbday = mbday;
 	}
-	public Integer getmSex() {
-		return mSex;
+	public Integer getMsex() {
+		return msex;
 	}
-	public void setmSex(Integer mSex) {
-		this.mSex = mSex;
+	public void setMsex(Integer msex) {
+		this.msex = msex;
 	}
-	public String getmIntro() {
-		return mIntro;
+	public String getMintro() {
+		return mintro;
 	}
-	public void setmIntro(String mIntro) {
-		this.mIntro = mIntro;
+	public void setMintro(String mintro) {
+		this.mintro = mintro;
 	}
-	public Integer getmState() {
-		return mState;
+	public Integer getMstate() {
+		return mstate;
 	}
-	public void setmState(Integer mState) {
-		this.mState = mState;
+	public void setMstate(Integer mstate) {
+		this.mstate = mstate;
 	}
 	public Integer getCardID() {
 		return cardID;
@@ -108,11 +107,11 @@ public class MemberVO {
 	public void setCardNum(Integer cardNum) {
 		this.cardNum = cardNum;
 	}
-	public Integer getdNo() {
-		return dNo;
+	public Integer getDno() {
+		return dno;
 	}
-	public void setdNo(Integer dNo) {
-		this.dNo = dNo;
+	public void setDno(Integer dno) {
+		this.dno = dno;
 	}
 	public Integer getDailyCal() {
 		return dailyCal;
@@ -144,6 +143,10 @@ public class MemberVO {
 	public void setDietPlan(String dietPlan) {
 		this.dietPlan = dietPlan;
 	}
+	
+	
+	
+	
 
 	
 }
