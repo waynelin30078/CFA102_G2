@@ -24,8 +24,8 @@ public class ProductVO implements java.io.Serializable {
 	}
 
 	public ProductVO(Integer pno, String categoryName, String pname, Integer pprice, String pinfo, Integer pquantity,
-			Date ponDate, Date poffDate, String pimage1, String pimage2, String pimage3, Integer pratingsQuantity,
-			Integer ptotalRatings, Integer pstate) {
+			Date ponDate, Date poffDate, String pimage1, String pimage2, String pimage3,
+			Integer pratingsQuantity, Integer ptotalRatings, Integer pstate) {
 		super();
 		this.pno = pno;
 		this.categoryName = categoryName;

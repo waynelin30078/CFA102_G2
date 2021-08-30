@@ -1,4 +1,5 @@
 package com.product.model;
+
 import java.util.List;
 
 public interface ProductDAO_interface {

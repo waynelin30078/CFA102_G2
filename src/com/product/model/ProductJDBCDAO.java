@@ -31,7 +31,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 	private static final String GET_ALL_BY_CATEGORYNAME = "SELECT * FROM product WHERE categoryName LIKE ? ORDER BY pNo";
 	// 查詢所有商品
 	private static final String GET_ALL_STMT = "SELECT pNo, categoryName, pName, pPrice, pInfo, pQuantity, pOnDate, pOffDate, pImage1, pImage2, pImage3,"
-			+ " pRatingsQuantity, pTotalRatings, pState FROM product ORDER BY pNo";
+			+ " pRatingsQuantity, pTotalRatings, pState FROM product ORDER BY pNo";	
 
 	public void insert(ProductVO productVO) {
 
@@ -460,7 +460,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			}
 		}
 		return list;
-	}
+	}	
 
 	public static void main(String[] args) {
 
@@ -519,7 +519,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		System.out.println(productVO3.getPstate());
 
 		System.out.println("--------------------------------------------------------");
-
+		
 		// GET_ALL_BYPNAME
 		List<ProductVO> list = dao.getAll_bypName("澳");
 		for (ProductVO aProduct4 : list) {
@@ -561,9 +561,10 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			System.out.println(aProduct5.getPstate());
 			System.out.println();
 		}
-
+	
 		System.out.println("--------------------------------------------------------");
-
+		
+		
 		// GET_ALL_STMT
 		List<ProductVO> list3 = dao.getAll();
 		for (ProductVO aProduct6 : list3) {
@@ -582,7 +583,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			System.out.print(aProduct6.getPtotalRatings() + ",");
 			System.out.println(aProduct6.getPstate());
 			System.out.println();
-		}
+		}		
 
 	}
 
