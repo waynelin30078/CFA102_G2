@@ -9,15 +9,15 @@ public interface ProductDAO_interface {
 
 	public void update(ProductVO productVO);
 
-	public void delete(Integer pNo);
+	public void delete(Integer pno);
 
-	public ProductVO findByPrimaryKey(Integer pNo);
+	public ProductVO findByPrimaryKey(Integer pno);
 
 	public List<ProductVO> getAll();
 
-	public List<ProductVO> getAll_bypName(String pName);
+	public List<ProductVO> getAll_bypName(String pname);
 
-	public List<ProductVO> getAll_byCategoryName(String pName);
+	public List<ProductVO> getAll_byCategoryName(String pname);
 
 =======
     public void insert(ProductVO prodVO);

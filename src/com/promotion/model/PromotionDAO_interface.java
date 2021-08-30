@@ -8,11 +8,11 @@ public interface PromotionDAO_interface {
 
 	public void update(PromotionVO promotionVO);
 
-	public void delete(Integer promNo);
+	public void delete(Integer promno);
 
-	public PromotionVO findByPrimaryKey(Integer promNo);
+	public PromotionVO findByPrimaryKey(Integer promno);
 	
-	public List<PromotionVO> getAll_byPromName(String promName);
+	public List<PromotionVO> getAll_byPromName(String promname);
 
 	public List<PromotionVO> getAll();
 
