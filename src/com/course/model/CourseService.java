@@ -1,6 +1,4 @@
 package com.course.model;
-
-import java.sql.Timestamp;
 import java.util.List;
 
 public class CourseService {
@@ -10,7 +8,6 @@ public class CourseService {
 		dao = new CourseJDBCDAO();
 	}
 
-	// dNo,cName,cPrice,cShelfDate,cIntroduction,cType,cPic,cDescription
 	public CourseVO addCourse(Integer dno, String cname, Integer cprice, String cintroduction, Integer ctype,
 			byte[] cpic, String cdescription) {
 
