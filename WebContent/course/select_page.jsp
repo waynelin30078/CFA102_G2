@@ -26,7 +26,6 @@
 </style>
 
 </head>
-</head>
 <body bgcolor='white'>
 <table id="table-1">
    <tr><td><h3>CFA102_G2 Course: Home</h3><h4>( MVC )</h4></td></tr>
@@ -34,6 +33,15 @@
 <p>This is the Home page for CFA102_G2 Course: Home</p>
 
 <h3>資料查詢:</h3>
+<%-- 錯誤表列 --%>
+<c:if test="${not empty errorMsgs}">
+	<font style="color:red">請修正以下錯誤:</font>
+	<ul>
+	    <c:forEach var="message" items="${errorMsgs}">
+			<li style="color:red">${message}</li>
+		</c:forEach>
+	</ul>
+</c:if>
 
 </body>
 </html>
@@ -45,15 +53,6 @@
 
 
 	
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-	    <c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
 
 <ul>
   <li><a href='listAllEmp.jsp'>List</a> all Emps.  <br><br></li>
