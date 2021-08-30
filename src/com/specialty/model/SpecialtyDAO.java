@@ -18,7 +18,7 @@ public class SpecialtyDAO implements SpecialtyDAO_interface {
 	public static final String USER = "David";
 	public static final String PASSWORD = "123456";
 
-	private static final String insert_SQL = "INSERT INTO specialty (specialtyName) VALUES(?);";
+	private static final String insert_SQL = "INSERT INTO specialty VALUES(default, ?);";
 	private static final String update_SQL = "UPDATE specialty SET specialtyName = ? WHERE specialtyNo = ?;";
 	private static final String getAll_SQL = "SELECT * FROM specialty;";
 
