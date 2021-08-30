@@ -60,7 +60,7 @@
     </FORM>
   </li>
   
- <jsp:useBean id="courseSvc" scope="page" class="com.course.model.CourseService"/>
+ <jsp:useBean id="courseSvc" scope="page" class="com.course.model.CourseService" />
   
   <li>
   	<FORM METHOD="post" ACTION="course.do">
