@@ -61,6 +61,7 @@ public class ProductDAO implements ProductDAO_interface {
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, productVO.getCategoryName());
+<<<<<<< HEAD
 			pstmt.setString(2, productVO.getpName());
 			pstmt.setInt(3, productVO.getpPrice());
 			pstmt.setString(4, productVO.getpInfo());
@@ -70,6 +71,17 @@ public class ProductDAO implements ProductDAO_interface {
 			pstmt.setString(8, productVO.getpImage3());
 			pstmt.setInt(9, productVO.getpRatingsQuantity());
 			pstmt.setInt(10, productVO.getpTotalRatings());		
+=======
+			pstmt.setString(2, productVO.getPname());
+			pstmt.setInt(3, productVO.getPprice());
+			pstmt.setString(4, productVO.getPinfo());
+			pstmt.setInt(5, productVO.getPquantity());
+			pstmt.setString(6, productVO.getPimage1());
+			pstmt.setString(7, productVO.getPimage2());
+			pstmt.setString(8, productVO.getPimage3());
+			pstmt.setInt(9, productVO.getPratingsQuantity());
+			pstmt.setInt(10, productVO.getPtotalRatings());		
+>>>>>>> product
 
 			pstmt.executeUpdate();
 
@@ -447,5 +459,8 @@ public class ProductDAO implements ProductDAO_interface {
 		}
 		return list;
 	}	
+<<<<<<< HEAD
 
+=======
+>>>>>>> product
 }

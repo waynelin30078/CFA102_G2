@@ -27,9 +27,15 @@ public class ProductVO implements java.io.Serializable {
 		super();
 	}
 
+<<<<<<< HEAD
 	public ProductVO(Integer pNo, String categoryName, String pName, Integer pPrice, String pInfo, Integer pQuantity,
 			Timestamp pOnDate, Timestamp pOffDate, String pImage1, String pImage2, String pImage3,
 			Integer pRatingsQuantity, Integer pTotalRatings, Integer pState) {
+=======
+	public ProductVO(Integer pno, String categoryName, String pname, Integer pprice, String pinfo, Integer pquantity,
+			Date ponDate, Date poffDate, String pimage1, String pimage2, String pimage3,
+			Integer pratingsQuantity, Integer ptotalRatings, Integer pstate) {
+>>>>>>> product
 		super();
 		this.pNo = pNo;
 		this.categoryName = categoryName;
