@@ -42,7 +42,7 @@ public class ProductDAO implements ProductDAO_interface {
 	private static final String GET_ALL_BY_CATEGORYNAME = "SELECT * FROM product WHERE categoryName LIKE ? ORDER BY pNo";
 	// 查詢所有商品
 	private static final String GET_ALL_STMT = "SELECT pNo, categoryName, pName, pPrice, pInfo, pQuantity, pOnDate, pOffDate, pImage1, pImage2, pImage3,"
-			+ " pRatingsQuantity, pTotalRatings, pState FROM product ORDER BY pNo";	
+			+ " pRatingsQuantity, pTotalRatings, pState FROM product ORDER BY pNo";
 
 	@Override
 	public void insert(ProductVO productVO) {
@@ -64,7 +64,7 @@ public class ProductDAO implements ProductDAO_interface {
 			pstmt.setString(7, productVO.getPimage2());
 			pstmt.setString(8, productVO.getPimage3());
 			pstmt.setInt(9, productVO.getPratingsQuantity());
-			pstmt.setInt(10, productVO.getPtotalRatings());		
+			pstmt.setInt(10, productVO.getPtotalRatings());
 
 			pstmt.executeUpdate();
 
@@ -376,7 +376,7 @@ public class ProductDAO implements ProductDAO_interface {
 		}
 		return list;
 	}
-	
+
 	@Override
 	public List<ProductVO> getAll() {
 
@@ -441,5 +441,5 @@ public class ProductDAO implements ProductDAO_interface {
 			}
 		}
 		return list;
-	}	
+	}
 }
