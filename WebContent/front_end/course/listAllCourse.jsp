@@ -9,27 +9,11 @@
 	pageContext.setAttribute("list",list);
 %>
 
-<jsp:useBean id="FKSvc" scope="page" class="com.course.model.CourseService" />
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="BIG5">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
-
--------------------------------------
-
-
-
+<jsp:useBean id="DieticianSvc" scope="page" class="com.dietician.model.DieticianService" />
 
 <html>
 <head>
-<title>所有員工資料 - listAllEmp.jsp</title>
-
+<title>所有員工資料 - listAllCoure.jsp</title>
 <style>
   table#table-1 {
 	background-color: #CCCCFF;
@@ -63,59 +47,54 @@
   }
 </style>
 
+
 </head>
 <body bgcolor='white'>
-
-<h4>此頁練習採用 EL 的寫法取值:</h4>
 <table id="table-1">
 	<tr><td>
-		 <h3>所有員工資料 - listAllEmp.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		 <h3>所有課程資料 - listAllCourse.jsp</h3>
+		 <h4><a href="<%=request.getContextPath()%>/select_page.jsp">回首頁</a></h4>
 	</td></tr>
-</table>
-
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-
-<table>
+</table>	
+	<%-- 錯誤表列 --%>
+	<c:if test="${not empty errorMsgs}">
+		<font style="color:red">請修正以下錯誤:</font>
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+			<li style="color:red">${message}"</li>
+			</c:forEach>
+		</ul>
+	</c:if>
+	
+	<table>
 	<tr>
-		<th>員工編號</th>
-		<th>員工姓名</th>
-		<th>職位</th>
-		<th>雇用日期</th>
-		<th>薪水</th>
-		<th>獎金</th>
-		<th>部門</th>
+		<th>課程編號</th>
+		<th>營養師姓名</th>
+		<th>課程名稱</th>
+		<th>課程價格</th>
+		<th>課程狀態</th>
+		<th>上架時間</th>
+		<th>課程主題</th>
+		<th>購買人數</th>
+		<th>課程評價總人數</th>
+		<th>課程評價總分數</th>
 		<th>修改</th>
 		<th>刪除</th>
 	</tr>
-	<%@ include file="pages/page1.file" %> 
-	<c:forEach var="empVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+	<%@ include file="page1.file" %> 
+	<c:forEach var="courseVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr>
-			<td>${empVO.empno}</td>
-			<td>${empVO.ename}</td>
-			<td>${empVO.job}</td>
-			<td>${empVO.hiredate}</td>
-			<td>${empVO.sal}</td>
-			<td>${empVO.comm}</td> 
-			<td>
-			${deptSvc.getOneDept(empVO.deptno).dname}
-			
-			</td>
-<%-- 			<td><c:forEach var="deptVO" items="${deptSvc.all}"> --%>
-<%--                     <c:if test="${empVO.deptno==deptVO.deptno}"> --%>
-<%-- 	                    ${deptVO.deptno}【${deptVO.dname} - ${deptVO.loc}】 --%>
-<%--                     </c:if> --%>
-<%--                 </c:forEach> --%>
-<!-- 			</td> -->
+			<td>${courseVO.cno}</td>
+			<td>${courseVO.dno}</td> <!-- ${DieticianSvc.findByPrimaryKey(courseVO.dno).dname} -->
+			<td>${courseVO.cname}</td>
+			<td>${courseVO.cprice}</td>
+			<td>${courseVO.cstate}</td>
+			<td> <fmt:formatDate value="${courseVO.cshelfDate}" pattern="yyyy-MM-dd"/></td>
+			<td>${courseVO.ctype}</td> 
+			<td>${courseVO.quantity}</td> 
+			<td>${courseVO.ctotalPeople}</td> 
+			<td>${courseVO.ctotalScore}</td> 
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/emp/emp.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
@@ -131,7 +110,7 @@
 		</tr>
 	</c:forEach>
 </table>
-<%@ include file="pages/page2.file" %>
+<%@ include file="page2.file" %>
 
 </body>
 </html>
