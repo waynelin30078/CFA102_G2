@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+	<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
@@ -52,9 +52,9 @@
    
    
    <li>
-    <FORM METHOD="post" ACTION="course.do" >
+       <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/course/course.do" >
         <b>輸入課程編號 :</b>
-        <input type="text" name="courseno">
+        <input type="text" name="cno">
         <input type="hidden" name="action" value="getOne_For_Display">
         <input type="submit" value="送出">
     </FORM>
@@ -63,9 +63,9 @@
  <jsp:useBean id="courseSvc" scope="page" class="com.course.model.CourseService" />
   
   <li>
-  	<FORM METHOD="post" ACTION="course.do">
+  	   <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/course/course.do" >
   	<b>請選擇課程編號</b>
-  	<select size="1" name="courseno">
+  	<select size="1" name="cno">
   	<c:forEach var="courseVO" items="${courseSvc.all}">
   		<option value="${courseVO.cno}">${courseVO.cno}
   	</c:forEach>
@@ -76,9 +76,9 @@
   </li>
   
     <li>
-     <FORM METHOD="post" ACTION="course.do" >
+     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/course/course.do" >
        <b>選擇課程名稱</b>
-       <select size="1" name="courseno">
+       <select size="1" name="cno">
          <c:forEach var="courseVO" items="${courseSvc.all}"> 
           <option value="${courseVO.cno}">${courseVO.cname}
          </c:forEach>   

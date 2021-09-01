@@ -8,7 +8,7 @@
 
 <html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>Insert title here</title>
 <style>
   table#table-1 {
@@ -62,7 +62,7 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="course.do" name="form1">
+<FORM METHOD="post" ACTION="course.do" name="form1"  enctype="multipart/form-data">
 <table>
 	<tr>
 		<td>課程編號:</td>
@@ -98,6 +98,11 @@
 				<option value="${courseVO.ctype}" ${(empVO.deptno==deptVO.deptno)? 'selected':'' } >${deptVO.dname}
 			</c:forEach>
 		</select></td>
+	</tr>
+	<tr>
+		<td>課程預覽圖:</td>
+		<td><input type="file" name="cpic"
+			 value="<%= (courseVO==null)? "請輸入課程價格" : courseVO.getCpic()%>" /></td>
 	</tr>
 
 	</table>

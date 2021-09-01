@@ -53,7 +53,7 @@
 <table id="table-1">
 	<tr><td>
 		 <h3>所有課程資料 - listAllCourse.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/select_page.jsp">回首頁</a></h4>
+		 <h4><a href="<%=request.getContextPath()%>/course/select_page.jsp">回首頁</a></h4>
 	</td></tr>
 </table>	
 	<%-- 錯誤表列 --%>
@@ -96,15 +96,15 @@
 			<td>${courseVO.ctotalPeople}</td> 
 			<td>${courseVO.ctotalScore}</td> 
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/emp/emp.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/course/course.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
-			     <input type="hidden" name="empno"  value="${empVO.empno}">
+			     <input type="hidden" name="cno"  value="${courseVO.cno}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/emp/emp.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/course/course.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="刪除">
-			     <input type="hidden" name="empno"  value="${empVO.empno}">
+			     <input type="hidden" name="cno"  value="${courseVO.cno}">
 			     <input type="hidden" name="action" value="delete"></FORM>
 			</td>
 		</tr>
