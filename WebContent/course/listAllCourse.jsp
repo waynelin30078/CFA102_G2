@@ -103,9 +103,9 @@
 			</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/course/course.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
+			     <input type="submit" value="變更狀態">
 			     <input type="hidden" name="cno"  value="${courseVO.cno}">
-			     <input type="hidden" name="action" value="delete"></FORM>
+			     <input type="hidden" name="action" value="update_state"></FORM>
 			</td>
 		</tr>
 	</c:forEach>

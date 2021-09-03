@@ -59,4 +59,5 @@ public class CourseService {
 	public List<CourseVO> getByCtype(Integer cType) {
 		return dao.getBy_cType(cType);
 	}
+	
 }

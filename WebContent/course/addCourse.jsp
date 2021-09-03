@@ -62,8 +62,14 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="course.do" name="form1"  enctype="multipart/form-data">
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/course/course.do" name="form1"  enctype="multipart/form-data">
 <table>
+	<jsp:useBean id="courseSvc" class="com.course.model.CourseService" />
+	<tr>
+		<td>營養師編號:</td>
+		<td><input type="TEXT" name="dno" size="45" 
+			 value="<%= (courseVO==null)? "1" : courseVO.getDno()%>" /></td>
+	</tr>
 	<tr>
 		<td>課程編號:</td>
 		<td><input type="TEXT" name="cno" size="45" 
@@ -80,29 +86,31 @@
 			value="<%= (courseVO==null)? "請輸入課程介紹" : courseVO.getCintroduction()%>"/></td>										
 	</tr>
 	<tr>
+		<td>課程價格:</td>
+		<td><input type="TEXT" name="cprice" size="45"
+			 value="<%= (courseVO==null)? "100" : courseVO.getCprice()%>" /></td>
+	</tr>
+	<tr>
 		<td>課程預覽說明:</td>
 		<td><input type="text"  name="cdescription" size="45"
 			value="<%= (courseVO==null)? "請輸入課程預覽說明" :courseVO.getCdescription()%>"/></td>											
 	</tr>
 	
-	<tr>
-		<td>課程價格:</td>
-		<td><input type="TEXT" name="cprice" size="45"
-			 value="<%= (courseVO==null)? "請輸入課程價格" : courseVO.getCprice()%>" /></td>
-	</tr>
-	<jsp:useBean id="courseSvc" scope="page" class="com.course.model.CourseService" />
+	
+
+	
 	<tr>
 		<td>課程類型:<font color=red><b>*</b></font></td>
 		<td><select size="1" name="ctype">
-			<c:forEach var="courseVO" items="${courseSvc.all}">
-				<option value="${courseVO.ctype}" ${(empVO.deptno==deptVO.deptno)? 'selected':'' } >${deptVO.dname}
-			</c:forEach>
+				<option value="1">飲食知識</option>
+				<option value="2">健身</option>
+				<option value="3">餐點製作</option>
 		</select></td>
 	</tr>
 	<tr>
 		<td>課程預覽圖:</td>
-		<td><input type="file" name="cpic"
-			 value="<%= (courseVO==null)? "請輸入課程價格" : courseVO.getCpic()%>" /></td>
+		<td><input type="file" name="cpic" enctype="multipart/form-data" 
+			 value="<%= (courseVO==null)? "" : courseVO.getCpic()%>" /></td>
 	</tr>
 
 	</table>
