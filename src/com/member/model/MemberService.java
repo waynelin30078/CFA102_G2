@@ -11,7 +11,7 @@ public class MemberService {
 	}
 	
 	//新增基本的資料
-	public MemberVO addMember(String mname, String mid, String mpsw, String mmail, String mphone, byte[] mimg, Integer msex ) {
+	public MemberVO addMember(String mname, String mid, String mpsw, String mmail, String mphone, Integer msex ) {
 		MemberVO memberVO = new MemberVO();
 		
 		memberVO.setMname(mname);
@@ -19,7 +19,6 @@ public class MemberService {
 		memberVO.setMpsw(mpsw);
 		memberVO.setMmail(mmail);
 		memberVO.setMphone(mphone);
-		memberVO.setMimg(mimg);
 		memberVO.setMsex(msex);
 		dao.insert(memberVO);
 		
@@ -27,14 +26,17 @@ public class MemberService {
 		
 	}
 	
-	public MemberVO updateMember(String mname, String mpsw, String mmail, String mphone, byte[] mimg, Date mbday) {
+	public MemberVO updateMember(String mname, String mpsw, String mmail, String mphone, byte[] mimg, Date mbday, Integer msex ,String mintro ,Integer mno) {
 		MemberVO memberVO = new MemberVO();
 		memberVO.setMname(mname);
 		memberVO.setMpsw(mpsw);
 		memberVO.setMmail(mmail);
 		memberVO.setMphone(mphone);
 		memberVO.setMimg(mimg);
-		memberVO.setMbday(mbday);;
+		memberVO.setMbday(mbday);
+		memberVO.setMsex(msex);
+		memberVO.setMintro(mintro);
+		memberVO.setMno(mno);
 		dao.update(memberVO);
 		return memberVO;
 	}

@@ -14,7 +14,7 @@ public class MemberVO implements java.io.Serializable{
 	private Integer msex;  
 	private String mintro;
 	private Integer mstate;
-	private Integer cardID;
+	private String cardID;
 	private Integer cardDate;
 	private Integer cardNum;
 	private Integer dno;
@@ -89,10 +89,10 @@ public class MemberVO implements java.io.Serializable{
 	public void setMstate(Integer mstate) {
 		this.mstate = mstate;
 	}
-	public Integer getCardID() {
+	public String getCardID() {
 		return cardID;
 	}
-	public void setCardID(Integer cardID) {
+	public void setCardID(String cardID) {
 		this.cardID = cardID;
 	}
 	public Integer getCardDate() {
