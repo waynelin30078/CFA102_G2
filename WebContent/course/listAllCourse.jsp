@@ -8,7 +8,11 @@
 	List<CourseVO> list = courseSvc.getAll();
 	pageContext.setAttribute("list",list);
 %>
-
+<%
+response.setHeader("Cache-Control","no-store"); //HTTP 1.1
+response.setHeader("Pragma","no-cache");        //HTTP 1.0
+response.setDateHeader ("Expires", 0);
+%>
 <jsp:useBean id="DieticianSvc" scope="page" class="com.dietician.model.DieticianService" />
 
 <html>
@@ -78,15 +82,17 @@
 		<th>購買人數</th>
 		<th>課程評價總人數</th>
 		<th>課程評價總分數</th>
-		<th>修改</th>
-		<th>刪除</th>
+		<th>課程圖片</th>
+		<th>修改課程</th>
+		<th>狀態修改</th>
 	</tr>
-	<%@ include file="page1.file" %> 
-	<c:forEach var="courseVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+<%-- 	<%@ include file="page1.file" %> --%>
+<%-- 	<c:forEach var="courseVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>"> --%>
+	<c:forEach var="courseVO" items="${list}">
 		
 		<tr>
 			<td>${courseVO.cno}</td>
-			<td>${courseVO.dno}</td> <!-- ${DieticianSvc.findByPrimaryKey(courseVO.dno).dname} -->
+			<td>${DieticianSvc.findByPrimaryKey(courseVO.dno).dname}</td> <!-- ${DieticianSvc.findByPrimaryKey(courseVO.dno).dname}有取到但是顯示為空-->
 			<td>${courseVO.cname}</td>
 			<td>${courseVO.cprice}</td>
 			<td>${courseVO.cstate}</td>
@@ -94,7 +100,8 @@
 			<td>${courseVO.ctype}</td> 
 			<td>${courseVO.quantity}</td> 
 			<td>${courseVO.ctotalPeople}</td> 
-			<td>${courseVO.ctotalScore}</td> 
+			<td>${courseVO.ctotalScore}</td>
+			<td><img src="<%=request.getContextPath()%>/course/course.do?action=showpic&cpic=${courseVO.cno}"width ='150px' height='150px'/></td> 
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/course/course.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
@@ -110,7 +117,7 @@
 		</tr>
 	</c:forEach>
 </table>
-<%@ include file="page2.file" %>
+<%-- <%@ include file="page2.file" %> --%>
 
 </body>
 </html>

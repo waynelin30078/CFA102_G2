@@ -19,8 +19,8 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 	private static final String FIND_BY_CNAME = "SELECT * FROM COURSE WHERE cName LIKE ? ORDER BY cNO";
 	private static final String FIND_BY_CTYPE = "SELECT * FROM COURSE WHERE cType=?";
 //	private static final String FIND_BY_CTOTAL_SCORE="SELECT * FROM COURSE";
-	private static final String GET_ALL = "SELECT * FROM COURSE";//v
-	
+	private static final String GET_ALL = "SELECT * FROM COURSE";// v
+
 	static {
 		try {
 			Class.forName(Util.DRIVER);
@@ -36,11 +36,12 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 		try {
 			try {
 				Class.forName(Util.DRIVER);
-			} catch (ClassNotFoundException e) {		
+			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
-			pstmt = con.prepareStatement(INSERT);
+			String[] cols= {"cNo"};
+			pstmt = con.prepareStatement(INSERT,cols);//自增主鍵值
 			pstmt.setInt(1, courseVO.getDno());
 			pstmt.setString(2, courseVO.getCname());
 			pstmt.setInt(3, courseVO.getCprice());
@@ -50,7 +51,7 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 			pstmt.setString(7, courseVO.getCdescription());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();//錯誤
+			e.printStackTrace();// 錯誤
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -280,7 +281,7 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(FIND_BY_CNAME);
-			pstmt.setString(1, "%"+cName+"%");
+			pstmt.setString(1, "%" + cName + "%");
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -471,4 +472,33 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 		return courseList;
 	}
 
+	@Override
+	public byte[] getImg(Integer cno) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		byte[] cimg = null;
+		try {
+			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			pstmt = con.prepareStatement(FIND_BY_CTYPE);
+			pstmt.setInt(1, cno);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				cimg = rs.getBytes("cpic");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+		}
+		return cimg;
+	}
 }

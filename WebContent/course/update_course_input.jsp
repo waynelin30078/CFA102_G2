@@ -68,32 +68,40 @@
 <table>
 	<tr>
 		<td>課程編號:<font color=red><b>*</b></font></td>
-		<td><%=courseVO.getCno()%></td>
+		<td><input type="text" name="cno" size="45" value="<%=courseVO.getCno()%>"></td>
+	</tr>
+	<tr>
+		<td>營養師編號:<font color=red><b>*</b></font></td>
+		<td><input type="text" name="dno" size="45" value="<%=courseVO.getCno()%>"></td>
 	</tr>
 	<tr>
 		<td>課程名稱:<font color=red><b>*</b></font></td>
-		<td><input type="TEXT" name="cname" size="45" value="<%=courseVO.getCname()%>">
-	</tr>
-		<tr>
+		<td><input type="text" name="cname" size="45" value="<%=courseVO.getCname()%>"></td>
+	<tr>
 		<td>課程介紹:</td>
-		<td><input type="text"  name="cintroduction" size="45"value="<%= courseVO.getCintroduction()%>"/></td>										
+		<td><input type="text"  name="cintroduction" size="45"
+			value="<%= (courseVO==null)? "請輸入課程介紹" : courseVO.getCintroduction()%>"/></td>										
 	</tr>
 	<tr>
 		<td>課程價格:</td>
-		<td><input type="TEXT" name="job" size="45"	value="<%=courseVO.getCprice()%>" /></td>
+		<td><input type="text" name="cprice" size="45"	value="<%=courseVO.getCprice()%>" /></td>
 	</tr>
 	<tr>
 		<td>課程預覽說明:</td>
-		<td><input type="text"  name="cdescription" size="45"value="<%=courseVO.getCdescription()%>"/></td>											
+		<td><input type="text"  name="cdescription" size="45"
+			value="<%= (courseVO==null)? "請輸入課程預覽說明" :courseVO.getCdescription()%>"/></td>											
 	</tr>
+	
 	<tr>
 		<td>課程預覽圖:</td>
-		<td><input type="file"  name="cpic" value="<%= courseVO.getCpic()%>" /></td>
+		<td><input type="file"  name="cpic" value="<%= courseVO.getCpic()%>"
+	 onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])"
+	 /> <img id="blah" alt="your image" width="100" height="100" /></td>
 	</tr>
 </table>
 
 <br>
-<input type="hidden" name="action" value="insert">
+<input type="hidden" name="action" value="update">
 <input type="submit" value="送出更新"></FORM>
 
 </body>

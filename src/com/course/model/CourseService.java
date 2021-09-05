@@ -33,7 +33,7 @@ public class CourseService {
 		courseVO.setCpic(cpic);
 		courseVO.setCdescription(cdescription);
 		dao.update(courseVO);
-		return courseVO;
+		return getOne(cno);
 	}
 
 	public void updateCourseState(Integer cState, Integer cno) {
@@ -59,5 +59,6 @@ public class CourseService {
 	public List<CourseVO> getByCtype(Integer cType) {
 		return dao.getBy_cType(cType);
 	}
+	
 	
 }

@@ -46,7 +46,7 @@
 <body bgcolor='white'>
 <table id="table-1">
 	<tr><td>
-		 <h3>員工資料新增 - addCourse.jsp</h3></td><td>
+		 <h3>新增課程 - addCourse.jsp</h3></td><td>
 		 <h4><a href="select_page.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
@@ -70,11 +70,7 @@
 		<td><input type="TEXT" name="dno" size="45" 
 			 value="<%= (courseVO==null)? "1" : courseVO.getDno()%>" /></td>
 	</tr>
-	<tr>
-		<td>課程編號:</td>
-		<td><input type="TEXT" name="cno" size="45" 
-			 value="<%= (courseVO==null)? "1" : courseVO.getCno()%>" /></td>
-	</tr>
+	
 	<tr>
 		<td>課程名稱:</td>
 		<td><input type="TEXT" name="cname" size="45"
@@ -87,8 +83,8 @@
 	</tr>
 	<tr>
 		<td>課程價格:</td>
-		<td><input type="TEXT" name="cprice" size="45"
-			 value="<%= (courseVO==null)? "100" : courseVO.getCprice()%>" /></td>
+		<td><input type="text" name="cprice" size="45" required
+			 value="<%= (courseVO==null)? "0" : courseVO.getCprice()%>" /></td>
 	</tr>
 	<tr>
 		<td>課程預覽說明:</td>
@@ -110,7 +106,10 @@
 	<tr>
 		<td>課程預覽圖:</td>
 		<td><input type="file" name="cpic" enctype="multipart/form-data" 
-			 value="<%= (courseVO==null)? "" : courseVO.getCpic()%>" /></td>
+			 value="<%= (courseVO==null)? "" : courseVO.getCpic()%>"
+			 onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])"
+	 /> <img id="blah" alt="your image" width="100" height="100" />
+	 </td>
 	</tr>
 
 	</table>

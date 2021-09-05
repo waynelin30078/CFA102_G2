@@ -12,4 +12,5 @@ public interface CourseDAO_interface {
 	List<CourseVO> getBy_cType(Integer cType);//依照類別 訪客 會員 v
 	List<CourseVO> getBy_cTotalScore(Integer score);//依照評價  會員 訪客	
 	List<CourseVO> getAll();//
+	byte[] getImg(Integer cno);
 }

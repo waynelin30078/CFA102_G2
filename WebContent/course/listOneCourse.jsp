@@ -45,7 +45,7 @@
 </head>
 <body bgcolor='white'>
 
-<h4>此頁暫練習採用 Script 的寫法取值:</h4>
+
 <table id="table-1">
 	<tr><td>
 		 <h3>課程資料 - ListOneCourse.jsp</h3>
@@ -65,6 +65,7 @@
 		<th>購買人數</th>
 		<th>課程評價總人數</th>
 		<th>課程評價總分數</th>
+		<th>課程圖片</th>
 	</tr>
 		<tr>
 			<td>${courseVO.cno}</td>
@@ -77,7 +78,8 @@
 			<td>${courseVO.quantity}</td> 
 			<td>${courseVO.ctotalPeople}</td> 
 			<td>${courseVO.ctotalScore}</td> 
-			<td>
+			<td><img src="<%=request.getContextPath()%>/course/course.do?action=showpic&cpic=${courseVO.cno}"width ='150px' height='150px'/></td> 
+			
 	</tr>
 </table>
 

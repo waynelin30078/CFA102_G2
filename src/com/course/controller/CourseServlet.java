@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +27,10 @@ public class CourseServlet extends HttpServlet {
 		res.setContentType("text/html;charset = UTF-8");
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-	
+		res.setContentType("img/jpeg");
+		
+		
+		
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -71,7 +75,7 @@ public class CourseServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
-				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+				/*************************** .查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("courseVO", courseVO); // 資料庫取出的courseVO物件,存入req
 				String url = "/course/listOneCourse.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneCourse.jsp
@@ -115,70 +119,79 @@ public class CourseServlet extends HttpServlet {
 		if ("update".equals(action)) { // 來自update_course_input.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
-			
+
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
-				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-				Integer cno = new Integer(req.getParameter("cno").trim());
-System.out.println(1);
-				String cname = req.getParameter("cname");
-				String cnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{3,50}$";
-				if (cname == null || cname.trim().length() == 0) {
-					errorMsgs.add("課程名稱: 請勿空白");
-				} else if (!cname.trim().matches(cnameReg)) { 
-					errorMsgs.add("課程名稱: 只能是中、英文字母、數字和_ , 且長度必需在3到50之間");
+			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+	
+			Integer cno = new Integer(req.getParameter("cno").trim());
+			String cname = req.getParameter("cname");
+			String cnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{3,50}$";
+			if (cname == null || cname.trim().length() == 0) {
+				errorMsgs.add("課程名稱: 請勿空白");
+			} else if (!cname.trim().matches(cnameReg)) {
+				errorMsgs.add("課程名稱: 只能是中、英文字母、數字和_ , 且長度必需在3到50之間");
+			}
+			Integer cprice = null;
+			if (req.getParameter("cprice").trim().length() == 0) {
+				cprice = 0;
+			} else {
+				try {
+					cprice = new Integer(req.getParameter("cprice").trim());
+			
+				} catch (NumberFormatException e) {
+					errorMsgs.add("課程價格請輸入數字");
 				}
-System.out.println(2);
-				Integer cprice = new Integer(req.getParameter("cprice"));
-				if (cprice < 1) {
-					errorMsgs.add("你是要做功德嗎?");
-				}
-System.out.println(3);
-				String cintroduction = req.getParameter("cintroduction");
-				if (cintroduction == null || cintroduction.trim().length() == 0) {
-					errorMsgs.add("課程介紹請勿空白");
-				}
-System.out.println(4);
-				String cdescription = req.getParameter("cdescription");
-				if (cdescription == null || cdescription.trim().length() == 0) {
-					errorMsgs.add("課程預覽說明請勿空白");
-				}
-System.out.println(5);
-				Part pic = req.getPart("cpic");// 圖片處理
-				InputStream in = pic.getInputStream();
-				byte[] cpic = new byte[in.available()];
-				in.read(cpic);
-				in.close();
-				Integer dno = new Integer(req.getParameter("dno").trim());
-System.out.println(6);
-				CourseVO courseVO = new CourseVO();
-				courseVO.setCno(cno);
-				courseVO.setCname(cname);
-				courseVO.setCprice(cprice);
-				courseVO.setCintroduction(cintroduction);
-				courseVO.setCdescription(cdescription);
-				courseVO.setDno(dno);
+			}
+			if (cprice < 1) {
+				errorMsgs.add("請輸入大於0的數字");
+			}
+			String cintroduction = req.getParameter("cintroduction");
+			if (cintroduction == null || cintroduction.trim().length() == 0) {
+				errorMsgs.add("課程介紹請勿空白");
+			}
+			String cdescription = req.getParameter("cdescription");
+			if (cdescription == null || cdescription.trim().length() == 0) {
+				errorMsgs.add("課程預覽說明請勿空白");
+			}
+			Part pic = req.getPart("cpic");// 圖片處理
+			
+			InputStream in = pic.getInputStream();
+			byte[] cpic = new byte[in.available()];
+			in.read(cpic);
+			in.close();
+			
+			Integer dno = new Integer(req.getParameter("dno").trim());
 
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("courseVO", courseVO); // 含有輸入格式錯誤的courseVO物件,也存入req
-					RequestDispatcher failureView = req.getRequestDispatcher("/course/update_course_input.jsp");
-					failureView.forward(req, res);
-					return; // 程式中斷
-				}
 
-				/*************************** 2.開始修改資料 *****************************************/
-				CourseService courseSvc = new CourseService();
-				courseVO = courseSvc.updateCourse(cno, cname, cprice, cintroduction, cpic, cdescription);
+			CourseVO courseVO = new CourseVO();
+			courseVO.setCno(cno);
+			courseVO.setCname(cname);
+			courseVO.setCprice(cprice);
+			courseVO.setCintroduction(cintroduction);
+			courseVO.setCdescription(cdescription);
+			courseVO.setDno(dno);
 
-				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-				req.setAttribute("courseVO", courseVO); // 資料庫update成功後,正確的的courseVO物件,存入req
-				String url = "/course/listOneCourse.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneCourse.jsp
-				successView.forward(req, res);
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("courseVO", courseVO); // 含有輸入格式錯誤的courseVO物件,也存入req
+				RequestDispatcher failureView = req.getRequestDispatcher("/course/update_course_input.jsp");
+				failureView.forward(req, res);
+				return; // 程式中斷
+			}
 
-				/*************************** 其他可能的錯誤處理 *************************************/
+			/*************************** 2.開始修改資料 *****************************************/
+			CourseService courseSvc = new CourseService();
+			courseVO = courseSvc.updateCourse(cno, cname, cprice, cintroduction, cpic, cdescription);
+
+			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+			req.setAttribute("courseVO", courseVO); // 資料庫update成功後,正確的的courseVO物件,存入req
+			String url = "/course/listOneCourse.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneCourse.jsp
+			successView.forward(req, res);
+
+			/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
 				errorMsgs.add("修改資料失敗:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/course/update_course_input.jsp");
@@ -188,8 +201,7 @@ System.out.println(6);
 
 		if ("insert".equals(action)) { // 來自add.jsp的請求
 			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
+			
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
@@ -200,19 +212,28 @@ System.out.println(6);
 
 				String cname = req.getParameter("cname");
 				String cnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{3,50}$";
-				if (cname == null || cname.trim().length() == 0) {
+				if (cname == null || cname.trim().length() == 0) {//前段防呆用 打錯字時會一直顯示請輸入
 					errorMsgs.add("課程名稱: 請勿空白");
 				} else if (!cname.trim().matches(cnameReg)) { // 以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("課程名稱: 只能是中、英文字母、數字和_ , 且長度必需在3到50之間");
 				}
-				System.out.println("a");// 傳入非數字會死掉
-				Integer cprice = new Integer(req.getParameter("cprice"));
-				if (cprice < 1) {
-					errorMsgs.add("你是要做功德嗎?");
-				}
-				
 
-				System.out.println("b");
+				Integer cprice = 0;
+				if (req.getParameter("cprice").trim().length() == 0) {
+					cprice = 0;
+				
+				} else{
+					try {
+						cprice = new Integer(req.getParameter("cprice").trim());
+
+					} catch (NumberFormatException e) {
+						errorMsgs.add("課程價格請輸入數字");
+					}
+				}
+				if (cprice < 1) {
+					errorMsgs.add("請輸入大於0的數字");
+				}
+
 				String cintroduction = req.getParameter("cintroduction");
 				if (cintroduction == null || cintroduction.trim().length() == 0) {
 					errorMsgs.add("課程介紹請勿空白");
@@ -226,6 +247,7 @@ System.out.println(6);
 				byte[] cpic = new byte[in.available()];
 				in.read(cpic);
 				in.close();
+				
 				Integer ctype = new Integer(req.getParameter("ctype"));
 
 				courseVO.setCname(cname);
@@ -255,19 +277,26 @@ System.out.println(6);
 
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
-				System.out.println(3);
 				RequestDispatcher failureView = req.getRequestDispatcher("/course/update_course_input.jsp");
 				failureView.forward(req, res);
 			}
 		}
-		if("update_state".equals(action)) {
+		if ("update_state".equals(action)) {
 			List<String> errormsgs = new LinkedList<String>();
 			req.setAttribute("errormsgs", errormsgs);
 			try {
 				CourseVO courseVO = new CourseVO();
-			}catch(Exception e) {
-				
+			} catch (Exception e) {
+
 			}
+		}
+		if("showpic".contentEquals(action)) {
+			CourseJDBCDAO  dao= new CourseJDBCDAO();
+			byte[] cimg = dao.getImg(Integer.parseInt(req.getParameter("cpic")));
+			res.setContentType("image/jpeg");
+			ServletOutputStream out = res.getOutputStream();
+			out.write(cimg);
+			out.close();
 		}
 	}
 }
