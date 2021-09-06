@@ -280,16 +280,13 @@ public class DorderDAO implements DorderDAO_interface {
 	public static void main(String[] args) {
 		
 		DorderDAO dao = new DorderDAO();
+		DorderVO dOrder = dao.findByPrimaryKey(2);
+		
+		dOrder.setDreview("");
+		
+		dao.update(dOrder);
 
-		List<DorderVO> dOrders = dao.getActiveOrderByDNo(3);
 
-		for (DorderVO dOrder : dOrders) {
-			System.out.println(dOrder.getMthFee());
-		}
-
-//		DorderVO order = dao.findByPrimaryKey(2);
-//		System.out.println(order.getSubStart());
-//		System.out.println(order.getSubEnd());
 //		
 //		long subStart = order.getSubStart().getTime(); //sql.TimeStamp to long
 //		long subEnd = order.getSubEnd().getTime();

@@ -19,7 +19,7 @@ public class DorderVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+	 
 	public DorderVO(Integer dno, Integer mno, Timestamp subStart, Timestamp subEnd, Integer mthFee, String dreview,
 			Integer dscore, Integer autoSubs) {
 		super();
