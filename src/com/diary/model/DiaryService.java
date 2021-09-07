@@ -8,28 +8,7 @@ public class DiaryService {
 	private DiaryDAO_interface dao = new DiaryDAO();
 	
 	
-	public DiaryVO addDiary(Integer mno, Integer dno, Date diaryDate, Integer ht, Integer wt, Double bodyFat,
-			Integer wc, String bodyPic, Integer viewState, String reply, Double totalCal, Double totalCho,
-			Double totalPro, Double totalFat, Double totalCalBurn) {
-		
-		DiaryVO diary = new DiaryVO();
-		
-
-		diary.setMno(mno);
-		diary.setDno(dno);
-		diary.setDiaryDate(diaryDate);
-		diary.setHt(ht);
-		diary.setWt(wt);
-		diary.setBodyFat(bodyFat);
-		diary.setWc(wc);
-		diary.setBodyPic(bodyPic);
-		diary.setViewState(viewState);
-		diary.setReply(reply);
-		diary.setTotalCal(totalCal);
-		diary.setTotalCho(totalCho);
-		diary.setTotalPro(totalPro);
-		diary.setTotalFat(totalFat);
-		diary.setTotalCalBurn(totalCalBurn);
+	public DiaryVO addDiary(DiaryVO diary) {
 		
 		dao.insert(diary);
 		

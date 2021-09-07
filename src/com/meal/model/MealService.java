@@ -1,5 +1,9 @@
 package com.meal.model;
 
+import java.util.List;
+
+import com.food_record.model.FoodRecordVO;
+
 public class MealService {
 
 	MealDAO_interface dao = new MealDAO();
@@ -37,17 +41,27 @@ public class MealService {
 		return meal;
 	}
 
-	public void deleteMeal(Integer mealNo) {
-		MealVO meal = new MealVO();
-
-		meal.setMealNo(mealNo);
-
-		dao.delete(meal);
+	public MealVO insertMeal(MealVO meal, List<FoodRecordVO> foodRecordList) {
+		dao.insertMeal(meal, foodRecordList);
+		
+		return meal;
 	}
+	
+	public void deleteMeal(int mealNo) {
+		dao.delete(mealNo);
+	}
+	
+	
+
 
 	public MealVO findByDiaryNo(int diaryNo) {
 
 		return dao.findByDiaryNo(diaryNo);
 	}
 
+	public MealVO findByMealNo(int mealNo) {
+
+		return dao.findByMealNo(mealNo);
+	}
+	
 }

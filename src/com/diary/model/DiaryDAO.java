@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dietician.model.DieticianVO;
+import com.meal.model.MealVO;
 
 public class DiaryDAO implements DiaryDAO_interface {
 
@@ -23,8 +24,13 @@ public class DiaryDAO implements DiaryDAO_interface {
 	private static final String delete_SQL = "DELETE FROM diary WHERE diaryNo = ?;";
 	private static final String findByMnoDate_SQL = "SELECT * FROM diary WHERE mno = ? AND diaryDate = ?;";
 	private static final String findByMember_SQL = "SELECT * FROM diary WHERE mno = ?;";
+	private static final String findByDiaryNo_SQL = "SELECT * FROM diary WHERE diaryno = ?;";
 	private static final String findByDieticianState_SQL = "SELECT * FROM diary WHERE dno = ? AND viewState= ?;";
-
+	private static final String updateNutrition_SQL = "UPDATE diary SET totalCal=?, totalCho=?, totalPro=?, totalFat=? WHERE diaryNO = ?;";
+	
+	
+	
+	
 	static {
 		try {
 			Class.forName(DRIVER);
@@ -198,7 +204,59 @@ public class DiaryDAO implements DiaryDAO_interface {
 		}
 		return diary;
 	}
+	
+	@Override
+	public DiaryVO findByDiaryNo(int diaryNo) {
+		
+		Connection con = null;
+		DiaryVO diary = new DiaryVO();
 
+		try {
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			PreparedStatement pstmt = con.prepareStatement(findByDiaryNo_SQL);
+			pstmt.setInt(1, diaryNo);
+
+
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				diary.setDiaryNo(diaryNo);
+				diary.setMno(rs.getInt("mno"));
+				diary.setDno(rs.getInt("dno"));
+				diary.setDiaryDate(rs.getDate(4)); // 用date還要轉成String
+				diary.setHt(rs.getInt("ht"));
+				diary.setWt(rs.getInt("wt"));
+				diary.setBodyFat(rs.getDouble("bodyFat"));
+				diary.setWc(rs.getInt("wc"));
+				diary.setBodyPic(rs.getString("bodyPic"));
+				diary.setViewState(rs.getInt("viewState"));
+				diary.setReply(rs.getString("reply"));
+				diary.setTotalCal(rs.getDouble("totalCal"));
+				diary.setTotalCho(rs.getDouble("totalCho"));
+				diary.setTotalPro(rs.getDouble("totalPro"));
+				diary.setTotalFat(rs.getDouble("totalFat"));
+				diary.setTotalCalBurn(rs.getDouble("totalCalBurn"));
+;
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return diary;
+		
+	}
+	
 	@Override
 	public List<DiaryVO> findByMember(int mno) {
 
@@ -307,6 +365,101 @@ public class DiaryDAO implements DiaryDAO_interface {
 
 	}
 
+	public void updateNutrition(DiaryVO diary, MealVO meal, Connection con) {
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt =  con.prepareStatement(updateNutrition_SQL);
+			
+			Double updatedCal = diary.getTotalCal() + meal.getMealCal();
+			pstmt.setDouble(1, updatedCal);
+			
+			Double updatedCho = diary.getTotalCho() + meal.getMealCho();
+			pstmt.setDouble(2, updatedCho);
+			
+			Double updatedPro = diary.getTotalPro() + meal.getMealPro();
+			pstmt.setDouble(3, updatedPro);
+			
+			Double updatedFat = diary.getTotalFat() + meal.getMealFat();
+			pstmt.setDouble(4, updatedFat);
+			
+			pstmt.setInt(5, diary.getDiaryNo());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			
+			if(con != null) {
+				try {
+					con.rollback();
+				} catch(SQLException se) {
+					throw new RuntimeException("更新總營養素失敗" + se.getMessage());
+				}
+				
+			}
+			throw new RuntimeException("新增資料失敗" + e.getMessage());
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch (SQLException se) {
+					se.printStackTrace();
+				}
+				
+			}
+		}
+		
+		
+	}
+	
+	public void deductNutrition(DiaryVO diary, MealVO meal, Connection con) {
+
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt =  con.prepareStatement(updateNutrition_SQL);
+			
+			Double updatedCal = diary.getTotalCal() - meal.getMealCal();
+			pstmt.setDouble(1, updatedCal);
+			
+			Double updatedCho = diary.getTotalCho() - meal.getMealCho();
+			pstmt.setDouble(2, updatedCho);
+			
+			Double updatedPro = diary.getTotalPro() - meal.getMealPro();
+			pstmt.setDouble(3, updatedPro);
+			
+			Double updatedFat = diary.getTotalFat() - meal.getMealFat();
+			pstmt.setDouble(4, updatedFat);
+			
+			pstmt.setInt(5, diary.getDiaryNo());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			
+			if(con != null) {
+				try {
+					con.rollback();
+				} catch(SQLException se) {
+					throw new RuntimeException("刪除總營養素失敗" + se.getMessage());
+				}
+				
+			}
+			throw new RuntimeException("刪除資料失敗" + e.getMessage());
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch (SQLException se) {
+					se.printStackTrace();
+				}
+				
+			}
+		}
+		
+	}
+	
 	public static void main(String[] args) {
 		DiaryDAO dao = new DiaryDAO();
 		

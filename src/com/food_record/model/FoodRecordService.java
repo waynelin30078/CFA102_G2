@@ -42,15 +42,15 @@ public class FoodRecordService {
 		return foodRecord;
 	}
 	
-	public void deleteFoodRecord(Integer mealNo, Integer fdNo) {
-		
-		FoodRecordVO foodRecord = new FoodRecordVO();
-		
-		foodRecord.setMealNo(mealNo);
-		foodRecord.setFdNo(fdNo);
-		
-		dao.delete(foodRecord);
-	}
+//	public void deleteFoodRecord(Integer mealNo, Integer fdNo) {
+//		
+//		FoodRecordVO foodRecord = new FoodRecordVO();
+//		
+//		foodRecord.setMealNo(mealNo);
+//		foodRecord.setFdNo(fdNo);
+//		
+//		dao.delete(foodRecord);
+//	}
 	
 	
 }
