@@ -16,6 +16,8 @@ import javax.servlet.http.Part;
 
 import com.course.model.*;
 
+import util.ImageUtil;
+
 @MultipartConfig
 public class CourseServlet extends HttpServlet {
 
@@ -65,7 +67,7 @@ public class CourseServlet extends HttpServlet {
 
 				/*************************** 2.開始查詢資料 *****************************************/
 				CourseService courseSvc = new CourseService();
-				CourseVO courseVO = courseSvc.getOne(cno);
+				CourseVO courseVO = courseSvc.getOneCourse(cno);
 				if (courseVO == null) {
 					errorMsgs.add("查無資料");
 				}
@@ -86,21 +88,23 @@ public class CourseServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-//以上OKOK
+
 		if ("getOne_For_Update".equals(action)) { // 來自listAllCourse.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-
+			
+			String requestURL = req.getParameter("requestURL"); // 送出修改的來源網頁路徑
+			System.out.println("requestURL="+requestURL);
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
 				Integer cno = new Integer(req.getParameter("cno"));
 
 				/*************************** 2.開始查詢資料 ****************************************/
 				CourseService courseSvc = new CourseService();
-				CourseVO courseVO = courseSvc.getOne(cno);
+				CourseVO courseVO = courseSvc.getOneCourse(cno);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				req.setAttribute("courseVO", courseVO); // 資料庫取出的courseVO物件,存入req
@@ -111,7 +115,7 @@ public class CourseServlet extends HttpServlet {
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/course/listAllCourse.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher(requestURL);
 				failureView.forward(req, res);
 			}
 		}
@@ -121,8 +125,9 @@ public class CourseServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 
 			req.setAttribute("errorMsgs", errorMsgs);
-
-			try {
+			String requestURL = req.getParameter("requestURL"); // 送出修改的來源網頁路徑
+			System.out.println("requestURL2="+requestURL);
+//			try {
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 	
 			Integer cno = new Integer(req.getParameter("cno").trim());
@@ -163,8 +168,8 @@ public class CourseServlet extends HttpServlet {
 			in.close();
 			
 			Integer dno = new Integer(req.getParameter("dno").trim());
-
-
+			Integer cstate = new Integer (req.getParameter("cstate"));
+			System.out.println(cstate);
 			CourseVO courseVO = new CourseVO();
 			courseVO.setCno(cno);
 			courseVO.setCname(cname);
@@ -172,6 +177,7 @@ public class CourseServlet extends HttpServlet {
 			courseVO.setCintroduction(cintroduction);
 			courseVO.setCdescription(cdescription);
 			courseVO.setDno(dno);
+			courseVO.setCstate(cstate);
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
@@ -183,20 +189,25 @@ public class CourseServlet extends HttpServlet {
 
 			/*************************** 2.開始修改資料 *****************************************/
 			CourseService courseSvc = new CourseService();
-			courseVO = courseSvc.updateCourse(cno, cname, cprice, cintroduction, cpic, cdescription);
-
+			courseVO = courseSvc.updateCourse(cno, cname, cprice, cintroduction, cpic, cdescription,cstate);
+		
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+			
 			req.setAttribute("courseVO", courseVO); // 資料庫update成功後,正確的的courseVO物件,存入req
-			String url = "/course/listOneCourse.jsp";
+			System.out.println(2);
+//			if(requestURL.equals("/dept/listEmps_ByDeptno.jsp") || requestURL.equals("/dept/listAllDept.jsp"))
+//				req.setAttribute("listEmps_ByDeptno",deptSvc.getEmpsByDeptno(deptno)); // 資料庫取出的list物件,存入request
+				String url = requestURL;
+System.out.println("url="+url);
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneCourse.jsp
 			successView.forward(req, res);
 
 			/*************************** 其他可能的錯誤處理 *************************************/
-			} catch (Exception e) {
-				errorMsgs.add("修改資料失敗:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/course/update_course_input.jsp");
-				failureView.forward(req, res);
-			}
+//			} catch (Exception e) {
+//				errorMsgs.add("修改資料失敗:" + e.getMessage());
+//				RequestDispatcher failureView = req.getRequestDispatcher("/course/update_course_input.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 
 		if ("insert".equals(action)) { // 來自add.jsp的請求
@@ -285,12 +296,14 @@ public class CourseServlet extends HttpServlet {
 			List<String> errormsgs = new LinkedList<String>();
 			req.setAttribute("errormsgs", errormsgs);
 			try {
+				
 				CourseVO courseVO = new CourseVO();
 			} catch (Exception e) {
 
 			}
 		}
 		if("showpic".contentEquals(action)) {
+//			ImageUtil img = new ImageUtil();  
 			CourseJDBCDAO  dao= new CourseJDBCDAO();
 			byte[] cimg = dao.getImg(Integer.parseInt(req.getParameter("cpic")));
 			res.setContentType("image/jpeg");

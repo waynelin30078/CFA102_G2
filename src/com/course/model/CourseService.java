@@ -24,7 +24,7 @@ public class CourseService {
 	}
 
 	public CourseVO updateCourse(Integer cno, String cname, Integer cprice, String cintroduction, byte[] cpic,
-			String cdescription) {
+			String cdescription,Integer cstate) {
 		CourseVO courseVO = new CourseVO();
 		courseVO.setCno(cno);
 		courseVO.setCname(cname);
@@ -32,15 +32,16 @@ public class CourseService {
 		courseVO.setCintroduction(cintroduction);
 		courseVO.setCpic(cpic);
 		courseVO.setCdescription(cdescription);
+		courseVO.setCstate(cstate);
 		dao.update(courseVO);
-		return getOne(cno);
+		return getOneCourse(cno);
 	}
 
 	public void updateCourseState(Integer cState, Integer cno) {
 		dao.cState(cState, cno);
 	}
 
-	public CourseVO getOne(Integer cno) {
+	public CourseVO getOneCourse(Integer cno) {
 		return dao.getOneBy_cNO(cno);
 	}
 

@@ -8,7 +8,11 @@
 	List<CourseVO> list = courseSvc.getAll();//list是給分頁用的
 	pageContext.setAttribute("list",list);
 %>
-
+<%
+response.setHeader("Cache-Control","no-store"); //HTTP 1.1
+response.setHeader("Pragma","no-cache");        //HTTP 1.0
+response.setDateHeader ("Expires", 0);
+%>
 <jsp:useBean id="DieticianSvc" scope="page" class="com.dietician.model.DieticianService" />
 <%com.dietician.model.DieticianService dietsvc = new com.dietician.model.DieticianService();
 pageContext.setAttribute("dietsvc", dietsvc);
@@ -52,7 +56,6 @@ pageContext.setAttribute("dietsvc", dietsvc);
 
 </head>
 <body bgcolor='white'>
-----${param.whichPage}--${param.empno} --
 <table id="table-1">
 	<tr><td>
 		 <h3>所有課程資料 - listAllCourse.jsp</h3>
@@ -74,7 +77,8 @@ pageContext.setAttribute("dietsvc", dietsvc);
 		<th>課程編號</th>
 		<th>營養師姓名</th>
 		<th>課程名稱</th>
-		<th>課程價格</th>	
+		<th>課程價格</th>
+		<th>課程狀態</th>
 		<th>上架時間</th>
 		<th>課程主題</th>
 		<th>購買人數</th>
@@ -82,17 +86,18 @@ pageContext.setAttribute("dietsvc", dietsvc);
 		<th>課程評價總分數</th>
 		<th>課程圖片</th>
 		<th>修改課程</th>
-		<th>課程狀態</th>
+		<th>狀態修改</th>
 	</tr>
-	<%@ include file="page1.file" %>
-	<c:forEach var="courseVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-<%-- 	<c:forEach var="courseVO" items="${list}"> --%>
+<%-- 	<%@ include file="page1.file" %> --%>
+<%-- 	<c:forEach var="courseVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>"> --%>
+	<c:forEach var="courseVO" items="${list}">
 		
 		<tr>
-			<td>${courseVO.cno} </td>
+			<td>${courseVO.cno}</td>
 			<td>${dietsvc.findByPrimaryKey(courseVO.dno).dname}</td> <!-- ${DieticianSvc.findByPrimaryKey(courseVO.dno).dname}有取到但是顯示為空-->
 			<td>${courseVO.cname}</td>
 			<td>${courseVO.cprice}</td>
+			<td>${courseVO.cstate}</td>
 			<td> <fmt:formatDate value="${courseVO.cshelfDate}" pattern="yyyy-MM-dd"/></td>
 			<td>${courseVO.ctype}</td> 
 			<td>${courseVO.quantity}</td> 
@@ -103,23 +108,18 @@ pageContext.setAttribute("dietsvc", dietsvc);
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/course/course.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
 			     <input type="hidden" name="cno"  value="${courseVO.cno}">
-			     <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller-->
-			     <input type="hidden" name="whichPage"	value="<%=whichPage%>">               <!--送出當前是第幾頁給Controller-->
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
-			<c:if test="${courseVO.cstate ==0}" >
-			<td>審核中</td>
-			</c:if>
-			<c:if test="${courseVO.cstate ==1}" >
-			<td>上架</td>
-			</c:if>
-			<c:if test="${courseVO.cstate ==2}" >
-			<td>下架</td>
-			</c:if>
+			<td>
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/course/course.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="變更狀態">
+			     <input type="hidden" name="cno"  value="${courseVO.cno}">
+			     <input type="hidden" name="action" value="update_state"></FORM>
+			</td>
 		</tr>
 	</c:forEach>
 </table>
-<%@ include file="page2.file" %>
+<%-- <%@ include file="page2.file" %> --%>
 
 </body>
 </html>

@@ -12,7 +12,7 @@ import util.Util;
 
 public class CourseJDBCDAO implements CourseDAO_interface {
 	private static final String INSERT = "INSERT INTO COURSE(dNo,cName,cPrice,cShelfDate,cIntroduction,cType,cPic,cDescription)VALUES(?,?,?,NOW(),?,?,?,?)";
-	private static final String UPDATE = "UPDATE COURSE SET cName=?,cPrice=?,cIntroduction=?,cPic=?,cDescription=?WHERE cNo=?";
+	private static final String UPDATE = "UPDATE COURSE SET cName=?,cPrice=?,cIntroduction=?,cPic=?,cDescription=?,cState= ? WHERE cNo=?";
 	private static final String STATE = "UPDATE COURSE SET cState=? WHERE cNo=?";
 	private static final String FIND_BY_CNO = "SELECT * FROM COURSE WHERE cNo=?";
 	private static final String FIND_BY_DNO = "SELECT * FROM COURSE WHERE dNO=?";
@@ -85,7 +85,8 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 			pstmt.setString(3, courseVO.getCintroduction());
 			pstmt.setBytes(4, courseVO.getCpic());
 			pstmt.setString(5, courseVO.getCdescription());
-			pstmt.setInt(6, courseVO.getCno());
+			pstmt.setInt(6, courseVO.getCstate());
+			pstmt.setInt(7, courseVO.getCno());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -365,7 +366,7 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 				courseVO.setCintroduction(rs.getString("cIntroduction"));
 				courseVO.setCtype(rs.getInt("cType"));
 				courseVO.setQuantity(rs.getInt("quantity"));
-				courseVO.setCpic(rs.getBytes("cPic"));
+//				courseVO.setCpic(rs.getBytes("cPic"));
 				courseVO.setCdescription(rs.getString("cDescription"));
 				courseVO.setCtotalPeople(rs.getInt("cTotalPeople"));
 				courseVO.setCtotalScore(rs.getInt("cTotalScore"));
@@ -480,7 +481,7 @@ public class CourseJDBCDAO implements CourseDAO_interface {
 		byte[] cimg = null;
 		try {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
-			pstmt = con.prepareStatement(FIND_BY_CTYPE);
+			pstmt = con.prepareStatement(FIND_BY_CNO);
 			pstmt.setInt(1, cno);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {

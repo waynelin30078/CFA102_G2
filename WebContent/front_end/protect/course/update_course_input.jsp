@@ -91,14 +91,6 @@
 		<td><input type="text"  name="cdescription" size="45"
 			value="<%= (courseVO==null)? "請輸入課程預覽說明" :courseVO.getCdescription()%>"/></td>											
 	</tr>
-		<tr>
-		<td>課程狀態:</td>
-		<td><select size="1" name="cstate">
-				<option value="0">審核中</option>
-				<option value="1">上架</option>
-				<option value="2">下架</option>
-		</select></td>
-	</tr>
 	
 	<tr>
 		<td>課程預覽圖:</td>
@@ -110,9 +102,6 @@
 
 <br>
 <input type="hidden" name="action" value="update">
-
-<input type="hidden" name="requestURL" value="<%=request.getParameter("requestURL")%>"> <!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
-<input type="hidden" name="whichPage"  value="<%=request.getParameter("whichPage")%>">  <!--只用於:istAllEmp.jsp-->
 <input type="submit" value="送出更新"></FORM>
 
 </body>

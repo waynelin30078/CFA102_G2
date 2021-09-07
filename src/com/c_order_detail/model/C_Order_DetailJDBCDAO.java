@@ -16,6 +16,7 @@ public class C_Order_DetailJDBCDAO implements C_Order_DetailDAO_interface {
 	private static final String UPDATE= "UPDATE C_ORDER_DETAIL SET cEvaluation=?,cReviews=?,cProgress=? WHERE cOrderNo=? AND cNo=?";
 	private static final String DELETE="DELETE FROM C_ORDER_DETAIL WHERE cOrderNo=? AND cNo=?";
 	private static final String GETONE="SELECT * FROM C_ORDER_DETAIL WHERE cOrderNo=? AND cNo=?";
+	
 	static {
 		try {
 			Class.forName(Util.DRIVER);
@@ -194,4 +195,12 @@ public class C_Order_DetailJDBCDAO implements C_Order_DetailDAO_interface {
 		System.out.println(dao);
 		
 	}
+
+	@Override
+	public void insertWithOrder(C_Order_DetailVO cOrderDetail, Connection con) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 }
