@@ -8,7 +8,7 @@ public class MealService {
 
 	MealDAO_interface dao = new MealDAO();
 
-	public MealVO addMeal(Integer diaryNo, Integer mealName, Double mealCal, Double mealCho, Double mealPro,
+	public MealVO addMeal(Integer diaryNo, String mealName, Double mealCal, Double mealCho, Double mealPro,
 			Double mealFat) {
 
 		MealVO meal = new MealVO();
@@ -24,7 +24,7 @@ public class MealService {
 		return meal;
 	}
 
-	public MealVO updateMeal(Integer mealNo, Integer diaryNo, Integer mealName, Double mealCal, Double mealCho,
+	public MealVO updateMeal(Integer mealNo, Integer diaryNo, String mealName, Double mealCal, Double mealCho,
 			Double mealPro, Double mealFat) {
 
 		MealVO meal = new MealVO();

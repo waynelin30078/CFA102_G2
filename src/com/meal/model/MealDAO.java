@@ -44,7 +44,7 @@ public class MealDAO implements MealDAO_interface {
 			PreparedStatement pstmt = con.prepareStatement(insert_SQL);
 
 			pstmt.setInt(1, meal.getDiaryNo());
-			pstmt.setInt(2, meal.getMealName());
+			pstmt.setString(2, meal.getMealName());
 			pstmt.setDouble(3, meal.getMealCal());
 			pstmt.setDouble(4, meal.getMealCho());
 			pstmt.setDouble(5, meal.getMealPro());
@@ -76,7 +76,7 @@ public class MealDAO implements MealDAO_interface {
 			PreparedStatement pstmt = con.prepareStatement(update_SQL);
 
 			pstmt.setInt(1, meal.getDiaryNo());
-			pstmt.setInt(2, meal.getMealName());
+			pstmt.setString(2, meal.getMealName());
 			pstmt.setDouble(3, meal.getMealCal());
 			pstmt.setDouble(4, meal.getMealCho());
 			pstmt.setDouble(5, meal.getMealPro());
@@ -183,7 +183,7 @@ public class MealDAO implements MealDAO_interface {
 			if (rs.next()) {
 				meal.setMealNo(rs.getInt("mealNo"));
 				meal.setDiaryNo(diaryNo);
-				meal.setMealName(rs.getInt("mealName"));
+				meal.setMealName(rs.getString("mealName"));
 				meal.setMealCal(rs.getDouble("mealCal"));
 				meal.setMealCho(rs.getDouble("mealCho"));
 				meal.setMealPro(rs.getDouble("mealPro"));
@@ -223,7 +223,7 @@ public class MealDAO implements MealDAO_interface {
 			if (rs.next()) {
 				meal.setMealNo(mealNo);
 				meal.setDiaryNo(rs.getInt("diaryNo"));
-				meal.setMealName(rs.getInt("mealName"));
+				meal.setMealName(rs.getString("mealName"));
 				meal.setMealCal(rs.getDouble("mealCal"));
 				meal.setMealCho(rs.getDouble("mealCho"));
 				meal.setMealPro(rs.getDouble("mealPro"));
@@ -281,7 +281,7 @@ public class MealDAO implements MealDAO_interface {
 			meal.setMealFat(mealFat);
 			
 			pstmt.setInt(1, meal.getDiaryNo());
-			pstmt.setInt(2, meal.getMealName());
+			pstmt.setString(2, meal.getMealName());
 			pstmt.setDouble(3, mealCal);
 			pstmt.setDouble(4, mealCho);
 			pstmt.setDouble(5, mealPro);
@@ -364,46 +364,46 @@ public class MealDAO implements MealDAO_interface {
 //		
 //		dao.insert(meal);
 
-//
-//		MealVO meal = new MealVO();
+
+		MealVO meal = new MealVO();
+		
+		meal.setDiaryNo(5);
+		meal.setMealName("早餐");
+		
+		List<FoodRecordVO> foodRecordList = new ArrayList<FoodRecordVO>();
+		System.out.println(meal.getDiaryNo());
 //		
-//		meal.setDiaryNo(5);
-//		meal.setMealName(1);
-//		
-//		List<FoodRecordVO> foodRecordList = new ArrayList<FoodRecordVO>();
-//		System.out.println(meal.getDiaryNo());
-////		
-//		FoodRecordVO foodRecord1 = new FoodRecordVO();
-//		FoodRecordVO foodRecord2 = new FoodRecordVO();
-//		
-//		FoodDAO foodDAO = new FoodDAO(); 
-//		
-//		FoodVO food1 = foodDAO.findByFdNo(10);
-//		FoodVO food2 = foodDAO.findByFdNo(50);
-//		
-//		foodRecord1.setFdNo(food1.getFdNo()); //fdNo
-//		foodRecord1.setFdPortion(1); //食物份數
-//		foodRecord1.setFdWt(0); //食物重量
-//		foodRecord1.setSinglelCal(food1.getCalPerWt()); //mealNo, 從generatedkey來
-//		foodRecord1.setSingleCho(food1.getChoPerWt()); //fdNo
-//		foodRecord1.setSinglePro(food1.getProPerWt()); //食物份數
-//		foodRecord1.setSingleFat(food1.getFatPerWt()); //食物重量
-//		
-//		foodRecordList.add(foodRecord1);
-//	
-//		foodRecord2.setFdNo(food2.getFdNo()); //fdNo
-//		foodRecord2.setFdPortion(2); //食物份數
-//		foodRecord2.setFdWt(0); //食物重量
-//		foodRecord2.setSinglelCal(food2.getCalPerWt()); //mealNo, 從generatedkey來
-//		foodRecord2.setSingleCho(food2.getChoPerWt()); //fdNo
-//		foodRecord2.setSinglePro(food2.getProPerWt()); //食物份數
-//		foodRecord2.setSingleFat(food2.getFatPerWt()); //食物重量
-//
-//		foodRecordList.add(foodRecord2);
-//		
-//		System.out.println(foodRecord1.getFdNo());
-//		
-//		
+		FoodRecordVO foodRecord1 = new FoodRecordVO();
+		FoodRecordVO foodRecord2 = new FoodRecordVO();
+		
+		FoodDAO foodDAO = new FoodDAO(); 
+		
+		FoodVO food1 = foodDAO.findByFdNo(10);
+		FoodVO food2 = foodDAO.findByFdNo(50);
+		
+		foodRecord1.setFdNo(food1.getFdNo()); //fdNo
+		foodRecord1.setFdPortion(1); //食物份數
+		foodRecord1.setFdWt(0); //食物重量
+		foodRecord1.setSinglelCal(food1.getCalPerWt()); //mealNo, 從generatedkey來
+		foodRecord1.setSingleCho(food1.getChoPerWt()); //fdNo
+		foodRecord1.setSinglePro(food1.getProPerWt()); //食物份數
+		foodRecord1.setSingleFat(food1.getFatPerWt()); //食物重量
+		
+		foodRecordList.add(foodRecord1);
+	
+		foodRecord2.setFdNo(food2.getFdNo()); //fdNo
+		foodRecord2.setFdPortion(2); //食物份數
+		foodRecord2.setFdWt(0); //食物重量
+		foodRecord2.setSinglelCal(food2.getCalPerWt()); //mealNo, 從generatedkey來
+		foodRecord2.setSingleCho(food2.getChoPerWt()); //fdNo
+		foodRecord2.setSinglePro(food2.getProPerWt()); //食物份數
+		foodRecord2.setSingleFat(food2.getFatPerWt()); //食物重量
+
+		foodRecordList.add(foodRecord2);
+		
+		System.out.println(foodRecord1.getFdNo());
+		
+		dao.insertMeal(meal, foodRecordList);
 //		dao.delete(13);
 //		
 		

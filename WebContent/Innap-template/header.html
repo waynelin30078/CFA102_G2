@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .w3-top {
+            display: flex;
+            justify-content: space-around;
+            position:fixed;
+            width:100%;
+        }
+        .w3-top-white {
+            background-color: gray;
+            color: yellow;
+        }
+
+        .w3-navbar {
+            color: #fff;
+        }
+        .w3-navbar li {
+            display:inline;
+            list-style-type：none;
+            display: inline-block;
+            padding: 20px;
+            font-size: 32px;
+        }
+        a, a:hover, a:visited, a:link, a:active {
+            color:#000;
+            text-decoration:none;
+            outline: none;
+        }
+        .w3-navbar li:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+            color: #fff;
+        }
+
+        .bgimg-2 {
+            background-color: deeppink;
+            height: 2000px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="w3-top" id="w3-top">
+        <div class="logo">LOGO放這裡</div>
+        <ul class="w3-navbar" id="myNavbar">
+            <li>
+                <a href="#contact" class="w3-padding-large">111</a>
+            </li>
+            <li>
+                <a href="#portfolio" class="w3-padding-large">222</a>
+            </li>
+            <li>
+                <a href="#about" class="w3-padding-large">333</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="bgimg-2">
+    </div>
+
+    <script>
+        window.onscroll = function () {
+            myFunction();
+        };
+
+        function myFunction() {
+            var w3top = document.getElementById("w3-top");
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                w3top.className = "w3-top" + " w3-top-white";
+            } else {
+                w3top.className = w3top.className.replace("w3-top-white", "");
+            }
+        }
+    </script>
+</body>
+
+</html>

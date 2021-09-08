@@ -1,0 +1,65 @@
+# CFA102_G5
+.
+├── _.settings
+├── _WebContent
+│   ├── META-INF
+│   │   ├── MANIFEST.MF
+│   │   └── context.xml
+│   ├── WEB-INF
+│   │   ├── lib
+│   │   └── web.xml
+│   ├── back_end <font color=#2e8b57>(後台)</font>
+│   │   ├── assets <font color=#2e8b57>(後台共用的東西)</font>
+│   │   │   ├── css <font color=#2e8b57>(共用的css、某頁的css)</font>
+│   │   │   │   ├── font-awesome
+│   │   │   │   ├── bootstrap.min.css
+│   │   │   │   ├── roomManage.css
+│   │   │   │   └── [...]
+│   │   │   ├── fonts <font color=#2e8b57>(字型)</font>
+│   │   │   ├── images <font color=#2e8b57>(共用的圖片、某頁的圖片)</font>
+│   │   │   │   ├── logo.png
+│   │   │   │   ├── roomBanner1.png
+│   │   │   │   └── [...]
+│   │   │   ├── js <font color=#2e8b57>(共用的js、某頁的js)</font>
+│   │   │   │   ├── bootstrap.min.js
+│   │   │   │   ├── logout.js
+│   │   │   │   └── [...]
+│   │   │   ├── plugins <font color=#2e8b57>(套件，裡面有js和css)</font>
+│   │   │   │   ├── full-calendar
+│   │   │   │   ├── jquery-ui
+│   │   │   │   └── [...]
+│   │   │── index <font color=#2e8b57>(功能或區塊)</font>
+│   │   │   └── index.jsp
+│   │   └── product <font color=#2e8b57>(功能或區塊)</font>
+│   │       ├── images <font color=#2e8b57>(資料庫裡的blob)</font>
+│   │       │   ├── pro001.png
+│   │       │   ├── pro002.png
+│   │       │   └── [...]
+│   │       ├── pages
+│   │       ├── text <font color=#2e8b57>(資料庫裡的clob)</font>
+│   │       │   ├── pro001.txt
+│   │       │   ├── pro002.txt
+│   │       │   └── [...]
+│   │       ├── addProduct.jsp
+│   │       ├── listAllProduct.jsp
+│   │       ├── searchProductByCat.jsp
+│   │       └── updateProduct.jsp
+│   └── front_end <font color=#2e8b57>(前台)</font>
+│       └── [...] <font color=#2e8b57>(架構參考上方的後台)</font>
+│           └── [...]
+├── build/classes
+├── src
+│   └── com
+│       ├── emp <font color=#2e8b57>(表格名稱)</font>
+│       │   ├── controller
+│       │   │   └── EmpServlet.java
+│       │   └── model
+│       │       ├── EmpDAO_interface.java
+│       │       ├── EmpJDBCDAO.java
+│       │       ├── EmpJNDIDAO.java <font color=#2e8b57>(非必要)</font>
+│       │       └── EmpVO.java
+│       └── [...] <font color=#2e8b57>(其他表格)</font>
+├── _.classpath
+├── _.project
+└── _README.md
+

@@ -4,7 +4,7 @@ public class MealVO {
 
 	private Integer mealNo;
 	private Integer diaryNo;
-	private Integer mealName;
+	private String mealName;
 	private Double mealCal;
 	private Double mealCho;
 	private Double mealPro;
@@ -15,7 +15,7 @@ public class MealVO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MealVO(Integer diaryNo, Integer mealName, Double mealCal, Double mealCho, Double mealPro, Double mealFat) {
+	public MealVO(Integer diaryNo, String mealName, Double mealCal, Double mealCho, Double mealPro, Double mealFat) {
 		super();
 
 		this.diaryNo = diaryNo;
@@ -42,11 +42,11 @@ public class MealVO {
 		this.diaryNo = diaryNo;
 	}
 
-	public Integer getMealName() {
+	public String getMealName() {
 		return mealName;
 	}
 
-	public void setMealName(Integer mealName) {
+	public void setMealName(String mealName) {
 		this.mealName = mealName;
 	}
 
