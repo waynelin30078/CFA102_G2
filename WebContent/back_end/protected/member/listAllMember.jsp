@@ -51,7 +51,7 @@
 <table id = "table1">
 	<tr><td>
 	<h3>全部會員資料</h3>
-	<h4><a href="<%=request.getContextPath()%>/front_end/free/member/select_page.jsp">回首頁</a></h4>
+	<h4><a href="<%=request.getContextPath()%>/back_end/protected/member/select_page.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -93,19 +93,19 @@
 		<td>${memberVO.mintro}</td>
 		<td>
 		<c:if test="${memberVO.mimg != null }">
-		<img src="<%=request.getContextPath()%>/front_end/free/member/member.do?action=showPhoto&photo=${memberVO.mno}" width="150" height="150">
+		<img src="<%=request.getContextPath()%>/member.do?action=showPhoto&photo=${memberVO.mno}" width="150" height="150">
 		</c:if>
 		<c:if test="${memberVO.mimg == null} ">
-			查無圖片
+			<p>查無圖片</p>
 		</c:if>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front_end/free/member/member.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
 			     <input type="hidden" name="mno"  value="${memberVO.mno}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front_end/free/member/member.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="刪除">
 			     <input type="hidden" name="mno"  value="${memberVO.mno}">
 			     <input type="hidden" name="action" value="delete"></FORM>

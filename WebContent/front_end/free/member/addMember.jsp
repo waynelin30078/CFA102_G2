@@ -47,7 +47,7 @@
 <table id="table-1">
 	<tr><td>
 		 <h3>會員資料新增 </h3></td><td>
-		 <h4><a href="<%=request.getContextPath()%>/front_end/free/member/select_page.jsp">回首頁</a></h4>
+		 <h4><a href="<%=request.getContextPath()%>/back_end/protected/member/select_page.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -63,7 +63,7 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="member.do" name="form1">
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member.do" name="form1">
 	<table>
 	<tr>
 		<td>會員姓名:</td>

@@ -47,7 +47,7 @@
 <table id="table-1">
 	<tr><td>
 		 <h3>會員資料修改 - update_emp_input.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/front_end/free/member/select_page.jsp">回首頁</a></h4>
+		 <h4><a href="<%=request.getContextPath()%>/back_end/protected/member/select_page.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
 <h3>資料修改:</h3>
@@ -61,7 +61,7 @@
 		</c:forEach>
 	</ul>
 </c:if>
-<FORM METHOD="post" ACTION="member.do" name="form1" enctype="multipart/form-data">
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member.do" name="form1" enctype="multipart/form-data">
 	<table>
 	<tr>
 		<td>會員編號:<font color=red><b>*</b></font></td>
@@ -107,7 +107,7 @@
 	<tr>
 		<td>會員照片:</td>
 		<td><input type="file" name="mimg" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])"  value="<%= (memberVO==null)? "" : memberVO.getMimg()%>">
-			<img src="<%=request.getContextPath()%>/front_end/free/member/member.do?action=showPhoto&photo=${memberVO.mno}" id="blah" alt="your image" width="100" height="100" />
+			<img src="<%=request.getContextPath()%>/member.do?action=showPhoto&photo=${memberVO.mno}" id="blah" alt="your image" width="100" height="100" />
 		</td>
 	</tr>
 	

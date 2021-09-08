@@ -51,7 +51,7 @@
   
   
   <li>
-    <FORM METHOD="post" ACTION="member.do" >
+    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member.do" >
         <b>輸入會員編號 (如1):</b>
         <input type="text" name="mno">
         <input type="hidden" name="action" value="getOne_For_Display">
@@ -62,7 +62,7 @@
   <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
    
   <li>
-     <FORM METHOD="post" ACTION="member.do" >
+     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member.do" >
        <b>選擇員工編號:</b>
        <select size="1" name="mno">
          <c:forEach var="memberVO" items="${memberSvc.all}" > 
@@ -75,7 +75,7 @@
   </li>
   
   <li>
-     <FORM METHOD="post" ACTION="member.do" >
+     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member.do" >
        <b>選擇員工姓名:</b>
        <select size="1" name="mno">
          <c:forEach var="memberVO" items="${memberSvc.all}" > 
@@ -92,7 +92,7 @@
 <h3>員工管理</h3>
 
 <ul>
-  <li><a href='addMember.jsp'>Add</a> a new Member.</li>
+  <li><a href='<%=request.getContextPath()%>/front_end/free/member/addMember.jsp'>Add</a> a new Member.</li>
 </ul>
 	
 

@@ -20,7 +20,7 @@ public class MemberServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		
+		System.out.println("1");
 		if ("getOne_For_Display".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -32,7 +32,7 @@ public class MemberServlet extends HttpServlet {
 			}
 			
 			if(!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/front_end/free/member/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/protected/member/select_page.jsp");
 				failureView.forward(req, res);
 				return;
 			}
@@ -43,7 +43,7 @@ public class MemberServlet extends HttpServlet {
 				errorMsgs.add("會員編號格是不正確");
 			}
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/front_end/free/member/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/protected/member/select_page.jsp");
 				failureView.forward(req, res);
 				return;
 			}
@@ -54,19 +54,19 @@ public class MemberServlet extends HttpServlet {
 				
 			}
 			if(!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/front_end/free/member/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/protected/member/select_page.jsp");
 				failureView.forward(req, res);
 				return;
 			}
 			req.setAttribute("memberVO", memberVO);
-			String url = "/front_end/free/member/listOneMember.jsp";
+			String url = "/front_end/protected/member/listOneMember.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 			
 			
 		}catch(Exception e) {
 			errorMsgs.add("無法取得資料:" + e.getMessage());
-			RequestDispatcher failureView = req.getRequestDispatcher("/front_end/free/select_page.jsp");
+			RequestDispatcher failureView = req.getRequestDispatcher("/back_end/protected/member/select_page.jsp");
 			failureView.forward(req, res);
 		}
 	}
@@ -81,14 +81,14 @@ public class MemberServlet extends HttpServlet {
 		MemberVO memberVO = memberSvc.getOneMember(mno);
 		
 		req.setAttribute("memberVO", memberVO);
-		String url = "/front_end/free/member/update_member_input.jsp";
+		String url = "/front_end/protected/member/update_member_input.jsp";
 		RequestDispatcher successView = req.getRequestDispatcher(url);
 		successView.forward(req, res);
 	
 		
 	}catch (Exception e) {
 		errorMsgs.add("無法取得要修改的資料" + e.getMessage());
-		RequestDispatcher failureView = req.getRequestDispatcher("/front_end/free/member/listAllMember.jsp");
+		RequestDispatcher failureView = req.getRequestDispatcher("/back_end/protected/member/listAllMember.jsp");
 		failureView.forward(req, res);
 		}
 	}
@@ -179,7 +179,7 @@ System.out.println("9");
 
 			if(!errorMsgs.isEmpty()) {
 				req.setAttribute("memberVO", memberVO);
-				RequestDispatcher failureView = req.getRequestDispatcher("/front_end/free/member/update_member_input.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front_end/protected/member/update_member_input.jsp");
 				failureView.forward(req, res);
 				return;
 			}
@@ -187,13 +187,13 @@ System.out.println("9");
 			memberVO = memberSvc.updateMember( mname, mpsw, mmail, mphone, mimg, mbday, msex , mintro, mno);
 			
 			req.setAttribute("memberVO", memberVO);
-			String url = "/front_end/free/member/listAllMember.jsp";
+			String url = "/back_end/protected/member/listAllMember.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 			
 		}catch (Exception e) {
 			errorMsgs.add("修改資料失敗"+ e.getMessage());
-			RequestDispatcher failureView = req.getRequestDispatcher("/front_end/free/member/update_member_input.jsp");
+			RequestDispatcher failureView = req.getRequestDispatcher("/front_end/protected/member/update_member_input.jsp");
 			failureView.forward(req, res);
 		}
 		
@@ -255,7 +255,7 @@ System.out.println("9");
 			memberVO = memberSvc.addMember(mname, mid, mpsw, mmail, mphone, msex);
 			
 			req.setAttribute("memberVO", memberVO);
-			String url = "/front_end/free/member/listAllMember.jsp";
+			String url = "/back_end/protected/member/listAllMember.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}catch (Exception e){

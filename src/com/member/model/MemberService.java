@@ -25,7 +25,7 @@ public class MemberService {
 		return memberVO;
 		
 	}
-	
+	//修改會員資料
 	public MemberVO updateMember(String mname, String mpsw, String mmail, String mphone, byte[] mimg, Date mbday, Integer msex ,String mintro ,Integer mno) {
 		MemberVO memberVO = new MemberVO();
 		memberVO.setMname(mname);
@@ -40,11 +40,21 @@ public class MemberService {
 		dao.update(memberVO);
 		return memberVO;
 	}
+	//用mno取得單一會員
 	public MemberVO getOneMember(Integer mno) {
 		return dao.findByPrimaryKey(mno);
 	}
-	
+	//取得所有會員
 	public List<MemberVO> getAll(){
 		return dao.getAll();
 	}
+	
+	//用會員id跟pwd來驗證登入
+	public  MemberVO isUser(String mid,String mpsw ) {
+		return dao.isUser(mid, mpsw);
+	}
+	public MemberVO getOneMemberByMid(String mid){
+		return dao.findByMid(mid);
+	}
+	
 }

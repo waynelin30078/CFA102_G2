@@ -17,12 +17,14 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 	private static final String GET_ONE_STMT = "SELECT mNo ,mName ,mId ,mPsw ,mMail ,mPhone ,mImg ,mBday ,mSex ,mIntro ,mState ,cardID ,cardDate ,cardNum ,dNo ,dailyCal ,dailyCho ,dailyPro ,dailyFat ,dietPlan FROM MEMBER where mNo = ?";
 	private static final String UPDATE = "UPDATE MEMBER set mName=? ,mPsw=? ,mMail=? ,mPhone=? ,mImg=? ,mBday=? ,mSex=? ,mIntro=?  WHERE mNo = ?";
 	private static final String GET_IMG = "SELECT MIMG FROM MEMBER where mno = ?";
+	private static final String GetUser = "SELECT * FROM MEMBER WHERE `MID`= ? AND `MPSW`= ?";
+	private static final String GET_ONE_STMT_BY_MID = "SELECT * FROM MEMBER WHERE `MID` = ?";
 	static {
 		try {
 			Class.forName(driver);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
 		}
 		
 	}
@@ -300,19 +302,145 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			
 		
 	}
+	public MemberVO isUser(String mid, String mpsw) {
+		
+		MemberVO memberVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt= con.prepareStatement(GetUser);
+			pstmt.setString(1, mid);
+			pstmt.setString(2, mpsw);
+			
+			rs=pstmt.executeQuery();
+			
+			while (rs.next()) {
+				memberVO = new MemberVO();
+				memberVO.setMno(rs.getInt("mno"));
+				memberVO.setMname(rs.getString("mname"));
+				memberVO.setMid(rs.getString("mid"));
+				memberVO.setMpsw(rs.getString("mPsw"));
+				memberVO.setMmail(rs.getString("mMail"));
+				memberVO.setMphone(rs.getString("mPhone"));
+				memberVO.setMimg(rs.getBytes("mImg"));
+				memberVO.setMbday(rs.getDate("mbday"));
+				memberVO.setMsex(rs.getInt("msex"));
+				memberVO.setMintro(rs.getString("mintro"));
+				memberVO.setMstate(rs.getInt("mState"));
+				memberVO.setCardID(rs.getString("CardID"));
+				memberVO.setCardDate(rs.getInt("CardDate"));
+				memberVO.setCardNum(rs.getInt("CardNum"));
+				memberVO.setDno(rs.getInt("dNo"));
+				memberVO.setDailyCal(rs.getInt("DailyCal"));
+				memberVO.setDailyCho(rs.getInt("DailyCho"));
+				memberVO.setDailyPro(rs.getInt("DailyPro"));
+				memberVO.setDailyFat(rs.getInt("DailyFat"));
+				memberVO.setDietPlan(rs.getString("dietplan"));
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}	
+		return memberVO;
+		
+	}
+	
+	
+	@Override
+	public MemberVO findByMid(String mid) {
+		MemberVO memberVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt= con.prepareStatement(GET_ONE_STMT_BY_MID);
+			pstmt.setString(1, mid);
+			
+			rs=pstmt.executeQuery();
+			
+			while (rs.next()) {
+				memberVO = new MemberVO();
+				memberVO.setMno(rs.getInt("mno"));
+				memberVO.setMname(rs.getString("mname"));
+				memberVO.setMid(rs.getString("mid"));
+				memberVO.setMpsw(rs.getString("mPsw"));
+				memberVO.setMmail(rs.getString("mMail"));
+				memberVO.setMphone(rs.getString("mPhone"));
+				memberVO.setMimg(rs.getBytes("mImg"));
+				memberVO.setMbday(rs.getDate("mbday"));
+				memberVO.setMsex(rs.getInt("msex"));
+				memberVO.setMintro(rs.getString("mintro"));
+				memberVO.setMstate(rs.getInt("mState"));
+				memberVO.setCardID(rs.getString("CardID"));
+				memberVO.setCardDate(rs.getInt("CardDate"));
+				memberVO.setCardNum(rs.getInt("CardNum"));
+				memberVO.setDno(rs.getInt("dNo"));
+				memberVO.setDailyCal(rs.getInt("DailyCal"));
+				memberVO.setDailyCho(rs.getInt("DailyCho"));
+				memberVO.setDailyPro(rs.getInt("DailyPro"));
+				memberVO.setDailyFat(rs.getInt("DailyFat"));
+				memberVO.setDietPlan(rs.getString("dietplan"));
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}	
+		return memberVO;
+		
+	}
+	
+	
+	
 	public static void main(String[] args) throws IOException {
 		MemberJDBCDAO dao = new MemberJDBCDAO();
 		//新增
-		MemberVO memberVO1 = new MemberVO();
-		memberVO1.setMname("蟹老闆2");
-		memberVO1.setMid("shi1232");
-		memberVO1.setMpsw("88882");
-		memberVO1.setMmail("shi2@gmail.com");
-		memberVO1.setMphone("080999417332");
-		memberVO1.setMsex(1); //(1:Male / 2:Female)
-		dao.insert(memberVO1);
-		
-		
+//		MemberVO memberVO1 = new MemberVO();
+//		memberVO1.setMname("蟹老闆2");
+//		memberVO1.setMid("shi1232");
+//		memberVO1.setMpsw("88882");
+//		memberVO1.setMmail("shi2@gmail.com");
+//		memberVO1.setMphone("080999417332");
+//		memberVO1.setMsex(1); //(1:Male / 2:Female)
+//		dao.insert(memberVO1);
+//		
+
 		
 		//修改
 //		MemberVO memberVO2 = new MemberVO();
@@ -321,7 +449,7 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 //		memberVO2.setMpsw("123");
 //		memberVO2.setMmail("1234");
 //		memberVO2.setMphone("1234");
-		byte[] pic1 = getPictureByteArray("items/Plankton.jpg");
+//		byte[] pic1 = getPictureByteArray("items/Plankton.jpg");
 //		memberVO2.setMimg(pic1);
 //		memberVO2.setMbday(java.sql.Date.valueOf("2005-01-01"));
 //		memberVO2.setMsex(1); //(1:Male / 2:Female)
@@ -340,10 +468,15 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 //		dao.update(memberVO2);
 		
 		//查詢
-//		MemberVO memberVO3 = dao.findByPrimaryKey(1);
+//		MemberVO memberVO3 = dao.findByMid("pi123");
 //		System.out.println(memberVO3.getMno());
 //		System.out.println(memberVO3.getMname());
 //		System.out.println("==============");
+		
+		MemberVO memberVO3 = dao.isUser("pi123", "123");
+		System.out.println(memberVO3.getMno());
+		System.out.println(memberVO3.getMname());
+		System.out.println("==============");
 		//查詢all
 //		List<MemberVO> list = dao.getAll();
 //		for (MemberVO memb : list ) {
@@ -363,4 +496,5 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 		fis.close();
 		return buffer;
 	}
+	
 }
