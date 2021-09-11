@@ -22,26 +22,26 @@ public class MemberLoginHandler extends HttpServlet {
 		req.setCharacterEncoding("utf-8");
 		res.setContentType("text/html; charset=utf-8");
 		String action = req.getParameter("action");
-System.out.println("1");
+
 		if ("signIn".equals(action))
 			try {
-System.out.println("2");
+
 				Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
-System.out.println("3");
+
 				req.setAttribute("errorMsgs", errorMsgs);
-System.out.println("4");
+
 				String mid = req.getParameter("mem_id");
 				String mpsw = req.getParameter("mem_pwd");
-System.out.println("5");
+
 				if (mid == null || (mid.trim().length() == 0)) {
-System.out.println("6");
+
 					errorMsgs.put("mem_id", "請輸入帳號");
 					RequestDispatcher failureView = req.getRequestDispatcher("/front_end/free/member/memberLogin.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 				if (mpsw == null || (mpsw.trim().length() == 0)) {
-System.out.println("7");					
+				
 					errorMsgs.put("mem_pwd", "請輸入密碼");
 					RequestDispatcher failureView = req.getRequestDispatcher("/front_end/free/member/memberLogin.jsp");
 					failureView.forward(req, res);
@@ -49,15 +49,15 @@ System.out.println("7");
 				}
 				MemberService memberSvc = new MemberService();
 				MemberVO memberVO = new MemberVO();
-				System.out.println("7.1");
+
 				memberVO = memberSvc.getOneMemberByMid(mid);  //用帳號去找
-				System.out.println("7.2");
+
 //System.out.println(memberVO.getMno());
 //System.out.println(memberVO.getMname());
 			
 			
 				if (memberVO == null && mid.trim().length() != 0) {
-System.out.println("8");
+
 					errorMsgs.put("mem_id", "此帳號尚未註冊");
 					RequestDispatcher failureView = req.getRequestDispatcher("/front_end/free/member/memberLogin.jsp");
 					failureView.forward(req, res);
@@ -67,19 +67,19 @@ System.out.println("8");
 //				memberVO.setMid(mid);
 
 				MemberVO memberVO1 = memberSvc.isUser(mid, mpsw);
-System.out.println("8.1");
+
 //				System.out.println(memberVO1.getMno());
 //				System.out.println(memberVO1.getMname());
 				if (memberVO1 == null && memberVO != null) {
-System.out.println("9");
-					errorMsgs.put("mem_pws", "密碼錯誤");
+
+					errorMsgs.put("mem_pwd", "密碼錯誤");
 					RequestDispatcher failureView = req.getRequestDispatcher("/front_end/free/member/memberLogin.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 
 				if (!errorMsgs.isEmpty()) {
-System.out.println("10");
+
 					RequestDispatcher failureView = req.getRequestDispatcher("/front_end/free/member/memberLogin.jsp");
 					failureView.forward(req, res);
 					return;
@@ -102,7 +102,7 @@ System.out.println("10");
 			} catch (Exception e) {
 
 			}
-		res.sendRedirect(req.getContextPath()+"/login_success.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
+		res.sendRedirect(req.getContextPath()+"/front_end/free/home.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
 	}
 }
 

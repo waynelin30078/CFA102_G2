@@ -20,7 +20,6 @@ public class MemberServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		System.out.println("1");
 		if ("getOne_For_Display".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -232,35 +231,44 @@ System.out.println("9");
 			Integer msex = null;
 			try {
 			msex = new Integer(req.getParameter("msex").trim());
-			}catch (NumberFormatException e) {
-				msex = 1;
-				errorMsgs.add("請輸入性別");
+			}catch (NullPointerException e) {
+				
+				errorMsgs.add("請選取性別");
 			}
 			
 			MemberVO memberVO = new MemberVO();
-
 			memberVO.setMname(mname);
 			memberVO.setMid(mid);
 			memberVO.setMpsw(mpsw);
 			memberVO.setMmail(mmail);
 			memberVO.setMphone(mphone);
 			memberVO.setMsex(msex);
-			if(!errorMsgs.isEmpty()) {
+			
+			System.out.println(errorMsgs.toString());
+			
+			
+			if (!errorMsgs.isEmpty()) {
+				System.out.println("是空值");
 				req.setAttribute("memberVO", memberVO);
-				RequestDispatcher failureView = req.getRequestDispatcher("/front_end/free/member/addMember.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front_end/free/member/addNewMember.jsp");
 				failureView.forward(req, res);
 				return;
 			}
+			/***************************2.開始新增資料***************************************/
 			MemberService memberSvc = new MemberService();
 			memberVO = memberSvc.addMember(mname, mid, mpsw, mmail, mphone, msex);
-			
+			/***************************3.新增完成,準備轉交(Send the Success view)***********/
+
 			req.setAttribute("memberVO", memberVO);
 			String url = "/back_end/protected/member/listAllMember.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
+			/***************************其他可能的錯誤處理**********************************/
+
 		}catch (Exception e){
+			System.out.println("insert錯誤");
 			errorMsgs.add(e.getMessage());
-			RequestDispatcher failureView = req.getRequestDispatcher("/front_end/free/member/addMember.jsp");
+			RequestDispatcher failureView = req.getRequestDispatcher("/front_end/free/member/addNewMembera.jsp");
 			failureView.forward(req, res);
 		}
 	}
