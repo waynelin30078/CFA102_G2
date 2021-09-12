@@ -85,9 +85,12 @@ public class MemberLoginHandler extends HttpServlet {
 					return;
 				} else if (memberVO1 != null) {
 					String mname =memberVO1.getMname();
+					Integer mno= memberVO1.getMno();
 					HttpSession session = req.getSession();
 					session.setAttribute("account", mid); //*工作1: 才在session內做已經登入過的標識
-					session.setAttribute("accountname", mname);
+					session.setAttribute("accountname", mname);   //設定姓名顯示置網頁
+					session.setAttribute("mno", mno);   //設定員工PK給後面抓
+					session.setAttribute("memberVO1", memberVO1);
 					try {
 						String location = (String) session.getAttribute("location");
 						if (location != null) {   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)

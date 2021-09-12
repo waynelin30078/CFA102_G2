@@ -96,7 +96,7 @@
             <!-- Nav Item - Charts選單 -->
 
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="<%=request.getContextPath()%>/back_end/protected/member/allMemberList.jsp">
                     <i class="fas fa-fw fa-table"></i>
                     <span style=font-size:19px>一般會員管理</span></a>
             </li>

@@ -65,8 +65,8 @@
                                         <li>
                                             <a href="#">一般會員</a>
                                             <ul class="sub-menu">
-                                                <li><a href="<%= request.getContextPath() %>/Nutras-template/blog-grid.html">Blog Grid</a></li>
-                                                <li><a href="<%= request.getContextPath() %>/Nutras-template/blog-left-sidebar.html">Blog Left Sidebar</a></li>
+                                                <li><a href="<%= request.getContextPath() %>/front_end/protected/member/manageMemberInformation.jsp">管理一般會員資料</a></li>
+                                                <li><a href="<%= request.getContextPath() %>/Nutras-template/blog-left-sidebar.html">查詢諮詢預約時段</a></li>
                                                 <li><a href="<%= request.getContextPath() %>/Nutras-template/blog-right-sidebar.html">Blog Right Sidebar</a></li>
                                             </ul>
                                         </li>

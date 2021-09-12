@@ -198,7 +198,7 @@ System.out.println("9");
 		
 	}
 	if ("insert".equals(action)) {
-		List<String> errorMsgs = new LinkedList<String>();
+		Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 		req.setAttribute("errorMsgs", errorMsgs);
 		
 		try {
@@ -206,34 +206,34 @@ System.out.println("9");
 			String mname = req.getParameter("mname");
 			String mnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 			if(mname==null || mname.trim().length() == 0) {
-				errorMsgs.add("會員姓名:請勿空白");
+				errorMsgs.put("mname","會員姓名:請勿空白");
 				
 			}else if(!mname.trim().matches(mnameReg)) {
-				errorMsgs.add("會員姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+				errorMsgs.put("mname","會員姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 				
 			}
 			String mid = req.getParameter("mid").trim();
 			if (mid == null || mid.trim().length() == 0) {
-				errorMsgs.add("請輸入會員帳號");
+				errorMsgs.put("mid","請輸入會員帳號");
 			}
 			String mpsw = req.getParameter("mpsw").trim();
 			if (mpsw == null || mpsw.trim().length() == 0) {
-				errorMsgs.add("請輸入密碼好嗎");
+				errorMsgs.put("mpsw","請輸入密碼好嗎");
 			}
 			String mmail = req.getParameter("mmail").trim();
 			if (mmail == null || mmail.trim().length() == 0) {
-				errorMsgs.add("請輸入e-mail");
+				errorMsgs.put("mmail","請輸入e-mail");
 			}
 			String mphone = req.getParameter("mphone").trim();
 			if (mphone == null || mphone.trim().length() == 0) {
-				errorMsgs.add("請輸入電話");
+				errorMsgs.put("mphone","請輸入電話");
 			}
 			Integer msex = null;
 			try {
 			msex = new Integer(req.getParameter("msex").trim());
 			}catch (NullPointerException e) {
 				
-				errorMsgs.add("請選取性別");
+				errorMsgs.put("msex","請選取性別");
 			}
 			
 			MemberVO memberVO = new MemberVO();
@@ -244,7 +244,6 @@ System.out.println("9");
 			memberVO.setMphone(mphone);
 			memberVO.setMsex(msex);
 			
-			System.out.println(errorMsgs.toString());
 			
 			
 			if (!errorMsgs.isEmpty()) {
@@ -267,7 +266,7 @@ System.out.println("9");
 
 		}catch (Exception e){
 			System.out.println("insert錯誤");
-			errorMsgs.add(e.getMessage());
+			errorMsgs.put("error",e.getMessage());
 			RequestDispatcher failureView = req.getRequestDispatcher("/front_end/free/member/addNewMembera.jsp");
 			failureView.forward(req, res);
 		}

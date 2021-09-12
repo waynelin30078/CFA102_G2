@@ -45,52 +45,52 @@
                                     <form action="<%=request.getContextPath()%>/member.do" METHOD="post">
                                         <!-- Single Form Start -->
                                         <div class="single-form">
-                                            <input type="text" placeholder="Name" name="mname" value="<%= (memberVO==null)? "" : memberVO.getMname()%>">   <!-- 會員姓名 -->
+                                            <input type="text" placeholder="Name" name="mname" value="<%= (memberVO==null)? "" : memberVO.getMname()%>"> <font style="color: red"> ${errorMsgs.mname}</font> <!-- 會員姓名 -->
                                         </div>
                                         <!-- Single Form End -->
                                                                                 <!-- Single Form Start -->
                                         <div class="single-form">
-                                            <input type="text" placeholder="Account" name="mid">  <!-- 會員帳號 -->
+                                            <input type="text" placeholder="Account" name="mid" value="<%= (memberVO==null)? "" : memberVO.getMid()%>"><font style="color: red"> ${errorMsgs.mid} </font><!-- 會員帳號 -->
                                         </div>
                                         <!-- Single Form End -->
                                         
                                         <!-- Single Form Start -->
                                         <div class="single-form">
-                                            <input type="password" placeholder="Password" name="mpsw">  <!-- 會員密碼 -->
+                                            <input type="password" placeholder="Password" name="mpsw"><font style="color: red"> ${errorMsgs.mpsw } </font>  <!-- 會員密碼 -->
                                         </div>
                                         <!-- Single Form End -->
                                         <!-- Single Form Start -->
                                         <div class="single-form">
-                                            <input type="email" placeholder="Email" name="mmail">  <!-- 會員郵件 -->
+                                            <input type="email" placeholder="Email" name="mmail" value="<%= (memberVO==null)? "" : memberVO.getMmail()%>"><font style="color: red"> ${errorMsgs.mmail} </font><!-- 會員郵件 -->
                                         </div>
                                         <!-- Single Form End -->
                                         <!-- Single Form Start -->
                                         <div class="single-form">
-                                            <input type="TEXT" placeholder="Phone" name="mphone">  <!-- 會員電話 -->
+                                            <input type="TEXT" placeholder="Phone" name="mphone" value="<%= (memberVO==null)? "" : memberVO.getMphone()%>"><font style="color: red"> ${errorMsgs.mphone}</font> <!-- 會員電話 -->
                                         </div>
                                         <!-- Single Form End -->
                                         <!-- Single Form Start -->
 
                                         
   <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="msex" id="inlineRadio1" value="1">
+  <input class="form-check-input" type="radio" name="msex" id="inlineRadio1" value="1" checked>
   <label class="form-check-label" for="inlineRadio1">男</label>
 </div>
 <div class="form-check form-check-inline">
   <input class="form-check-input" type="radio" name="msex" id="inlineRadio2" value="2">
-  <label class="form-check-label" for="inlineRadio2">女</label>
+  <label class="form-check-label" for="inlineRadio2">女</label><font style="color: red">${errorMsgs.msex }</font>
 </div>
-<div>
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-</div>
+<!-- <div> -->
+<%-- <%-- 錯誤表列 --%> 
+<%-- <c:if test="${not empty errorMsgs}"> --%>
+<!-- 	<font style="color:red">請修正以下錯誤:</font> -->
+<!-- 	<ul> -->
+<%-- 		<c:forEach var="message" items="${errorMsgs}"> --%>
+<%-- 			<li style="color:red">${message}</li> --%>
+<%-- 		</c:forEach> --%>
+<!-- 	</ul> -->
+<%-- </c:if> --%>
+<!-- </div> -->
                                         <!-- Single Form Start -->
                                         
                                         <input type="hidden" name="action" value="insert">
