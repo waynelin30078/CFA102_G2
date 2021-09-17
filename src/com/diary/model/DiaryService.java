@@ -1,7 +1,11 @@
 package com.diary.model;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.util.List;
+
+import com.activity_record.model.ActivityRecordVO;
+import com.meal.model.MealVO;
 
 public class DiaryService {
 
@@ -15,29 +19,8 @@ public class DiaryService {
 		return diary;
 	}
 	
-	public DiaryVO updateDiary(Integer diaryNo, Integer mno, Integer dno, Date diaryDate, Integer ht, Integer wt, Double bodyFat,
-			Integer wc, String bodyPic, Integer viewState, String reply, Double totalCal, Double totalCho,
-			Double totalPro, Double totalFat, Double totalCalBurn) {
-		
-		DiaryVO diary = new DiaryVO();
-		
-		diary.setDiaryNo(diaryNo);
-		diary.setMno(mno);
-		diary.setDno(dno);
-		diary.setDiaryDate(diaryDate);
-		diary.setHt(ht);
-		diary.setWt(wt);
-		diary.setBodyFat(bodyFat);
-		diary.setWc(wc);
-		diary.setBodyPic(bodyPic);
-		diary.setViewState(viewState);
-		diary.setReply(reply);
-		diary.setTotalCal(totalCal);
-		diary.setTotalCho(totalCho);
-		diary.setTotalPro(totalPro);
-		diary.setTotalFat(totalFat);
-		diary.setTotalCalBurn(totalCalBurn);
-		
+	public DiaryVO updateDiary(DiaryVO diary) {
+				
 		dao.update(diary);
 		
 		return diary;
@@ -58,7 +41,11 @@ public class DiaryService {
 		
 	}
 	
+	public DiaryVO findByDiaryNo(int diaryNo) {
+		return dao.findByDiaryNo(diaryNo);
+	}
 	
+
 	public List<DiaryVO> findByMember(int mno) {
 		return dao.findByMember(mno);
 	}
@@ -66,5 +53,27 @@ public class DiaryService {
 	public List<DiaryVO> findByDieticianState(int dno, int viewState) {
 		return dao.findByDieticianState(dno, viewState);
 	}
+	
+	public void updateNutrition(DiaryVO diary, MealVO meal, Connection con) {
+		dao.updateNutrition(diary, meal, con);
+	}
+	
+	public void deductNutrition(DiaryVO diary, MealVO meal, Connection con) {
+		dao.deductNutrition(diary, meal, con);
+	}
+	
+	public void updateActivity(DiaryVO diary, ActivityRecordVO activityRecord, Connection con) {
+		dao.updateActivity(diary, activityRecord, con);
+	}
+	
+	public void deleteActivity(DiaryVO diary,  ActivityRecordVO activityRecord, Connection con) {
+		dao.deleteActivity(diary, activityRecord, con);
+	}
+	
+	public void deleteDiaryWithAllRecords(int diaryNo) {
+		dao.deleteDiaryWithAllRecords(diaryNo);
+	}
+	
+	
 	
 }

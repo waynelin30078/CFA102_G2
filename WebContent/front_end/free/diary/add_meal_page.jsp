@@ -1,5 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.dietician.model.*"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.diary.model.*"%>
+<%@ page import="com.meal.model.*"%>
+<%@ page import="com.member.model.*"%>
+
+<%@ page import="com.food.model.*"%>
+<%@ page import="com.food_record.model.*"%>
+<%@ page import="java.sql.Date"%>
+
+
+<%
+
+DiaryVO diary = (DiaryVO) request.getAttribute("diary");
+request.setAttribute("diary", diary);
+
+FoodService foodSvc = new FoodService();
+request.setAttribute("foodSvc", foodSvc);
+
+
+MealVO meal = (MealVO) request.getAttribute("meal");
+request.setAttribute("meal", meal);
+
+FoodRecordService foodRecordSvc = new FoodRecordService();
+List<FoodRecordVO> foodRecords = foodRecordSvc.findByMealNo(meal.getMealNo());
+
+
+%>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,8 +108,9 @@ width: 200px;
 	    <div class="row">
 	        <div class="col-xl-12">
 	        	<br>
-	            <h6>新增至2021年09月08日飲食紀錄</h6>
+	            <h6>新增至${diary.diaryDate}飲食紀錄</h6>
 	            <label for="mealName">選擇餐次:</label>
+
 				<select name="mealName" id="mealName">
 				  <option value="早餐">早餐</option>
 				  <option value="午餐">午餐</option>
@@ -107,25 +141,32 @@ width: 200px;
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>燒餅</td>
-                                                <td>1份</td>
-                                                <td>500大卡</td>
-                                                <td>60克</td>
-                                                <td>30克</td>
-                                                <td>15克</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-danger btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                                </td>
-                                            </tr>
+                                            <c:forEach var="foodRecord" items="${foodRecords}">	
+	                                            <tr>
+	                                                <td>${foodSvc.findByFdNo(foodRecord.fdNo).fdName}</td>
+	                                                <td>${foodRecord.fdPortion == 0? foodRecord.fdWt +="克": foodRecord.fdPortion +="份"}</td>
+	                                                <td>${foodRecord.singlelCal}大卡</td>
+	                                                <td>${foodRecord.singleCho}克</td>
+	                                                <td>${foodRecord.singlePro}克</td>
+	                                                <td>${foodRecord.singleFat}克</td>
+	                                                <td>
+	                                                    <a id="delete_foodRecord" class="btn btn-danger btn-xs sharp"><i class="fa fa-trash"></i></a>
+	                                                </td>
+	                                            </tr>
+                                            </c:forEach>
 
                                         </tbody>
                                     </table>
-                                    <input class="btn btn-rounded btn-primary add-meal" type="submit" value="新增餐次飲食紀錄">
+                                    <form method="post" action="<%= request.getContextPath()%>/meal/meal.do">
+                                    <input class="btn btn-rounded btn-primary add-meal" type="submit" value="送出餐次飲食紀錄">
+                                    <input type="hidden" name="foodRecords" value="${foodRecords}">
+									<input type="hidden" name="mealNo" value="${meal.mealNo}">
+									<input type="hidden" name="action" value="add_meal">
+                                    </form>
                                 </div>
                             </div>
                         </div>
-
+	
 	        </div>
     </div>
 
@@ -336,6 +377,10 @@ width: 200px;
 <script src="<%= request.getContextPath() %>/Innap-templatevendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
 <script src="<%= request.getContextPath() %>/Innap-template/js/custom.min.js"></script>
 <script src="<%= request.getContextPath() %>/Innap-template/js/deznav-init.js"></script>
-
+<script>
+document.getElementById("delete_foodRecord").onclick = function() {
+    document.getElementById("delete_foodRecordForm").submit();
+}
+</script>
 </body>
 </html>

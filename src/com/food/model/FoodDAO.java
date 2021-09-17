@@ -21,6 +21,7 @@ public class FoodDAO implements FoodDAO_interface {
 	private static final String findByFdNo_SQL = "SELECT * FROM food where fdNo =?;";
 	private static final String findByFoodName_SQL = "SELECT * FROM food where fdName like ?;";
 	private static final String findByBrandName_SQL = "SELECT * FROM food where fdBrand like ?;";
+	private static final String getAll_SQL = "SELECT * FROM food;";
 
 	static {
 		try {
@@ -249,6 +250,54 @@ public class FoodDAO implements FoodDAO_interface {
 
 	}
 
+	public List<FoodVO> getAll(){
+		
+		Connection con = null;
+		List<FoodVO> foodList = new ArrayList<FoodVO>();
+
+		try {
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			PreparedStatement pstmt = con.prepareStatement(getAll_SQL);
+
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				FoodVO food = new FoodVO();
+
+				food.setFdNo(rs.getInt("fdNo"));
+				food.setMno(rs.getInt("mno"));
+				food.setFdName(rs.getString("fdName"));
+				food.setWtPerPortion(rs.getInt("wtPerPortion"));
+				food.setCalPerWt(rs.getDouble("calPerWt"));
+				food.setChoPerWt(rs.getDouble("choPerWt"));
+				food.setProPerWt(rs.getDouble("proPerWt"));
+				food.setFatPerWt(rs.getDouble("fatPerWt"));
+				food.setFdBrand(rs.getString("fdBrand"));
+				food.setFdState(rs.getInt("fdState"));
+
+				foodList.add(food);
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return foodList;
+		
+	}
+	
 	public static void main(String[] args) {
 
 		FoodDAO dao = new FoodDAO();

@@ -1,15 +1,14 @@
 package com.diary.model;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import com.activity_record.model.ActivityRecordVO;
 import com.dietician.model.DieticianVO;
+import com.food_record.model.FoodRecordDAO;
+import com.food_record.model.FoodRecordVO;
 import com.meal.model.MealVO;
 
 public class DiaryDAO implements DiaryDAO_interface {
@@ -27,9 +26,8 @@ public class DiaryDAO implements DiaryDAO_interface {
 	private static final String findByDiaryNo_SQL = "SELECT * FROM diary WHERE diaryno = ?;";
 	private static final String findByDieticianState_SQL = "SELECT * FROM diary WHERE dno = ? AND viewState= ?;";
 	private static final String updateNutrition_SQL = "UPDATE diary SET totalCal=?, totalCho=?, totalPro=?, totalFat=? WHERE diaryNO = ?;";
-	
-	
-	
+	private static final String updateActivity_SQL = "UPDATE diary SET totalCalBurn =? WHERE diaryNo =?";
+
 	
 	static {
 		try {
@@ -48,7 +46,13 @@ public class DiaryDAO implements DiaryDAO_interface {
 			PreparedStatement pstmt = con.prepareStatement(insert_SQL);
 
 			pstmt.setInt(1, diary.getMno());
-			pstmt.setInt(2, diary.getDno());
+			
+			if(diary.getDno() == null) {
+				pstmt.setNull(2, Types.NULL);	
+			}else {
+			pstmt.setInt(2, diary.getDno());	
+			}
+			
 			pstmt.setDate(3, diary.getDiaryDate());
 			pstmt.setInt(4, diary.getHt());
 			pstmt.setInt(5, diary.getWt());
@@ -90,7 +94,13 @@ public class DiaryDAO implements DiaryDAO_interface {
 			PreparedStatement pstmt = con.prepareStatement(update_SQL);
 			
 			pstmt.setInt(1, diary.getMno());
-			pstmt.setInt(2, diary.getDno());
+			
+			if(diary.getDno() == null) {
+				pstmt.setNull(2, Types.NULL);	
+			}else {
+			pstmt.setInt(2, diary.getDno());	
+			}
+			
 			pstmt.setDate(3, diary.getDiaryDate());
 			pstmt.setInt(4, diary.getHt());
 			pstmt.setInt(5, diary.getWt());
@@ -460,18 +470,161 @@ public class DiaryDAO implements DiaryDAO_interface {
 		
 	}
 	
+	public void updateActivity(DiaryVO diary, ActivityRecordVO activityRecord, Connection con) {
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			
+			pstmt =  con.prepareStatement(updateActivity_SQL);
+			
+			Double updatedCalBurn = diary.getTotalCalBurn() + activityRecord.getCalBurn();
+			pstmt.setDouble(1, updatedCalBurn);
+			
+			pstmt.setInt(2, diary.getDiaryNo());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			
+			if(con != null) {
+				try {
+					con.rollback();
+				} catch(SQLException se) {
+					throw new RuntimeException("更新總消耗熱量失敗" + se.getMessage());
+				}
+				
+			}
+			throw new RuntimeException("更新資料失敗" + e.getMessage());
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch (SQLException se) {
+					se.printStackTrace();
+				}
+				
+			}
+		}
+		
+		
+		
+	}
+	
+	public void deleteActivity(DiaryVO diary,  ActivityRecordVO activityRecord, Connection con) {
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt =  con.prepareStatement(updateActivity_SQL);
+			
+			
+			Double updatedCalBurn = diary.getTotalCalBurn() - activityRecord.getCalBurn();
+			pstmt.setDouble(1, updatedCalBurn);
+			pstmt.setInt(2, diary.getDiaryNo());
+
+		
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			
+			if(con != null) {
+				try {
+					con.rollback();
+				} catch(SQLException se) {
+					throw new RuntimeException("刪除消耗熱量失敗" + se.getMessage());
+				}
+				
+			}
+			throw new RuntimeException("刪除資料失敗" + e.getMessage());
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch (SQLException se) {
+					se.printStackTrace();
+				}
+				
+			}
+		}
+		
+		
+		
+		
+	}
+	
+	
+	public void deleteDiaryWithAllRecords(int diaryNo) {
+		
+		Connection con = null;
+		Statement stmt = null;
+		
+		
+		try {
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			
+			con.setAutoCommit(false);
+			stmt = con.createStatement();;
+			stmt.addBatch("SET FOREIGN_KEY_CHECKS = 0");
+			stmt.addBatch("DELETE FROM food_record WHERE mealno in (select mealno from meal where diaryNo = " + diaryNo + ");");
+			stmt.addBatch("DELETE FROM meal WHERE diaryNo in (" + diaryNo +" );");
+			stmt.addBatch("DELETE FROM act_record WHERE diaryNo in (" + diaryNo + ");");
+			stmt.addBatch("DELETE FROM diary WHERE diaryNo = "+ diaryNo +";");
+			stmt.addBatch("SET FOREIGN_KEY_CHECKS = 1");
+			stmt.executeBatch();
+
+			con.commit();
+			con.setAutoCommit(true);
+			
+		}
+		catch (SQLException se) {
+			if (con != null) {
+				try {
+					System.err.println("刪除流程出現問題");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("資料出現錯誤, 刪除失敗 "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("資料出現錯誤, 刪除失敗"
+					+ se.getMessage());
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		
+		
+	}
+	
+	
+	
+	
 	public static void main(String[] args) {
 		DiaryDAO dao = new DiaryDAO();
-		
-		String str="2021-02-04";
-		Date day = Date.valueOf(str);
-		
-		DiaryVO diary1 = dao.findByDate(2, day);
-		
-		diary1.setTotalCalBurn(300.5);
-		dao.update(diary1);
-		
-		System.out.println(diary1.getTotalCalBurn());
+//		
+//		String str="2021-02-04";
+//		Date day = Date.valueOf(str);
+//		
+//		DiaryVO diary1 = dao.findByDate(2, day);
+//		
+//		diary1.setTotalCalBurn(300.5);
+//		dao.update(diary1);
+//		
+//		System.out.println(diary1.getTotalCalBurn());
 		
 //		List<DiaryVO> diaries = dao.findByDieticianState(1, 1);
 //		
@@ -481,7 +634,7 @@ public class DiaryDAO implements DiaryDAO_interface {
 //		}
 		
 
-		
+//		dao.deleteDiaryWithAllRecords(4);
 		
 		
 

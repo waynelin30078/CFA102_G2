@@ -8,6 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.activity.model.ActivityDAO;
+import com.activity.model.ActivityVO;
+import com.diary.model.DiaryDAO;
+import com.diary.model.DiaryVO;
+
 public class ActivityRecordDAO implements ActivityRecordDAO_interface {
 
 	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -16,9 +21,19 @@ public class ActivityRecordDAO implements ActivityRecordDAO_interface {
 	public static final String PASSWORD = "123456";
 
 	private static final String insert_SQL = "INSERT INTO act_record VALUES(?, ?, ?, ?, ?)";
-	private static final String delete_SQL = "DELETE act_record WHERE diaryNo=? AND actNo=?;";
+	private static final String delete_SQL = "DELETE FROM act_record WHERE diaryNo=? AND actNo=?;";
 	private static final String findByPrimaryKey_SQL = "SELECT * FROM act_record WHERE diaryNo=? AND actNo = ?;";
 	private static final String findByDiaryNo_SQL = "SELECT * FROM act_record WHERE diaryNo=?;";
+
+	
+	
+	static {
+		try {
+			Class.forName(DRIVER);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void insert(ActivityRecordVO actRecord) {
@@ -90,7 +105,7 @@ public class ActivityRecordDAO implements ActivityRecordDAO_interface {
 			PreparedStatement pstmt = con.prepareStatement(findByPrimaryKey_SQL);
 
 			pstmt.setInt(1, diaryNo);
-			pstmt.setInt(1, actNo);
+			pstmt.setInt(2, actNo);
 
 			ResultSet rs = pstmt.executeQuery();
 
@@ -165,9 +180,151 @@ public class ActivityRecordDAO implements ActivityRecordDAO_interface {
 
 	}
 
+
+	
+	public void addActivity(int diaryNo, ActivityRecordVO activityRecord) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(insert_SQL);
+			
+			con.setAutoCommit(false);
+			
+			
+			pstmt.setInt(1, diaryNo);
+			pstmt.setInt(2, activityRecord.getActNo());
+			pstmt.setDouble(3, activityRecord.getActHr());
+			pstmt.setInt(4, activityRecord.getWt());
+			pstmt.setDouble(5, activityRecord.getCalBurn());
+			
+			pstmt.executeUpdate();
+			
+			DiaryDAO diaryDAO = new DiaryDAO();
+			
+			DiaryVO diary = diaryDAO.findByDiaryNo(diaryNo);
+			
+			diaryDAO.updateActivity(diary, activityRecord, con);
+			
+			con.commit();
+			con.setAutoCommit(true);
+			
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					System.err.println("activityRecord流程出現問題");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("資料出現錯誤, 新增失敗 "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("資料出現錯誤, 新增失敗"
+					+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+	
+	public void deleteActivity(DiaryVO diary, ActivityRecordVO activityRecord) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(delete_SQL);
+			
+			con.setAutoCommit(false);
+			
+			DiaryDAO diaryDAO = new DiaryDAO();
+			
+			diaryDAO.deleteActivity(diary, activityRecord, con);
+			
+			
+			pstmt.setInt(1, diary.getDiaryNo());
+			pstmt.setInt(2, activityRecord.getActNo());
+			
+			pstmt.executeUpdate();
+			con.commit();
+			con.setAutoCommit(true);
+			
+		
+		}catch (SQLException se) {
+			if (con != null) {
+				try {
+					System.err.println("刪除流程出現問題");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("資料出現錯誤, 刪除失敗 "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("資料出現錯誤, 刪除失敗"
+					+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
+		ActivityRecordDAO dao = new ActivityRecordDAO();
+		
+		ActivityRecordVO activityRecord = new ActivityRecordVO();
+		
+		DiaryDAO diaryDAO = new DiaryDAO();
+		DiaryVO diary = diaryDAO.findByDiaryNo(1);
+		
+		
+		ActivityDAO activityDAO = new ActivityDAO();
+		
+		ActivityVO activity1 = activityDAO.findById(5);
+		
+		activityRecord.setDiaryNo(diary.getDiaryNo());
+		activityRecord.setActNo(activity1.getActNo());
+		activityRecord.setWt(80);
+		activityRecord.setActHr(0.5);
+		activityRecord.setCalBurn(activityRecord.getActHr()*activityRecord.getWt()*activity1.getCalPerKgHr());
+//		
+//		dao.addActivity(1, activityRecord);
+		
+		
+		
+		
+		dao.deleteActivity(diary, activityRecord);
+		
+		
 	}
 
+	
+	
 }

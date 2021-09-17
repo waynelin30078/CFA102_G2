@@ -1,5 +1,7 @@
 package com.food_record.model;
 
+import java.util.List;
+
 public class FoodRecordService {
 	
 	FoodRecordDAO_interface dao = new FoodRecordDAO();
@@ -41,6 +43,12 @@ public class FoodRecordService {
 		
 		return foodRecord;
 	}
+	
+	public List<FoodRecordVO> findByMealNo(int mealNo){
+		return dao.findByMealNo(mealNo);
+
+	}
+	
 	
 //	public void deleteFoodRecord(Integer mealNo, Integer fdNo) {
 //		

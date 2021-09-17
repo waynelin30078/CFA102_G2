@@ -43,6 +43,8 @@ public class MealDAO implements MealDAO_interface {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			PreparedStatement pstmt = con.prepareStatement(insert_SQL);
 
+	
+			
 			pstmt.setInt(1, meal.getDiaryNo());
 			pstmt.setString(2, meal.getMealName());
 			pstmt.setDouble(3, meal.getMealCal());
@@ -52,6 +54,10 @@ public class MealDAO implements MealDAO_interface {
 
 			pstmt.executeUpdate();
 
+
+			
+			
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -168,10 +174,10 @@ public class MealDAO implements MealDAO_interface {
 	}
 
 	@Override
-	public MealVO findByDiaryNo(int diaryNo) {
+	public List<MealVO> findByDiaryNo(int diaryNo) {
 
 		Connection con = null;
-		MealVO meal = new MealVO();
+		List<MealVO> meals = new ArrayList<MealVO>();
 
 		try {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -180,15 +186,18 @@ public class MealDAO implements MealDAO_interface {
 
 			ResultSet rs = pstmt.executeQuery();
 
-			if (rs.next()) {
+			while (rs.next()) {
+				MealVO meal = new MealVO();
+
 				meal.setMealNo(rs.getInt("mealNo"));
-				meal.setDiaryNo(diaryNo);
+				meal.setDiaryNo(rs.getInt("diaryNo"));
 				meal.setMealName(rs.getString("mealName"));
 				meal.setMealCal(rs.getDouble("mealCal"));
 				meal.setMealCho(rs.getDouble("mealCho"));
 				meal.setMealPro(rs.getDouble("mealPro"));
 				meal.setMealFat(rs.getDouble("mealFat"));
-
+				
+				meals.add(meal);
 			}
 
 		} catch (SQLException e) {
@@ -205,7 +214,7 @@ public class MealDAO implements MealDAO_interface {
 			}
 		}
 
-		return meal;
+		return meals;
 	}
 	
 	public MealVO findByMealNo(int mealNo) {

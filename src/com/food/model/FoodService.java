@@ -59,6 +59,8 @@ public class FoodService {
 		return dao.findByBrandName(fdBrand);
 	}
 	
-	
+	public List<FoodVO> getAll(){
+		return dao.getAll();
+	}
 	
 }

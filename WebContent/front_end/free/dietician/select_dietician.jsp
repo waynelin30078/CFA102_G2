@@ -4,7 +4,6 @@ pageEncoding="UTF-8"%>
 <%@ page import="com.dietician.model.*"%>
 <%@ page import="java.util.*"%>
 
-
 <%
   List<DieticianVO> list = (List<DieticianVO>) request.getAttribute("list");
 %>

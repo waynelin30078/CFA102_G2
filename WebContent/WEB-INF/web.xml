@@ -19,6 +19,57 @@
     <url-pattern>/dietician/dietician.do</url-pattern>
   </servlet-mapping>
   
+      <servlet>
+    <servlet-name>DiaryServlet</servlet-name>
+    <servlet-class>com.diary.controller.DiaryServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DiaryServlet</servlet-name>
+    <url-pattern>/diary/diary.do</url-pattern>
+  </servlet-mapping>
+
+   <servlet>
+    <servlet-name>MealServlet</servlet-name>
+    <servlet-class>com.meal.controller.MealServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MealServlet</servlet-name>
+    <url-pattern>/meal/meal.do</url-pattern>
+  </servlet-mapping>
+
+   <servlet>
+    <servlet-name>MemberServlet</servlet-name>
+    <servlet-class>com.member.controller.MemberServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberServlet</servlet-name>
+    <url-pattern>/member/member.do</url-pattern>
+  </servlet-mapping>
   
   
+
+  <servlet>
+  	<servlet-name>MemberLoginHandler</servlet-name>
+  	<servlet-class>com.member.controller.MemberLoginHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>MemberLoginHandler</servlet-name>
+  	<url-pattern>/memberLoginHandler.do</url-pattern>
+  </servlet-mapping>
+
+  <filter>
+  	<filter-name>MemberLoginFilter</filter-name>
+  	<filter-class>com.member.filter.MemberLoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>MemberLoginFilter</filter-name>
+  	<url-pattern>/front_end/protected/*</url-pattern>
+ 		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+
+
 </web-app>

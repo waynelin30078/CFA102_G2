@@ -2,6 +2,8 @@ package com.activity_record.model;
 
 import java.util.List;
 
+import com.diary.model.DiaryVO;
+
 public class ActivityRecordService {
 
 	ActivityRecordDAO_interface dao = new ActivityRecordDAO();
@@ -39,4 +41,13 @@ public class ActivityRecordService {
 		return dao.findByDiaryNo(diaryNo);
 	}
 
+	public void addActivity(int diaryNo, ActivityRecordVO activityRecord) {
+		dao.addActivity(diaryNo, activityRecord);
+	}
+	
+	public void deleteActivity(DiaryVO diary, ActivityRecordVO activityRecord) {
+		dao.deleteActivity(diary, activityRecord);
+	}
+	
+	
 }

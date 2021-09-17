@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ page import="com.dietician.model.*"%>
-<% DieticianVO dietician = (DieticianVO)request.getAttribute("dieticianVO"); %>    
+<% DieticianVO dietician = (DieticianVO)request.getAttribute("dieticianVO"); 
+%>    
     
     
 <!DOCTYPE html>

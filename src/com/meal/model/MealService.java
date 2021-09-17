@@ -8,17 +8,7 @@ public class MealService {
 
 	MealDAO_interface dao = new MealDAO();
 
-	public MealVO addMeal(Integer diaryNo, String mealName, Double mealCal, Double mealCho, Double mealPro,
-			Double mealFat) {
-
-		MealVO meal = new MealVO();
-
-		meal.setDiaryNo(diaryNo);
-		meal.setMealName(mealName);
-		meal.setMealCal(mealCal);
-		meal.setMealCho(mealCho);
-		meal.setMealPro(mealPro);
-		meal.setMealFat(mealFat);
+	public MealVO addMeal(MealVO meal) {
 
 		dao.insert(meal);
 		return meal;
@@ -51,10 +41,7 @@ public class MealService {
 		dao.delete(mealNo);
 	}
 	
-	
-
-
-	public MealVO findByDiaryNo(int diaryNo) {
+	public List<MealVO> findByDiaryNo(int diaryNo) {
 
 		return dao.findByDiaryNo(diaryNo);
 	}

@@ -3,9 +3,13 @@ package com.food_record.model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.diary.model.DiaryVO;
 import com.food.model.FoodVO;
 
 public class FoodRecordDAO implements FoodRecordDAO_interface{
@@ -17,8 +21,9 @@ public class FoodRecordDAO implements FoodRecordDAO_interface{
 	
 	private static final String insert_SQL = "INSERT INTO food_record VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String update_SQL = "UPDATE food_record mealNo=?, fdNo=?, fdPortion=?, fdWt=?, singlelCal=?, singleCho=?, singlePro=?, singleFat=? WHERE mealNo=?, fdNo=?;";
-	private static final String delete_SQL = "DELETE FROM food_record WHERE mealNo=?;";
+	private static final String delete_SQL = "DELETE FROM food_record WHERE mealNo=? ;";
 	private static final String insertWithMeal_SQL = "INSERT INTO food_record VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String findByMealNo_SQL = "SELECT * FROM food_record WHERE mealNo = ?;";
 	
 	@Override
 	public void insert(FoodRecordVO foodRecord) {
@@ -126,11 +131,6 @@ public class FoodRecordDAO implements FoodRecordDAO_interface{
 		}
 	}
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public void insertWithMeal(FoodRecordVO foodRecord, Connection con) {
 		
 		PreparedStatement pstmt= null;
@@ -183,4 +183,80 @@ public class FoodRecordDAO implements FoodRecordDAO_interface{
 				}
 			}
 		}
+		
+	
+		public List<FoodRecordVO> findByMealNo(int mealNo) {
+				
+				Connection con = null;
+				List<FoodRecordVO> foodRecords = new ArrayList<FoodRecordVO>();
+
+				try {
+					con = DriverManager.getConnection(URL, USER, PASSWORD);
+					PreparedStatement pstmt = con.prepareStatement(findByMealNo_SQL);
+					pstmt.setInt(1, mealNo);
+
+					ResultSet rs = pstmt.executeQuery();
+
+					while (rs.next()) {
+						FoodRecordVO foodRecord = new FoodRecordVO();
+
+						foodRecord.setMealNo(rs.getInt("mealNo"));
+						foodRecord.setFdNo(rs.getInt("fdNo"));
+						foodRecord.setFdPortion(rs.getInt("fdPortion"));
+						foodRecord.setFdWt(rs.getInt("fdWt"));
+						foodRecord.setSinglelCal(rs.getDouble("singlelCal"));
+						foodRecord.setSingleCho(rs.getDouble("singleCho"));
+						foodRecord.setSinglePro(rs.getDouble("singlePro"));
+						foodRecord.setSingleFat(rs.getDouble("singleFat"));
+
+						
+						foodRecords.add(foodRecord);
+					}
+
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					if (con != null) {
+						try {
+							con.close();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+
+				return foodRecords;
+
+				
+				
+				
+				
+			}
+	
+
+		public static void main(String[] args) {
+			
+			FoodRecordDAO dao = new FoodRecordDAO();
+			
+			List<FoodRecordVO> FoodRecords = dao.findByMealNo(1);
+			
+			for (FoodRecordVO FoodRecord : FoodRecords) {
+				System.out.println(FoodRecord.getFdNo());
+			}
+			
+			
+			
+			
+			
+			
+			
+		}
+
+
+
+
 }
+
+	

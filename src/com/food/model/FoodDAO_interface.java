@@ -10,5 +10,5 @@ public interface FoodDAO_interface {
 	FoodVO  findByFdNo(int fdNo);
 	List<FoodVO> findByFoodName(String fdName);   //食物名稱找食物
 	List<FoodVO> findByBrandName(String fdBrand);   //食物廠牌找食物
-	
+	List<FoodVO> getAll();
 }
