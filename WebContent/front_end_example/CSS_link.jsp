@@ -10,6 +10,7 @@
 	<style>
 	.this_page {
 	margin: 10% auto;
+	min-height : 500px;
 	}
 
 	

@@ -42,7 +42,7 @@ public class DiaryServlet extends HttpServlet {
 		res.setHeader("Pragma", "no-cache");
 		res.setDateHeader("Expires", 0);
 		
-		String redirectPath = req.getContextPath() + "/front_end/protected/diary/diary_calendar_page.jsp";
+		
 		
 		
 		HttpSession session = req.getSession();
@@ -113,7 +113,7 @@ public class DiaryServlet extends HttpServlet {
 				req.setAttribute("actRecords", actRecords);
 				req.setAttribute("meals", meals);
 				req.setAttribute("activitySvc", activitySvc);
-				
+				session.setAttribute("diary", diary);
 				
 				
 				
@@ -158,6 +158,15 @@ public class DiaryServlet extends HttpServlet {
 				req.setAttribute("actRecords", actRecords);
 				req.setAttribute("meals", meals);
 				req.setAttribute("activitySvc", activitySvc);
+				
+				
+//				測試session
+				session.setAttribute("diary", diary);
+				
+				
+				
+				
+				
 				
 				String url ="/front_end/protected/diary/diary_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -276,10 +285,31 @@ public class DiaryServlet extends HttpServlet {
 				Integer diaryNo = new Integer((String)req.getParameter("diaryNo"));
 				DiaryVO diary = diarySvc.findByDiaryNo(diaryNo);
 				
-				Integer ht = new Integer((String)req.getParameter("ht"));
-				Integer wt = new Integer((String)req.getParameter("wt"));
-				Double bodyFat = new Double((String)req.getParameter("bodyFat"));
-				Integer wc = new Integer((String)req.getParameter("wc"));
+				
+				Integer ht = 0;
+				if(!req.getParameter("ht").isEmpty()) {
+				ht = new Integer((String)req.getParameter("ht"));
+				}
+				
+				Integer wt = 0;
+				if(!req.getParameter("wt").isEmpty()) {
+				wt = new Integer((String)req.getParameter("wt"));
+				}
+				
+				
+				
+				Double bodyFat = 0.0;
+				if(!req.getParameter("bodyFat").isEmpty()) {
+					bodyFat = new Double((String)req.getParameter("bodyFat"));
+				}
+				
+				
+				
+				Integer wc = 0;
+				if(!req.getParameter("wc").isEmpty()) {
+				wc = new Integer((String)req.getParameter("wc"));
+				}
+				
 				
 				
 				diary.setHt(ht);
@@ -310,20 +340,22 @@ public class DiaryServlet extends HttpServlet {
 		
 		if("add_activity_record".equals(action)) {
 			
+			DiaryService diarySvc = new DiaryService();
+			ActivityService activitySvc = new ActivityService();
+			ActivityRecordService actRecordSvc = new ActivityRecordService();
+			ActivityRecordVO activityRecord = new  ActivityRecordVO();
+			
+			Integer diaryNo = new Integer(req.getParameter("diaryNo"));
+			DiaryVO diary = diarySvc.findByDiaryNo(diaryNo);
+			
+			
 			try {
-				DiaryService diarySvc = new DiaryService();
-				ActivityService activitySvc = new ActivityService();
-				ActivityRecordService actRecordSvc = new ActivityRecordService();
-				ActivityRecordVO activityRecord = new  ActivityRecordVO();
+				System.out.println("新增運動紀錄");
 				
-				Integer diaryNo = new Integer(req.getParameter("diaryNo"));
-				
-
 				Integer actNo = new Integer(req.getParameter("actNo"));
 				Double actHr = new Double(req.getParameter("actHr"));
 				Integer wt = new Integer(req.getParameter("wt"));
 				Double calBurn = new Double(req.getParameter("calBurn"));
-				
 			
 				activityRecord.setDiaryNo(diaryNo);
 				activityRecord.setActNo(actNo);
@@ -336,20 +368,27 @@ public class DiaryServlet extends HttpServlet {
 				
 				
 				
-				DiaryVO diary = diarySvc.findByDiaryNo(diaryNo);
+				
 				List<ActivityRecordVO> actRecords = actRecordSvc.findByDiaryNo(diaryNo);
 				
 				req.setAttribute("activitySvc", activitySvc);
 				req.setAttribute("actRecords", actRecords);
 				req.setAttribute("diary", diary);
 				
-				String url ="/front_end/protected/diary/diary_page.jsp?action=show_diary_page&date=" + diary.getDiaryDate();
+				String url ="/diary/diary.do?action=show_diary_page&date=" + diary.getDiaryDate();
 				
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				
 				return;
 
+			}catch(RuntimeException re) {
+				
+				String url ="/diary/diary.do?action=show_diary_page&date=" + diary.getDiaryDate();
+				
+				RequestDispatcher failureView = req.getRequestDispatcher(url);
+				failureView.forward(req, res);
+				return;
 			}catch(Exception e) {
 				e.printStackTrace();
 				String url = "/front_end/protected/diary/diary_calendar_page.jsp";
@@ -361,17 +400,22 @@ public class DiaryServlet extends HttpServlet {
 		
 		if("delete_activity_record".equals(action)) {
 			
+			DiaryService diarySvc = new DiaryService();
+			Integer diaryNo = new Integer(req.getParameter("diaryNo"));
+			DiaryVO diary = diarySvc.findByDiaryNo(diaryNo);
+			
 			try {
-				DiaryService diarySvc = new DiaryService();
+				System.out.println("刪除運動");
+				
 				ActivityService activitySvc = new ActivityService();
 				ActivityRecordService actRecordSvc = new ActivityRecordService();
 				
 				
-				Integer diaryNo = new Integer(req.getParameter("diaryNo"));
+				
 				Integer actNo = new Integer(req.getParameter("actNo"));
 				
 				
-				DiaryVO diary = diarySvc.findByDiaryNo(diaryNo);
+				
 				ActivityRecordVO activityRecord = actRecordSvc.findByPrimaryKey(diaryNo, actNo);
 				
 				actRecordSvc.deleteActivity(diary, activityRecord);
@@ -383,13 +427,23 @@ public class DiaryServlet extends HttpServlet {
 				req.setAttribute("actRecords", actRecords);
 				req.setAttribute("diary", diary);
 				
+				
+				
 				String url ="/front_end/protected/diary/diary_page.jsp";
 				
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				
 				return;
-
+			
+			
+			}catch(RuntimeException re) {
+				
+				String url ="/diary/diary.do?action=show_diary_page&date=" + diary.getDiaryDate();
+				
+				RequestDispatcher failureView = req.getRequestDispatcher(url);
+				failureView.forward(req, res);
+				return;
 			}catch(Exception e) {
 				e.printStackTrace();
 				String url = "/front_end/protected/diary/diary_calendar_page.jsp";
@@ -405,12 +459,12 @@ public class DiaryServlet extends HttpServlet {
 		
 			if("delete_meal".equals(action)) {
 			
-			try {
-				
 				Integer diaryNo = new Integer(req.getParameter("diaryNo"));
 				DiaryService diarySvc = new DiaryService();
+				DiaryVO diary = diarySvc.findByDiaryNo(diaryNo);
 				
 				
+			try {
 				MealService mealSvc = new MealService();
 				
 				Integer mealNo = new Integer(req.getParameter("mealNo"));
@@ -418,8 +472,8 @@ public class DiaryServlet extends HttpServlet {
 				mealSvc.deleteMeal(mealNo);
 				
 				List<MealVO> meals = mealSvc.findByDiaryNo(diaryNo);
-				DiaryVO diary = diarySvc.findByDiaryNo(diaryNo);
 				
+				diary = diarySvc.findByDiaryNo(diaryNo);
 				req.setAttribute("meals", meals);
 				req.setAttribute("diary", diary);
 				
@@ -429,10 +483,16 @@ public class DiaryServlet extends HttpServlet {
 				successView.forward(req, res);
 				
 				return;
-
+			}catch(RuntimeException re) {
+				
+				String url ="/diary/diary.do?action=show_diary_page&date=" + diary.getDiaryDate();
+				
+				RequestDispatcher failureView = req.getRequestDispatcher(url);
+				failureView.forward(req, res);
+				return;
 			}catch(Exception e) {
 				e.printStackTrace();
-				String url = "/front_end/protected/diary/diary_calendar_page.jsp";
+				String url ="/diary/diary.do?action=show_diary_page&date=" + diary.getDiaryDate();
 				RequestDispatcher failureView = req.getRequestDispatcher(url);
 				failureView.forward(req, res);
 				return;
@@ -441,7 +501,14 @@ public class DiaryServlet extends HttpServlet {
 			}
 		
 		
+		//String redirectPath = req.getContextPath() + "/front_end/protected/diary/diary_calendar_page.jsp";
 		
+			
+		DiaryVO diary = (DiaryVO) session.getAttribute("diary");	
+		System.out.println(diary);
+		System.out.println(diary.getDiaryDate());
+		
+		String redirectPath = req.getContextPath() +"/diary/diary.do?action=show_diary_page&date=" + diary.getDiaryDate();
 		res.sendRedirect(redirectPath);
 		
 		

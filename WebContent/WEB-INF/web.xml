@@ -57,6 +57,17 @@
   	<url-pattern>/memberLoginHandler.do</url-pattern>
   </servlet-mapping>
 
+	<servlet>
+		<servlet-name>NameServlet</servlet-name>
+		<servlet-class>com.chat.controller.NameServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NameServlet</servlet-name>
+		<url-pattern>/chat.do</url-pattern>
+	</servlet-mapping>
+
+
+
   <filter>
   	<filter-name>MemberLoginFilter</filter-name>
   	<filter-class>com.member.filter.MemberLoginFilter</filter-class>

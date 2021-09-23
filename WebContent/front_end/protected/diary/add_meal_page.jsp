@@ -10,16 +10,15 @@
     
 <%   
 
-//DiaryVO diary = (DiaryVO) request.getAttribute("diary");
-//request.setAttribute("diary", diary);
-
-FoodRecordService foodRecordSvc = new FoodRecordService();
-//List<FoodRecordVO> foodRecords = foodRecordSvc.findByMealNo(1);
-  
-//request.setAttribute("foodRecords", foodRecords);    
-
 FoodService foodSvc = new FoodService();
 request.setAttribute("foodSvc", foodSvc);    
+
+int i = 0;
+
+if(request.getAttribute("myFoodList") != null){
+List<FoodVO> myFoodList = (List<FoodVO>) request.getAttribute("myFoodList");
+i = 1;
+}
 
 %>      
     
@@ -226,10 +225,10 @@ input::-webkit-inner-spin-button {
                     <div class="default-tab">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" data-bs-toggle="tab" href="#home"> 公開資料庫</a>
+                                <a class="nav-link active" data-bs-toggle="tab" id="open_source" href="#home"> 公開資料庫</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#profile"> 我的食物</a>
+                                <a class="nav-link " id="my_food_tab" data-bs-toggle="tab" href="#profile"> 我的食物</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="tab" href="#contact"> 新增我的食物</a>
@@ -286,7 +285,7 @@ input::-webkit-inner-spin-button {
                                            <h3>${food.fdName}-${food.fdBrand}</h3>
                                            <p> 營養成分</p>
                                         
-                                       <form method="post" action="<%= request.getContextPath()%>/meal/meal.do">   
+                                      
                                            <table class="foodfact" >
 	                                            <tr><td colspan="3">每一份${food.wtPerPortion}克</td></tr>
 												<tr><td></td><td>每份</td><td>每100克</td></tr>
@@ -299,6 +298,7 @@ input::-webkit-inner-spin-button {
                                     </div>
                                     <br>
                                     <br>
+                                     	<form method="post" action="<%= request.getContextPath()%>/meal/meal.do">   
 	                                    <input type="radio" onclick="countByPortion()" name="countBy" id="byPortion" value="依份量">
 	                                    
 	                                    <label for="byPortion">依份量(份數)</label>
@@ -429,7 +429,7 @@ input::-webkit-inner-spin-button {
 
             <div class="tab-pane fade" id="contact">
                 <div class="pt-4">
-                  <form method="post" action="<%= request.getContextPath()%>/meal/meal.do">
+                  <form method="post" id="add_my_food_form" action="<%= request.getContextPath()%>/meal/meal.do">
                    
                    <p><label for="myFdName">請輸入食物名稱 </label><br><input type="text" style="height:20px; width: 30%; margin: 5px 0px;"  id="myFdName" name="fdName" required></p>
                    <p><label for="myFdBrand">請輸入廠牌或來源名稱 </label><br><input type="text" style="height:20px; width: 30%; margin: 5px 0px;"  id="myFdBrand" name="fdBrand" required></p>
@@ -444,7 +444,7 @@ input::-webkit-inner-spin-button {
                     </table>
                     <br>
                     <br>
-                    <input class="btn btn-rounded btn-primary" type="submit" value="新增">
+                    <input class="btn btn-rounded btn-primary"  id="add_my_food_btn" type="submit" value="新增">
                     <input type="hidden" name="fdState" value="2">
                     <input type="hidden" name="mno" value="${memberVO1.mno}">
                     <input type="hidden" name="diaryNo" value="${diary.diaryNo}">
@@ -484,6 +484,20 @@ input::-webkit-inner-spin-button {
 <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
 
 <script>
+
+
+if(   <%= i %>          ) {
+	$("#my_food_tab").addClass('active');
+	$("#profile").addClass('active');
+	$("#home").removeClass('active');
+	$("#open_source").removeClass('active');
+}
+
+$("#add_my_food_form").submit(function(){
+	  $("#add_my_food_btn").attr("disabled", true);
+	});
+
+
 document.getElementById("back").onclick = function() {
     document.getElementById("backForm").submit();
 }

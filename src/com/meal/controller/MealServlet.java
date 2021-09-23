@@ -33,7 +33,7 @@ public class MealServlet extends HttpServlet {
 			req.setCharacterEncoding("UTF-8");
 			String action = req.getParameter("action");
 			
-
+			HttpSession session = req.getSession();
 			
 			if("add_meal_page".equals(action)) {
 				
@@ -253,22 +253,24 @@ public class MealServlet extends HttpServlet {
 			
 			if("add_food_record".equals(action)) {
 				
+				Integer diaryNo = new Integer((String)req.getParameter("diaryNo"));		
+				DiaryService diarySvc = new DiaryService();
+				DiaryVO diary = diarySvc.findByDiaryNo(diaryNo);
+				req.setAttribute("diary", diary);
 				
-				HttpSession session = req.getSession();
 				List<FoodRecordVO> foodRecords = (List<FoodRecordVO>)session.getAttribute("foodRecords");
 				
-				
+				System.out.println(foodRecords);
 				try {	
-					Integer diaryNo = new Integer((String)req.getParameter("diaryNo"));		
-					DiaryService diarySvc = new DiaryService();
-					DiaryVO diary = diarySvc.findByDiaryNo(diaryNo);
-					req.setAttribute("diary", diary);
+
+					
+					System.out.println(foodRecords);
 					
 					if(foodRecords == null) {
 						foodRecords = new ArrayList<FoodRecordVO>();
 					}
 					
-					
+					System.out.println(foodRecords);
 					FoodRecordVO foodRecord = new FoodRecordVO();
 					
 					Integer fdNo = new Integer(req.getParameter("fdNo"));
@@ -308,7 +310,12 @@ public class MealServlet extends HttpServlet {
 					RequestDispatcher successView = req.getRequestDispatcher(url);
 					successView.forward(req, res);
 					return;
-
+				}catch(NumberFormatException nfe) {
+					nfe.printStackTrace();
+					String url ="/meal/meal.do?action=add_meal_page&diaryNo=" + diary.getDiaryNo();
+					RequestDispatcher failureView = req.getRequestDispatcher(url);
+					failureView.forward(req, res);
+					return;
 				}catch(Exception e) {
 					e.printStackTrace();
 					String url = "/front_end/protected/diary/diary_calendar_page.jsp";
@@ -321,7 +328,7 @@ public class MealServlet extends HttpServlet {
 				if("delete_food_record".equals(action)) {
 				
 				
-				HttpSession session = req.getSession();
+				
 				
 				List<FoodRecordVO> foodRecords = new ArrayList<FoodRecordVO>();
 				
@@ -339,7 +346,7 @@ public class MealServlet extends HttpServlet {
 					System.out.println(foodRecords);
 					
 					foodRecords.remove(fdIndex);
-					
+					System.out.println(foodRecords);
 					session.setAttribute("foodRecords", foodRecords);
 					
 					String url ="/front_end/protected/diary/add_meal_page.jsp";
@@ -358,7 +365,10 @@ public class MealServlet extends HttpServlet {
 				
 				if("add_new_meal".equals(action)) {
 					
-					HttpSession session = req.getSession();
+					Integer diaryNo = new Integer((String)req.getParameter("diaryNo"));
+					DiaryService diarySvc = new DiaryService();
+					DiaryVO diary = diarySvc.findByDiaryNo(diaryNo);
+					req.setAttribute("diary", diary);
 					
 					List<FoodRecordVO> foodRecords = new ArrayList<FoodRecordVO>();
 					
@@ -367,7 +377,7 @@ public class MealServlet extends HttpServlet {
 					
 					try {	
 
-						Integer diaryNo = new Integer((String)req.getParameter("diaryNo"));
+						
 						
 						String mealName = req.getParameter("mealName");
 						
@@ -384,9 +394,7 @@ public class MealServlet extends HttpServlet {
 						mealSvc.insertMeal(meal, foodRecords);
 						
 								
-						DiaryService diarySvc = new DiaryService();
-						DiaryVO diary = diarySvc.findByDiaryNo(diaryNo);
-						req.setAttribute("diary", diary);
+
 
 						req.setAttribute("meal", meal);
 						
@@ -394,11 +402,17 @@ public class MealServlet extends HttpServlet {
 						
 						
 						
-						String url ="/front_end/protected/diary/diary_page.jsp?action=show_diary_page&date=" + diary.getDiaryDate();
+						//String url ="/front_end/protected/diary/diary_page.jsp?action=show_diary_page&date=" + diary.getDiaryDate();
+						String url ="/diary/diary.do?action=show_diary_page&date=" + diary.getDiaryDate();
 						RequestDispatcher successView = req.getRequestDispatcher(url);
 						successView.forward(req, res);
 						return;
-
+					}catch(NullPointerException npe) {
+						npe.printStackTrace();
+						String url ="/meal/meal.do?action=add_meal_page&diaryNo=" + diary.getDiaryNo();
+						RequestDispatcher failureView = req.getRequestDispatcher(url);
+						failureView.forward(req, res);
+						return;
 					}catch(Exception e) {
 						e.printStackTrace();
 						String url = "/front_end/protected/diary/diary_calendar_page.jsp";
@@ -409,17 +423,17 @@ public class MealServlet extends HttpServlet {
 				}
 			
 				if("add_my_food".equals(action)) {
+					Integer diaryNo = new Integer((String)req.getParameter("diaryNo"));		
+					DiaryService diarySvc = new DiaryService();
+					DiaryVO diary = diarySvc.findByDiaryNo(diaryNo);
+					req.setAttribute("diary", diary);
 					
 					
-					HttpSession session = req.getSession();
 					List<FoodRecordVO> foodRecords = (List<FoodRecordVO>)session.getAttribute("foodRecords");
 					
 					
 					try {	
-						Integer diaryNo = new Integer((String)req.getParameter("diaryNo"));		
-						DiaryService diarySvc = new DiaryService();
-						DiaryVO diary = diarySvc.findByDiaryNo(diaryNo);
-						req.setAttribute("diary", diary);
+
 						
 						if(foodRecords == null) {
 							foodRecords = new ArrayList<FoodRecordVO>();
@@ -449,7 +463,12 @@ public class MealServlet extends HttpServlet {
 						RequestDispatcher successView = req.getRequestDispatcher(url);
 						successView.forward(req, res);
 						return;
-
+					}catch(NumberFormatException nfe) {
+						nfe.printStackTrace();
+						String url ="/meal/meal.do?action=add_meal_page&diaryNo=" + diary.getDiaryNo();
+						RequestDispatcher failureView = req.getRequestDispatcher(url);
+						failureView.forward(req, res);
+						return;
 					}catch(Exception e) {
 						e.printStackTrace();
 						String url = "/front_end/protected/diary/diary_calendar_page.jsp";
@@ -460,6 +479,9 @@ public class MealServlet extends HttpServlet {
 				}
 				
 				
+				DiaryVO diary = (DiaryVO) session.getAttribute("diary");
+				String redirectPath = req.getContextPath() +"/meal/meal.do?action=add_meal_page&diaryNo=" + diary.getDiaryNo();
+				res.sendRedirect(redirectPath);
 		}
 
 		

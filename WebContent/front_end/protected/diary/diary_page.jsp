@@ -10,6 +10,8 @@
 <%@ page import="com.member.model.*"%>
 <%@ page import="com.activity.model.*"%>
 <%@ page import="com.activity_record.model.*"%>
+<%@ page import="com.food_record.model.*"%>
+<%@ page import="com.food.model.*"%>
 <%@ page import="java.sql.Date"%>
 
 
@@ -18,7 +20,6 @@
 
 DiaryVO diary = (DiaryVO) request.getAttribute("diary");
 request.setAttribute("diary", diary);
-
 
 ActivityRecordService actRecordSvc = new ActivityRecordService();
 List<ActivityRecordVO> actRecords = actRecordSvc.findByDiaryNo(diary.getDiaryNo());
@@ -31,11 +32,13 @@ request.setAttribute("meals", meals);
 ActivityService activitySvc = new ActivityService();
 request.setAttribute("activitySvc", activitySvc);
 
+FoodRecordService foodRecordSvc = new FoodRecordService();
+request.setAttribute("foodRecordSvc", foodRecordSvc);
+
+FoodService foodSvc = new FoodService();
+request.setAttribute("foodSvc", foodSvc);
 
 
-
-
-//jsp:useBean id="activitySvc" scope="request" class="com.activity.model.ActivityService"/
 %>
 
 
@@ -228,7 +231,10 @@ margin:5px;
 font-size: 1.5rem;
 }
 
+.meal_row:hover {
 
+cursor: pointer;
+}
 
 </style>
 
@@ -342,7 +348,7 @@ font-size: 1.5rem;
 									<c:forEach var="meal" items="${meals}">	
 										<form method="post" action="<%= request.getContextPath()%>/diary/diary.do">
 										
-										<tr>
+										<tr class="meal_row" style="color:black; font-size: 1rem;">
 											<td>${meal.mealName}</td>
 											<td>${meal.mealCal}大卡</td>
 											<td>${meal.mealCho}克</td>
@@ -350,6 +356,15 @@ font-size: 1.5rem;
 											<td>${meal.mealFat}克</td>
 											<td><input class="btn btn-rounded btn-primary" style="background-color:orange; color:black; border: none; width: 80px;" type="submit" value="刪除"></td>
 										</tr>
+									<c:forEach var="foodRecord" items="${foodRecordSvc.findByMealNo(meal.mealNo)}">	
+										<tr class="record_row">
+											<td>&nbsp&nbsp&nbsp-${foodSvc.findByFdNo(foodRecord.fdNo).fdName}(${foodRecord.fdPortion == 0? foodRecord.fdWt += '克': foodRecord.fdPortion += '份'})</td>
+											<td>${foodRecord.singlelCal}大卡</td>
+											<td>${foodRecord.singleCho}克</td>
+											<td>${foodRecord.singlePro}克</td>
+											<td>${foodRecord.singleFat}克</td>
+										</tr>											
+									</c:forEach>
 											<input type="hidden" name="mealNo" value="${meal.mealNo}">
 											<input type="hidden" name="diaryNo" value="${diary.diaryNo}">
 											<input type="hidden" name="diaryDate" value="${diary.diaryDate}">
@@ -379,7 +394,7 @@ font-size: 1.5rem;
 			運動項目: ${activitySvc.findById(actRecord.actNo).actName}<br>
 			運動時間: ${actRecord.actHr}小時<br>
 			消耗熱量: ${actRecord.calBurn}大卡<br>
-			<form method="post"  id="deleteActForm" action="<%= request.getContextPath()%>/diary/diary.do">
+			<form method="post"  action="<%= request.getContextPath()%>/diary/diary.do">
 			<input class="btn btn-rounded btn-primary" style="background-color:orange; color:black; border: none; margin-top: 0; height: 30px; width: 80px;" type="submit" value="刪除">
 			<input type="hidden" name="diaryNo" value="${diary.diaryNo}">
 			<input type="hidden" name="actNo" value="${actRecord.actNo}">
@@ -395,7 +410,7 @@ font-size: 1.5rem;
     					<div class="collapse multi-collapse" id="multiCollapseExample1">
       						<div class="card card-body add-activity">
 							  		
-			  					<form method="post" action="<%= request.getContextPath()%>/diary/diary.do">
+			  					<form id="add_activity_form" method="post" action="<%= request.getContextPath()%>/diary/diary.do">
 
 				  					<select id ="selectActivity" onchange="showInfo()" name="actNo" required>
 									         <option value="" disabled selected hidden>請選擇運動</option>
@@ -416,7 +431,7 @@ font-size: 1.5rem;
 									消耗熱量(kcal)<br>
 									
 									<input type="text"  style="height:20px; width: 50%; margin: 2px 0px; background-color: #CDCDCD; color: black;" id="calBurn" name="calBurn" size="2" max="9999" readonly><br>
-									<input class="btn btn-rounded btn-primary" type="submit" value="新增">
+									<input id="add_activity_btn" class="btn btn-rounded btn-primary" type="submit" value="新增">
 									<input type="hidden" name="diaryNo" value="${diary.diaryNo}">
 									<input type="hidden" name="diaryDate" value="${diary.diaryDate}">
 									<input type="hidden" name="action" value="add_activity_record">
@@ -457,6 +472,24 @@ font-size: 1.5rem;
 <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
 <script>
 	
+$(".record_row").css("visibility", "collapse");
+	
+$(".meal_row").click(function() {
+	
+	if($(".record_row").css('visibility') === 'collapse'){
+	
+		$(".record_row").css("visibility", "visible");
+	}else {
+		$(".record_row").css("visibility", "collapse");
+		
+	}
+
+});
+	
+	
+	$("#add_activity_form").submit(function(){
+	  $("#add_activity_btn").attr("disabled", true);
+	});
 
 
 	function showInfo() {
@@ -478,13 +511,7 @@ font-size: 1.5rem;
 		pic.src= URL.createObjectURL(event.target.files[0]);
 	}
 	
-	document.getElementById("deleteAct").onclick = function() {
-	    document.getElementById("deleteActForm").submit();
-	}
-	
-	document.getElementById("deleteMeal").onclick = function() {
-	    document.getElementById("deleteMealForm").submit();
-	}
+
 	
 </script>
 <script>

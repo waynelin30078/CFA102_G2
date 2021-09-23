@@ -7,7 +7,7 @@
 <%@ page import="com.meal.model.*"%>	
 <%@ page import="com.member.model.*"%>
 	
-<% //以下要從進來的的地方在servlet中forward過來
+<% 
 
 MemberVO member = (MemberVO)session.getAttribute("memberVO1");
 
@@ -22,6 +22,10 @@ for (DiaryVO diary : diaries) {
 }
 
 request.setAttribute("date", date);
+
+if(session.getAttribute("diary") != null){
+	session.removeAttribute("diary");
+}
 
 %>	
 	
@@ -43,7 +47,7 @@ request.setAttribute("date", date);
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.0/moment.min.js"></script>	<!-- fullcalendar  CDN -->
   <!-- FullCalendar v3.8.1 -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.min.css" rel="stylesheet"  />    <!-- fullcalendar  CDN -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.print.css" rel="stylesheet" media="print"></script>	<!-- fullcalendar  CDN -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.print.css" rel="stylesheet" media="print">	<!-- fullcalendar  CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.min.js"></script>	<!-- fullcalendar  CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/locale-all.js"></script>	<!-- fullcalendar  CDN -->
 	
@@ -115,7 +119,8 @@ background-color: #007bff;
  
  
   <script>
-  	$( "#nutrition-diary" ).fullCalendar({
+  var current_date = moment().format('YYYY-MM-DD')	
+  $( "#nutrition-diary" ).fullCalendar({
   		// 參數設定[註1]
   		header: { // 頂部排版
   			left: "prev,next today", // 左邊放置上一頁、下一頁和今天
@@ -124,7 +129,7 @@ background-color: #007bff;
   		},
   	    dayClick: function(date) {	    	
   	    	
-  	    	var current_date = moment().format('YYYY-MM-DD')
+  	    	
   	    	
   	    	if('${date}'.includes(date.format())){
   	    		
