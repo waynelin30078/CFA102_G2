@@ -27,14 +27,7 @@ request.setAttribute("dieticianSvc", dieticianSvc);
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
 <style>
 
-.chat_icon{
-	width: 65px;
-	position: fixed;
-	bottom:  50px;
-	right : 50px;
-	z-index: 6;
-	cursor: pointer;
-}
+
 
 #unread {
 	width: 90px;
@@ -47,13 +40,74 @@ request.setAttribute("dieticianSvc", dieticianSvc);
 
 }
 
+.inbox_people {
+  background: #f8f8f8 none repeat scroll 0 0;
+  float: left;
+  overflow-y: auto;
+  width: 40%; 
+  height: 500px;
+  border-right:1px solid #c4c4c4;
+}
+
+.top_spac{ margin: 20px 0 0;}
+
+.recent_heading {float: left; width:40%;}
+
+.srch_bar {
+  display: inline-block;
+  text-align: right;
+  width: 60%;
+}
+.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
+
+.recent_heading h4 {
+  color: #05728f;
+  font-size: 21px;
+  margin: auto;
+}
+
+.srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}
+.srch_bar .input-group-addon button {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  border: medium none;
+  padding: 0;
+  color: #707070;
+  font-size: 18px;
+}
+.srch_bar .input-group-addon { margin: 0 0 0 -27px;}
+
+.chat_ib h5{ font-size:15px; color:#464646; margin:0 0 8px 0;}
+.chat_ib h5 span{ font-size:13px; float:right;}
+.chat_ib p{ font-size:14px; color:#989898; margin:auto}
+.chat_img {
+  float: left;
+  width: 11%;
+}
+
+.chat_ib {
+  float: left;
+  padding: 0 0 0 15px;
+  width: 88%;
+}
+
+.chat_people{ overflow:hidden; clear:both;}
+.chat_list {
+  border-bottom: 1px solid #c4c4c4;
+  margin: 0;
+  padding: 18px 16px 10px;
+}
+
+
+
+
+
+
+
 
 
 .chat_box_container {
-	width: 30%;
-	position: fixed;
-	bottom:  110px;
-	right : 50px;
+	width: 100%;
+	height: 50%;
 	background-color: white;
 	z-index: 5;
 }
@@ -100,7 +154,7 @@ request.setAttribute("dieticianSvc", dieticianSvc);
 .received_withd_msg { width: 57%;}
 
 .mesgs {
-
+float: left;
   padding: 30px 15px 5px 25px;
  
 }
@@ -125,17 +179,18 @@ color: black;
   width: 46%;
 }
 
+
 .input_msg_write input {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
   border: medium none;
   color: #4c4c4c;
   font-size: 15px;
-  min-height: 48px;
+	
   width: 100%;
   
 }
 
-.type_msg {border-top: 1px solid #c4c4c4;position: relative;}
+
 
 .msg_send_btn {
   background: #0084ff none repeat scroll 0 0;
@@ -145,9 +200,9 @@ color: black;
   cursor: pointer;
   font-size: 17px;
   height: 33px;
-  position: absolute;
-  right: 20px;
-  top: 30px;
+  position: relative;
+  left: 93%;
+  bottom: 43px;
   width: 33px;
 }
 
@@ -168,23 +223,103 @@ color: black;
 <%@ include file="/front_end_example/header_link.jsp" %>
 <!-- *************每一頁body最前面都要include這個header連結******************* -->
 <div class="container this_page">
+ 
+ <h3>訂閱客戶文字諮詢</h3>
+ <br>
  <div id="chat_box_container" class="chat_box_container">
-<h3 id="statusOutput" class="text-center">專屬營養師－${dieticianSvc.findByPrimaryKey(memberVO1.dno).dname}</h3>
+<h3 id="statusOutput" class="text-center"></h3>
 <div class="messaging">
-      <div class="inbox_msg">
-        <div  id="messagesArea" class="mesgs">
+      <div class="inbox_msg row">
+              <div class="inbox_people col-4">
+
+          <div class="inbox_chat">
+            <div class="chat_list active_chat">
+              <div class="chat_people">
+                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                <div class="chat_ib">
+                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                  <p>Test, which is a new approach to have all solutions 
+                    astrology under one roof.</p>
+                </div>
+              </div>
+            </div>
+            <div class="chat_list">
+              <div class="chat_people">
+                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                <div class="chat_ib">
+                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                  <p>Test, which is a new approach to have all solutions 
+                    astrology under one roof.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="chat_list">
+              <div class="chat_people">
+                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                <div class="chat_ib">
+                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                  <p>Test, which is a new approach to have all solutions 
+                    astrology under one roof.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div  id="messagesArea" class="mesgs col-7">
          
          
           <div id="msg_history" class="msg_history">
-           
-           
-
-
+		            <div class="incoming_msg">
+		              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+		              <div class="received_msg">
+		                <div class="received_withd_msg">
+		                  <p>Test which is a new approach to have all
+		                    solutions</p>
+		                  <span class="time_date"> 11:01 AM    |    June 9</span></div>
+		              </div>
+		            </div>
+		            <div class="outgoing_msg">
+		              <div class="sent_msg">
+		                <p>Test which is a new approach to have all
+		                  solutions</p>
+		                <span class="time_date"> 11:01 AM    |    June 9</span> </div>
+            			</div>
+            					            <div class="incoming_msg">
+		              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+		              <div class="received_msg">
+		                <div class="received_withd_msg">
+		                  <p>Test which is a new approach to have all
+		                    solutions</p>
+		                  <span class="time_date"> 11:01 AM    |    June 9</span></div>
+		              </div>
+		            </div>
+		            <div class="outgoing_msg">
+		              <div class="sent_msg">
+		                <p>Test which is a new approach to have all
+		                  solutions</p>
+		                <span class="time_date"> 11:01 AM    |    June 9</span> </div>
+            			</div>
+            					            <div class="incoming_msg">
+		              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+		              <div class="received_msg">
+		                <div class="received_withd_msg">
+		                  <p>Test which is a new approach to have all
+		                    solutions</p>
+		                  <span class="time_date"> 11:01 AM    |    June 9</span></div>
+		              </div>
+		            </div>
+		            <div class="outgoing_msg">
+		              <div class="sent_msg">
+		                <p>Test which is a new approach to have all
+		                  solutions</p>
+		                <span class="time_date"> 11:01 AM    |    June 9</span> </div>
+            			</div>
 
           </div>
           <div class="type_msg">
             <div class="input_msg_write">
-              <input id="sendMessage" type="text" class="write_msg" placeholder="Type a message" onkeydown="if (event.keyCode == 13) sendMessage();" disabled/>
+              <input id="sendMessage" type="text" class="write_msg" placeholder="Type a message" onkeydown="if (event.keyCode == 13) sendMessage();"/>
               <button class="msg_send_btn" type="button" onclick="sendMessage();"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
             </div>
           </div>
@@ -197,7 +332,7 @@ color: black;
 
 
 
-<img id="chat_icon" class="chat_icon" src="<%=request.getContextPath()%>/front_end/free/chat/images/msn-icon.png" alt="">
+
 <p id="unread"></p>
 
 
@@ -212,20 +347,7 @@ color: black;
 <script>
 
 
-$("#chat_box_container").hide();
 
-$("#chat_icon").click(function() {
-	
-	if($("#chat_box_container").is(":hidden")){
-	$("#chat_box_container").show();
-	showHistory();
-	var showUnread = document.getElementById("unread");
-	showUnread.innerHTML='';
-	}else {
-		$("#chat_box_container").hide();
-	}
-
-});
 
 
 var MyPoint = "/ChatWithDietician/${memberVO1.mid}";   //用EL接NameServlet傳過來的req.setAttribute("userName", userName);
@@ -245,7 +367,7 @@ function connect() {
 	webSocket = new WebSocket(endPointURL);     //自己上線, 開一個ws session
 	webSocket.onopen = function(event) {      //event是js websocket實做好onopen得到的event object
 		console.log("Connect Success!");
-		document.getElementById('sendMessage').disabled = false;
+//		document.getElementById('sendMessage').disabled = false;
 	};
 	
 	webSocket.onmessage = function(event) {       //這邊可以視為前端的controller
