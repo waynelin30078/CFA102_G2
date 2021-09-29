@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
+import com.admin.model.AdminVO;
+
 public class DieticianDAO implements DieticianDAO_interface {
 	
 	
@@ -31,6 +33,17 @@ public class DieticianDAO implements DieticianDAO_interface {
 
 	private static final String findByDieticianState_SQL = "SELECT * FROM dietician WHERE dstate = ?";
 
+	//世柏增加
+	private static final String update_dstate_SQL = "UPDATE DIETICIAN SET dState = ? WHERE dNo =?";
+	
+	private static final String findByDaccount = "SELECT * FROM DIETICIAN WHERE `Daccount` = ?";
+	
+	private static final String update_dpassword ="update DIETICIAN set DPASSWORD = ? where DACCOUNT = ?";
+	
+
+	//世柏增加
+	
+	
 	static {
 		try {
 			Class.forName(DRIVER);
@@ -453,5 +466,96 @@ public class DieticianDAO implements DieticianDAO_interface {
 		
 		
 	}
+//////////////////////////////世柏增加
 
+	public void update_dstate(Integer dstate, Integer dno) {
+			Connection con = null;
+			try {
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			PreparedStatement pstmt = con.prepareStatement(update_dstate_SQL);
+			pstmt.setInt(1, dstate);
+			pstmt.setInt(2, dno);
+			pstmt.execute();
+//			System.out.println("count: " +count);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if(con!=null)
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+	}
+	
+	
+	
+	@Override
+	public DieticianVO findByAccount(String daccount) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		DieticianVO dieticianVO = null;
+		try {
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(findByDaccount);
+
+			pstmt.setString(1, daccount);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				dieticianVO = new DieticianVO();
+				dieticianVO.setDaccount(rs.getString("dAccount"));
+				dieticianVO.setDpassword(rs.getString("dPassword"));
+				dieticianVO.setDemail(rs.getString("dEmail"));
+				dieticianVO.setDno(rs.getInt("dNo"));
+			}
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			if (con != null)
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+		return dieticianVO;
+	}
+	public void update_dpassword(String daccount, String dpassword) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(update_dpassword);
+			pstmt.setString(1, dpassword);
+			pstmt.setString(2, daccount);
+			pstmt.execute();
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (con != null)
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+	}
+	
+	
+//////////////////////////世柏增加
+
+	
 }

@@ -105,6 +105,11 @@ request.setAttribute("dieticianSvc", dieticianSvc);
  
 }
 
+  #statusOutput {
+  color: grey;
+  }
+
+
  .sent_msg p {
   background: #40ff00 none repeat scroll 0 0;
   border-radius: 3px;
@@ -176,10 +181,6 @@ color: black;
          
          
           <div id="msg_history" class="msg_history">
-           
-           
-
-
 
           </div>
           <div class="type_msg">
@@ -195,11 +196,8 @@ color: black;
  
 </div>
 
-
-
 <img id="chat_icon" class="chat_icon" src="<%=request.getContextPath()%>/front_end/free/chat/images/msn-icon.png" alt="">
 <p id="unread"></p>
-
 
 
 </div>
@@ -224,15 +222,13 @@ $("#chat_icon").click(function() {
 	}else {
 		$("#chat_box_container").hide();
 	}
-
 });
-
 
 var MyPoint = "/ChatWithDietician/${memberVO1.mid}";   //用EL接NameServlet傳過來的req.setAttribute("userName", userName);
 var host = window.location.host;
 var path = window.location.pathname;
 var webCtx = path.substring(0, path.indexOf('/', 1));   //indexOf('/', 1), 後面的1指的是從path的第一個index(W)開始找起, 不然會找到前面最一開始的/而不是/chat.do那個"/"
-var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+var endPointURL = "ws://" + window.location.host + webCtx + MyPoint + '?memberSide';
 
 
 var statusOutput = document.getElementById("statusOutput");  //顯示聊天對象的地方
@@ -255,8 +251,9 @@ function connect() {
 		
 		if ("open" === jsonObj.type) {		//  equals.(action)  有人上線觸發後端onOpen事件時, 這邊就會收到一個type是open的State.java物件
 			statusOutput.style.color = "green";
-		
-		
+			statusOutput.innerHTML = '專屬營養師－${dieticianSvc.findByPrimaryKey(memberVO1.dno).dname}(在線中)';
+			showUnreadCount();
+			
 		} else if ("history" === jsonObj.type) {    //show出之前的對話紀錄, 延續對話
 			var messages = JSON.parse(jsonObj.message);
 			msg_history.innerHTML = '';
@@ -301,8 +298,8 @@ function connect() {
 					recrive_msg_div_img.className='incoming_msg_img';
 					
 					var recrive_img = document.createElement('img')
-<!-- recrive_img.src='<%=request.getContextPath()%>${dieticianSvc.findByPrimaryKey(memberVO1.dno).dpic}'; -->
-					recrive_img.src='<%=request.getContextPath()%>/front_end/free/dietician/images/dietician3.jpg';
+					recrive_img.src='<%=request.getContextPath()%>${dieticianSvc.findByPrimaryKey(memberVO1.dno).dpic}';
+					
 					
 					var recrive_msg = document.createElement('div')
 					recrive_msg.className='received_msg';
@@ -364,8 +361,7 @@ function connect() {
 				recrive_msg_div_img.className='incoming_msg_img';
 				
 				var recrive_img = document.createElement('img')
-<!-- recrive_img.src='<%=request.getContextPath()%>${dieticianSvc.findByPrimaryKey(memberVO1.dno).dpic}'; -->
-					recrive_img.src='<%=request.getContextPath()%>/front_end/free/dietician/images/dietician3.jpg';
+					recrive_img.src='<%=request.getContextPath()%>${dieticianSvc.findByPrimaryKey(memberVO1.dno).dpic}';
 				
 				var recrive_msg = document.createElement('div')
 				recrive_msg.className='received_msg';
@@ -396,7 +392,8 @@ function connect() {
 			showUnread.innerHTML=jsonObj.unreadCount+ '則未讀訊息';
 			}
 		} else if ("close" === jsonObj.type) {
-			statusOutput.style.color = "red";
+			statusOutput.style.color = "grey";
+			statusOutput.innerHTML = '專屬營養師－${dieticianSvc.findByPrimaryKey(memberVO1.dno).dname}(不在線)';
 		}
 		
 	};
@@ -409,8 +406,7 @@ function connect() {
 
 function sendMessage() {
 	var inputMessage = document.getElementById("sendMessage");
-//	var friend = '${dieticianSvc.findByPrimaryKey(memberVO1.dno).daccount}';  
-	var friend = self==='shi123'? 'pi123' : 'shi123';
+	var friend = '${dieticianSvc.findByPrimaryKey(memberVO1.dno).daccount}';  
 	var message = inputMessage.value.trim();
 	var now = new Date();
 	now= moment().format('h:mma') + " | " + moment().format('MMMM.DD');
@@ -443,8 +439,7 @@ function showHistory() {
 	var now = new Date();
 	now= moment().format('h:mma') + " | " + moment().format('MMMM.DD');
 		
-//		var friend = '${dieticianSvc.findByPrimaryKey(memberVO1.dno).daccount}';
-		var friend = self==='shi123'? 'pi123' : 'shi123';
+		var friend = '${dieticianSvc.findByPrimaryKey(memberVO1.dno).daccount}';
 		var jsonObj = {
 				"type" : "history",	
 				"sender" : self,
@@ -462,7 +457,7 @@ function showHistory() {
 function checkMessage() {
 	
 	if(!$("#chat_box_container").is(":hidden")){
-	var friend = self==='shi123'? 'pi123' : 'shi123';
+	var friend = '${dieticianSvc.findByPrimaryKey(memberVO1.dno).daccount}';
 	var jsonObj = {
 			"type" : "check", 
 			"sender" : self,   
@@ -483,7 +478,7 @@ function refreshRead() {
 function showUnreadCount() {
 	
 	if($("#chat_box_container").is(":hidden")){
-		var friend = self==='shi123'? 'pi123' : 'shi123';
+		var friend = '${dieticianSvc.findByPrimaryKey(memberVO1.dno).daccount}';
 		var jsonObj = {
 				"type" : "showUnreadCount",     //一般聊天就丟type是chat物件java
 				"sender" : self,   //self就是${userName}

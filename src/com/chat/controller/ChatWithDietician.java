@@ -1,11 +1,15 @@
 package com.chat.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 import javax.websocket.CloseReason;
 import javax.websocket.OnClose;
@@ -17,10 +21,15 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 import com.google.gson.Gson;
+import com.member.model.MemberService;
+import com.member.model.MemberVO;
+
+import oracle.net.aso.s;
 
 import com.chat.jedis.JedisHandleMessage;
 import com.chat.model.ChatMessage;
 import com.chat.model.State;
+import com.dietician.model.DieticianService;
 
 @ServerEndpoint("/ChatWithDietician/{userName}")
 public class ChatWithDietician {
@@ -35,26 +44,62 @@ public class ChatWithDietician {
 
 	@OnOpen
 	public void onOpen(@PathParam("userName") String userName, Session userSession) throws IOException {
-		// onOpen=>前端new websocket的時候觸發
-		// 打開的時候確認session的人在不在
-		// 前端同樣會有自己的onOpen
-		// 此處的userName, userSession都是前端js webSocket = new WebSocket(endPointURL);所帶來的資訊
-
-		/* save the new user in the map */
+		
 		sessionsMap.put(userName, userSession);
-		/* Sends all the connected users to the new user */
 		Set<String> userNames = sessionsMap.keySet();
-		State stateMessage = new State("open", userName, userNames);
-		// 通知使用者的狀態, 會送一個state的type為open的json過去給前端
-
-		String stateMessageJson = gson.toJson(stateMessage);
-		Collection<Session> sessions = sessionsMap.values();
-		for (Session session : sessions) {
-			if (session.isOpen()) {
-				session.getAsyncRemote().sendText(stateMessageJson); // 推送有人上線
-				// 丟給前端, 而前端用onMessage做反應
+		
+		System.out.println("有");
+		
+		MemberService memberSvc = new MemberService();
+		DieticianService dieticianSvc = new DieticianService();
+		
+		if( userSession.getQueryString().equals("dieticianSide")) {
+			
+			//營養師的客戶們
+			Set<MemberVO> memberSet = (Set<MemberVO>) memberSvc.getAll().stream()
+									 	.filter(m -> dieticianSvc.findByPrimaryKey(m.getDno()).getDaccount().equals(userName))
+									 	.collect(Collectors.toSet());
+			//所有客戶名字
+			Set<String> memberNames = new HashSet<String>();
+			
+			for(MemberVO member : memberSet) {
+				memberNames.add(member.getMid());
 			}
+
+			State stateMessage = new State("open", userName, memberNames);
+	
+			String stateMessageJson = gson.toJson(stateMessage);
+		
+			Collection<Session> memberSessions = new HashSet(); 
+					
+			for(String key : memberNames) {
+				memberSessions.add(sessionsMap.get(key));
+			}		
+					
+			for (Session session : memberSessions) {
+				if (session != null) {
+					session.getAsyncRemote().sendText(stateMessageJson);
+					
+				}
+			}
+			
+			sessionsMap.get(userName).getAsyncRemote().sendText(stateMessageJson);
+			
+		} else {
+			
+			
+			String daccount = dieticianSvc.findByPrimaryKey(memberSvc.getOneMemberByMid(userName).getDno()).getDaccount();
+			State stateMessage = new State("open", userName, daccount);
+			String stateMessageJson = gson.toJson(stateMessage);
+			Session receiverSession = sessionsMap.get(daccount);
+			
+			if (receiverSession != null && receiverSession.isOpen()) {
+			receiverSession.getAsyncRemote().sendText(stateMessageJson);
+			sessionsMap.get(userName).getAsyncRemote().sendText(stateMessageJson);
+			}
+		
 		}
+			
 
 		String text = String.format("Session ID = %s, connected; userName = %s%nusers: %s", userSession.getId(),
 				userName, userNames);
@@ -103,7 +148,6 @@ public class ChatWithDietician {
 
 		if ("showUnreadCount".equals(chatMessage.getType())) { // 去對應chatMessage.java的變數名稱, 對面的addListener送過來的
 
-
 			String unreadCount = JedisHandleMessage.checkUnreadNumber(receiver, sender);
 
 			ChatMessage unreadCountMessage = new ChatMessage("showUnreadCount", sender, receiver, unreadCount); // ChatMessage的constructor
@@ -114,7 +158,56 @@ public class ChatWithDietician {
 			return;
 		}
 
-//		System.out.println("Message received: " + message);
+		if ("clientListInfo".equals(chatMessage.getType())) { // 去對應chatMessage.java的變數名稱, 對面的addListener送過來的
+
+			MemberService memberSvc = new MemberService();
+			DieticianService dieticianSvc = new DieticianService();
+
+			Set<MemberVO> memberSet = (Set<MemberVO>) memberSvc.getAll().stream()
+									 	.filter(m -> dieticianSvc.findByPrimaryKey(m.getDno()).getDaccount().equals(sender))
+									 	.collect(Collectors.toSet());
+
+			Set<String> memberNames = new HashSet<String>();
+			
+			for(MemberVO member : memberSet) {
+				memberNames.add(member.getMid());
+			}
+					
+			
+			List<String> infoList= new ArrayList<String>();
+		
+			for (String member : memberNames) {
+				Session clientSession = sessionsMap.get(member);
+				ChatMessage clientState = gson.fromJson(JedisHandleMessage.getClientListInfo(sender, member), ChatMessage.class);
+				
+				if(clientSession!= null && clientSession.isOpen()) {
+					clientState.setIsOnline("1");
+				} else {
+					clientState.setIsOnline("0");
+				}
+				
+				
+				infoList.add(gson.toJson(clientState));
+			
+			}
+			
+			
+			
+			
+			
+			String jsonInfoList = gson.toJson(infoList);		
+			
+			ChatMessage clientListInfo = new ChatMessage(); // ChatMessage的constructor
+			
+			clientListInfo.setType("clientListInfo");
+			clientListInfo.setSender(sender);
+			clientListInfo.setMessage(jsonInfoList);		
+			
+			userSession.getAsyncRemote().sendText(gson.toJson(clientListInfo));
+			 
+			return;
+		}
+		
 	}
 
 	@OnError
@@ -123,26 +216,64 @@ public class ChatWithDietician {
 	}
 
 	@OnClose
-	public void onClose(Session userSession, CloseReason reason) {
+	public void onClose(@PathParam("userName") String userName, Session userSession, CloseReason reason) {
+		
+		
+		MemberService memberSvc = new MemberService();
+		DieticianService dieticianSvc = new DieticianService();
+		
+		if( userSession.getQueryString().equals("dieticianSide")) {
+			
+			//營養師的客戶們
+			Set<MemberVO> memberSet = (Set<MemberVO>) memberSvc.getAll().stream()
+									 	.filter(m -> dieticianSvc.findByPrimaryKey(m.getDno()).getDaccount().equals(userName))
+									 	.collect(Collectors.toSet());
+			//所有客戶名字
+			Set<String> memberNames = new HashSet<String>();
+			
+			for(MemberVO member : memberSet) {
+				memberNames.add(member.getMid());
+			}
+
+			State stateMessage = new State("close", userName, memberNames); // State裡面放open跟close兩種type
+			String stateMessageJson = gson.toJson(stateMessage);
+			
+			Collection<Session> memberSessions = new HashSet(); 
+					
+			for(String key : memberNames) {
+				memberSessions.add(sessionsMap.get(key));
+			}		
+					
+			for (Session session : memberSessions) {
+				if (session != null && session.isOpen()) {
+					session.getAsyncRemote().sendText(stateMessageJson);
+				}
+			}
+		} else {
+			
+			String daccount = dieticianSvc.findByPrimaryKey(memberSvc.getOneMemberByMid(userName).getDno()).getDaccount();
+			State stateMessage = new State("close", userName, daccount);
+			String stateMessageJson = gson.toJson(stateMessage);
+			Session receiverSession = sessionsMap.get(daccount);
+			
+			if (receiverSession != null && receiverSession.isOpen()) {
+			receiverSession.getAsyncRemote().sendText(stateMessageJson);
+			}
+			
+		}
+		
 		String userNameClose = null;
 		Set<String> userNames = sessionsMap.keySet();
-		for (String userName : userNames) { // 迴圈從所有session找出自己, 然後移除
-			if (sessionsMap.get(userName).equals(userSession)) {
-				userNameClose = userName;
-				sessionsMap.remove(userName);
+		
+		for (String user : userNames) { // 迴圈從所有session找出自己, 然後移除
+			if (sessionsMap.get(user).equals(userSession)) {
+				userNameClose = user;
+				sessionsMap.remove(user);
 				break; // 移除掉自己的就可以中斷了
 			}
 		}
 
-		if (userNameClose != null) {
-			State stateMessage = new State("close", userNameClose, userNames); // State裡面放open跟close兩種type
-			String stateMessageJson = gson.toJson(stateMessage);
-			Collection<Session> sessions = sessionsMap.values();
-			for (Session session : sessions) {
-				session.getAsyncRemote().sendText(stateMessageJson);
-			}
-		}
-
+		
 		String text = String.format("session ID = %s, disconnected; close code = %d%nusers: %s", userSession.getId(),
 				reason.getCloseCode().getCode(), userNames);
 		System.out.println(text);

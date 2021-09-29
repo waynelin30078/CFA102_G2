@@ -3,9 +3,13 @@ package com.dietician.model;
 import java.sql.Date;
 import java.util.List;
 
+import com.admin.model.AdminVO;
+
 public class DieticianService {
 
 	private DieticianDAO_interface dao = new DieticianDAO();
+	
+	
 
 	public DieticianVO addDietician(String dname, String daccount, String dpassword, Date dbirthDay, String dpic,
 			String dphone, String daddress, String demail, String edu, String exp, String lic, String prof,
@@ -96,4 +100,23 @@ public class DieticianService {
 	public List<DieticianVO> findByDieticianState(int dstate) {
 		return dao.findByDieticianState(dstate);
 	}
+	
+	//世柏增加
+	public void update_dstate(Integer dstate,Integer dno){
+		 dao.update_dstate(dstate,dno);
+	}
+	
+	public DieticianVO findByAccount(String daccount) {
+		return dao.findByAccount(daccount);
+	}
+	
+	public void update_demail(String daccount,String dpassword){
+		 dao.update_dpassword(daccount,dpassword);  
+	}
+	
+	
+	//世柏增加
+	
+	
+	
 }

@@ -104,6 +104,50 @@ public class JedisHandleMessage {
 
 	}
 	
+	public static String getClientListInfo(String sender, String receiver) {
+		
+		Gson gson = new Gson();
+		
+		String key = new StringBuilder(sender).append(":").append(receiver).toString();
+		Jedis jedis = null;
+		jedis = pool.getResource();
+		
+		ChatMessage info = new ChatMessage( "chat",  sender,  receiver,  "尚無交談紀錄", "",  "");
+		String lastChat = null;
+		
+		
+		if(jedis.lindex(key, -1) != null) {
+			String lastChatDataJson = jedis.lindex(key, -1);
+			
+			ChatMessage lastChatData = gson.fromJson(lastChatDataJson, ChatMessage.class);
+			
+			String lastMessage = lastChatData.getMessage();
+			String lastChatTime = lastChatData.getTime();
+			String unreadCount = checkUnreadNumber(receiver, sender);
+			
+			
+			info = new ChatMessage();
+			
+			info.setType("chat");
+			info.setSender(sender);
+			info.setReceiver(receiver);
+			info.setMessage(lastMessage);
+			info.setTime(lastChatTime);
+			info.setUnreadCount(unreadCount);
+			
+			lastChat = gson.toJson(info);			
+		
+		} else {
+			lastChat = gson.toJson(info);	
+		}
+		
+		jedis.close();
+		
+		return lastChat;
+		
+	}
+	
+	
 	
 	
 }

@@ -2,48 +2,45 @@ package com.dietician.controller;
 
 import javax.servlet.http.*;
 
-import com.dietician.model.*;
+import org.apache.catalina.filters.AddDefaultCharsetFilter;
 
+import com.dietician.model.*;
 import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 
 import java.io.*;
 import java.util.*;
 
-@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 10 * 1024 * 1024, maxRequestSize = 10 * 10 * 1024 * 1024)
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 10 * 1024 * 1024, maxRequestSize = 10 * 10 * 1024
+		* 1024)
 
-public class DieticianServlet extends HttpServlet{
+public class DieticianServlet extends HttpServlet {
 
-	
-	public void doGet(HttpServletRequest req, HttpServletResponse res) 
-			throws ServletException, IOException {
-		
-		doPost(req,res);
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+		doPost(req, res);
 	}
-	
-	public void doPost(HttpServletRequest req, HttpServletResponse res) 
-			throws ServletException, IOException {
-		
+
+	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		
-		if("getAll_for_display".equals(action)) {
-			
+
+		if ("getAll_for_display".equals(action)) {
+
 			List<String> errorMsgs = new ArrayList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			
+
 			try {
-				DieticianService dieticianSvc = new DieticianService(); 
+				DieticianService dieticianSvc = new DieticianService();
 				List<DieticianVO> list = dieticianSvc.getAll();
-				
-				
+
 				req.setAttribute("list", list);
-				
-				String url = "/front_end/free/dietician/select_dietician.jsp";
+
+				String url = "/front_end/free/dietician/select_dietician01.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				
-				
+
 			} catch (Exception e) {
 				errorMsgs.add("資料查詢發生錯誤");
 				String url = "/front_end/free/dietician/select_dietician.jsp";
@@ -52,26 +49,24 @@ public class DieticianServlet extends HttpServlet{
 			}
 
 		}
-		
-		if("findByScore".equals(action)) {
-			
+
+		if ("findByScore".equals(action)) {
+
 			List<String> errorMsgs = new ArrayList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			
+
 			try {
-				
+
 				Double avgScore = new Double(req.getParameter("avgScore"));
-				DieticianService dieticianSvc = new DieticianService(); 
+				DieticianService dieticianSvc = new DieticianService();
 				List<DieticianVO> list = dieticianSvc.findByScore(avgScore);
-				
-				
+
 				req.setAttribute("list", list);
-				
-				String url = "/front_end/free/dietician/select_dietician.jsp";
+
+				String url = "/front_end/free/dietician/select_dietician01.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				
-				
+
 			} catch (Exception e) {
 				errorMsgs.add("資料查詢發生錯誤");
 				String url = "/front_end/free/dietician/select_dietician.jsp";
@@ -80,26 +75,24 @@ public class DieticianServlet extends HttpServlet{
 			}
 
 		}
-		if("findByPrice".equals(action)) {
-	
+		if ("findByPrice".equals(action)) {
+
 			List<String> errorMsgs = new ArrayList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-	
+
 			try {
-		
+
 				Integer minPrice = new Integer(req.getParameter("minPrice"));
 				Integer maxPrice = new Integer(req.getParameter("maxPrice"));
-				DieticianService dieticianSvc = new DieticianService(); 
+				DieticianService dieticianSvc = new DieticianService();
 				List<DieticianVO> list = dieticianSvc.findBySubscribeFee(minPrice, maxPrice);
-		
-		
+
 				req.setAttribute("list", list);
-		
+
 				String url = "/front_end/free/dietician/select_dietician.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-		
-		
+
 			} catch (Exception e) {
 				errorMsgs.add("資料查詢發生錯誤");
 				String url = "/front_end/free/dietician/select_dietician.jsp";
@@ -108,171 +101,158 @@ public class DieticianServlet extends HttpServlet{
 			}
 
 		}
-		
-		
-		if("one_dietician_page".equals(action)) {
-			
-			DieticianService dieticianSvc = new DieticianService(); 
-			
+
+		if ("one_dietician_page".equals(action)) {
+
+			DieticianService dieticianSvc = new DieticianService();
+
 			Integer dno = new Integer(req.getParameter("dno"));
-			
+
 			DieticianVO dietician = dieticianSvc.findByPrimaryKey(dno);
-			
+
 			req.setAttribute("dieticianVO", dietician);
-			
-			String url = "/front_end/free/dietician/one_dietician_page.jsp";
+
+			String url = "/front_end/free/dietician/select_one_dietician.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
-			
+
 		}
-		
-		if("update_dietician_page".equals(action)) {
-			
-			DieticianService dieticianSvc = new DieticianService(); 
-			
+
+		if ("update_dietician_page".equals(action)) {
+
+			DieticianService dieticianSvc = new DieticianService();
+
 			Integer dno = new Integer(req.getParameter("dno"));
-			
+
 			DieticianVO dietician = dieticianSvc.findByPrimaryKey(dno);
-			
+
 			req.setAttribute("dieticianVO", dietician);
-			
+
 			String url = "/front_end/free/dietician/update_dietician_page.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
-			
+
 		}
-		
-		if("update".equals(action)) {
-			
+
+		if ("update".equals(action)) {
+
 			List<String> errorMsgs = new ArrayList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			
-			//=====================驗證資料格式=====================
-			
+
+			// =====================驗證資料格式=====================
+
 			try {
-				
-				
+
 				String dname = req.getParameter("dname");
-				
-				if(dname ==null || dname.trim().length()==0) {
+
+				if (dname == null || dname.trim().length() == 0) {
 					errorMsgs.add("請輸入姓名");
 				}
-				
+
 				String daccount = req.getParameter("daccount");
-				if(daccount ==null || daccount.trim().length()==0) {
+				if (daccount == null || daccount.trim().length() == 0) {
 					errorMsgs.add("請輸入帳號");
 				}
-				
-				String dpasswordRegEx =  "^(?=.*[0-9])(?=.*[a-z]).{6,15}$";
-				
+
+				String dpasswordRegEx = "^(?=.*[0-9])(?=.*[a-z]).{6,15}$";
+
 				String dpassword = req.getParameter("dpassword");
-				if(dpassword ==null || dpassword.trim().length()==0) {
+				if (dpassword == null || dpassword.trim().length() == 0) {
 					errorMsgs.add("請輸入密碼");
-				} 
-				else if(!dpassword.matches(dpasswordRegEx)) {
+				} else if (!dpassword.matches(dpasswordRegEx)) {
 					errorMsgs.add("密碼請輸入混合英文及數字6-15碼");
 				}
-				
+
 				java.sql.Date dbirthDay = null;
 				try {
-				dbirthDay = java.sql.Date.valueOf(req.getParameter("dbirthDay"));
-					
-				} catch(IllegalArgumentException e) {
+					dbirthDay = java.sql.Date.valueOf(req.getParameter("dbirthDay"));
+
+				} catch (IllegalArgumentException e) {
 					errorMsgs.add("請輸入生日");
 				}
-				
+
 				String dphone = req.getParameter("dphone");
-				if(dphone ==null || dphone.trim().length()==0) {
+				if (dphone == null || dphone.trim().length() == 0) {
 					errorMsgs.add("請輸入電話");
 				}
-				
+
 				String daddress = req.getParameter("daddress");
-				if(dphone ==null || dphone.trim().length()==0) {
+				if (dphone == null || dphone.trim().length() == 0) {
 					errorMsgs.add("請輸入地址");
 				}
-				
+
 				String demail = req.getParameter("demail");
-				
-				
+
 				String intro = req.getParameter("intro");
-				if(intro ==null || intro.trim().length()==0) {
-					intro="";
+				if (intro == null || intro.trim().length() == 0) {
+					intro = "";
 				}
-				
+
 				String edu = req.getParameter("edu");
-				if(edu ==null || edu.trim().length()==0) {
-					edu="";
+				if (edu == null || edu.trim().length() == 0) {
+					edu = "";
 				}
 				String exp = req.getParameter("exp");
-				if(exp ==null || exp.trim().length()==0) {
-					exp="";
+				if (exp == null || exp.trim().length() == 0) {
+					exp = "";
 				}
 				String lic = req.getParameter("lic");
-				if(lic ==null || lic.trim().length()==0) {
-					lic="";
+				if (lic == null || lic.trim().length() == 0) {
+					lic = "";
 				}
 				String prof = req.getParameter("prof");
-				if(prof ==null || prof.trim().length()==0) {
-					prof="";
+				if (prof == null || prof.trim().length() == 0) {
+					prof = "";
 				}
-				
+
 				Integer clPrice = null;
-				if(req.getParameter("clPrice").trim().length()==0) {
+				if (req.getParameter("clPrice").trim().length() == 0) {
 					clPrice = 0;
-				}
-				else {
+				} else {
 					try {
 						clPrice = new Integer(req.getParameter("clPrice").trim());
-					}catch(NumberFormatException e) {
+					} catch (NumberFormatException e) {
 						errorMsgs.add("諮詢價格請輸入數字");
 					}
 				}
-				
-				
-				
-				if(intro ==null || intro.trim().length()==0) {
-					intro="";
+
+				if (intro == null || intro.trim().length() == 0) {
+					intro = "";
 				}
-				
-				
+
 				Integer mprice = null;
-				if(req.getParameter("mprice").trim().length()==0) {
+				if (req.getParameter("mprice").trim().length() == 0) {
 					mprice = 0;
 				} else {
 					try {
 						mprice = new Integer(req.getParameter("mprice").trim());
-					}catch(NumberFormatException e) {
+					} catch (NumberFormatException e) {
 						errorMsgs.add("營養師月費請輸入數字");
 					}
 				}
-				
-				
 
-				String dpic= req.getParameter("dpic");   //舊圖片
-				Part part = req.getPart("dpic_changed");   //新圖片
-				
-					if(part.getSize() != 0) {   //如果新圖片的大小不等於0, 代表有新圖片
-							String directoryPath = getServletContext().getRealPath("/front_end/free/dietician/images") ;
-				
-							File fsaveDirectory = new File(directoryPath);
+				String dpic = req.getParameter("dpic"); // 舊圖片
+				Part part = req.getPart("dpic_changed"); // 新圖片
+
+				if (part.getSize() != 0) { // 如果新圖片的大小不等於0, 代表有新圖片
+					String directoryPath = getServletContext().getRealPath("/front_end/free/dietician/images");
+
+					File fsaveDirectory = new File(directoryPath);
 					if (!fsaveDirectory.exists()) {
-					 fsaveDirectory.mkdirs();
+						fsaveDirectory.mkdirs();
 					}
-				
-					String filename = daccount + "_" + getFileNameFromPart(part);
-				
-						
-					if(filename != null && part.getContentType()!=null ) {
-					
-					dpic ="/front_end/free/dietician/images/" + filename;   //改寫舊圖片的路徑
 
-					File f = new File(fsaveDirectory, filename);
-					part.write(f.getPath());
+					String filename = daccount + "_" + getFileNameFromPart(part);
+
+					if (filename != null && part.getContentType() != null) {
+
+						dpic = "/front_end/free/dietician/images/" + filename; // 改寫舊圖片的路徑
+
+						File f = new File(fsaveDirectory, filename);
+						part.write(f.getPath());
 					}
 				}
 
-
-				
 				Integer dno = new Integer(req.getParameter("dno"));
 				Integer dstate = new Integer(req.getParameter("dstate"));
 				Integer totalScore = new Integer(req.getParameter("totalScore"));
@@ -280,9 +260,7 @@ public class DieticianServlet extends HttpServlet{
 				Integer donState = new Integer(req.getParameter("donState"));
 				String offDay = req.getParameter("offDay");
 				String optTime = req.getParameter("optTime");
-				
-				
-				
+
 				DieticianVO dietician = new DieticianVO();
 
 				dietician.setDno(dno);
@@ -307,182 +285,283 @@ public class DieticianServlet extends HttpServlet{
 				dietician.setDonState(donState);
 				dietician.setOffDay(offDay);
 				dietician.setOptTime(optTime);
-				
-				
-				
-			if(!errorMsgs.isEmpty()) {
-				req.setAttribute("dieticianVO", dietician);
-				
-				String url = "/front_end/free/dietician/update_dietician_page.jsp";
-				RequestDispatcher failureView = req.getRequestDispatcher(url);
-				failureView.forward(req, res);
-				return;
-			}
-	
-			//=====================格式驗證完成, 開始建立VO==================
-			
-			DieticianService dieticianSvc = new DieticianService();
-			dietician = dieticianSvc.updateDietician(dno, dname, daccount, dpassword, dbirthDay, dpic, dphone, daddress, demail, edu, exp, lic, prof, clPrice, mprice, intro, dstate, totalScore, totalReviewer, donState, offDay, optTime);
-			
-			req.setAttribute("dieticianVO", dietician);
-			
-			String url ="/front_end/free/dietician/one_dietician_page.jsp";
-				
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
-			
 
-			} catch(Exception e) {
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("dieticianVO", dietician);
+
+					String url = "/front_end/free/dietician/update_dietician_page.jsp";
+					RequestDispatcher failureView = req.getRequestDispatcher(url);
+					failureView.forward(req, res);
+					return;
+				}
+
+				// =====================格式驗證完成, 開始建立VO==================
+
+				DieticianService dieticianSvc = new DieticianService();
+				dietician = dieticianSvc.updateDietician(dno, dname, daccount, dpassword, dbirthDay, dpic, dphone,
+						daddress, demail, edu, exp, lic, prof, clPrice, mprice, intro, dstate, totalScore,
+						totalReviewer, donState, offDay, optTime);
+
+				req.setAttribute("dieticianVO", dietician);
+
+				String url = "/front_end/free/dietician/one_dietician_page.jsp";
+
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+
+			} catch (Exception e) {
 				e.printStackTrace();
 				errorMsgs.add("新增資料發生錯誤");
 				String url = "/front_end/free/dietician/update_dietician_page.jsp";
 				RequestDispatcher failureView = req.getRequestDispatcher(url);
 				failureView.forward(req, res);
-				
+
 			}
-			
-			
 
 		}
-	
+		/////////////////////////////////// 世柏增加
+		if ("update_dstate".equals(action)) {
+			try {
+				if(req.getParameter("self").equals("selfAll")) {
+					DieticianService dieticianSvc = new DieticianService();
+					DieticianService dieticianService =new DieticianService();
+					Integer dno = new Integer(req.getParameter("dno"));
+					Integer dstate = new Integer(req.getParameter("dstate"));
+					dieticianSvc.update_dstate(dstate, dno);
+					List<DieticianVO> dstateList=dieticianService.findByDieticianState(0);
+					req.getSession().setAttribute("list",dstateList);
+				String url = "/back_end/dietician/blank_listAllDietician.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				}
+				
+				else if(req.getParameter("self").equals("selfOne")) {
+					DieticianService dieticianSvc = new DieticianService();
+					DieticianService dieticianService =new DieticianService();
+					Integer dno = new Integer(req.getParameter("dno"));
+					Integer dstate = new Integer(req.getParameter("dstate"));
+					dieticianSvc.update_dstate(dstate, dno);
+					
+					if(!req.getParameter("origin_dstate").isEmpty()) {
+					
+					Integer origin_dstate = new Integer(req.getParameter("origin_dstate"));
+						List<DieticianVO> dstateList=dieticianService.findByDieticianState(origin_dstate);
+						req.getSession().setAttribute("list",dstateList);
+					} else {
+						List<DieticianVO> dstateList=dieticianService.findByDieticianState(dstate);	
+						req.getSession().setAttribute("list",dstateList);
+					}
+					String url = "/back_end/dietician/blank_listDstateDietician.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url);
+					successView.forward(req,res);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		
+		if("findByDieticianState".equals(action)) {
+			try {
 		
+				DieticianService dieticianService =new DieticianService();
+				Integer dstate= new Integer(req.getParameter("dstate"));
+				List<DieticianVO> dstateList=dieticianService.findByDieticianState(dstate);
+				req.setAttribute("oringin_dstate", dstate);
+				req.getSession().setAttribute("list",dstateList);
+				String url = "/back_end/dietician/blank_listDstateDietician.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req,res);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		
-		
-		
-		if("add_Dietician".equals(action)) {
-			
+		if("find_demail".equals(action)) {
 			List<String> errorMsgs = new ArrayList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			
-			//=====================驗證資料格式=====================
-			
-			try {
-	
-				String dname = req.getParameter("dname");
-				
-				if(dname ==null || dname.trim().length()==0) {
-					errorMsgs.add("請輸入姓名");
-				}
-				
-				String daccount = req.getParameter("daccount");
-				if(daccount ==null || daccount.trim().length()==0) {
+			String daccount= req.getParameter("daccount");
+			if(daccount==null||daccount.trim().length()==0) {
 					errorMsgs.add("請輸入帳號");
 				}
+			String demail= req.getParameter("demail");
+			if(demail==null||demail.trim().length()==0) {
+				errorMsgs.add("請輸入信箱");
+			}
+			
+			DieticianService dietsvc=new DieticianService();
+			DieticianVO dac =dietsvc.findByAccount(daccount);
+		
+			if(daccount.trim().length()!=0) {
+			if(dac==null)
+				errorMsgs.add("無此帳號");
+			}
+			if(demail.trim().length()!=0) {
+			if(dac!=null&&!(dac.getDemail().equals(demail))) 
+				errorMsgs.add("信箱錯誤，請檢查信箱");
+			}
+			
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front_end/free/dietician/lostPassWord.jsp");
+				failureView.forward(req, res);
+				return;//程式中斷
+			}
+			
 				
-				String dpasswordRegEx =  "^(?=.*[0-9])(?=.*[a-z]).{6,15}$";
+				String x[]=new String[8];
+					int y=0;
+					while(y<8){
+						int z=(int)((Math.random()*75)+48);
+						if((z>47&&z<58)||(z>64&&z<91)||(z>96&&z<123)) {
+							x[y]=Character.toString((char)z);
+						y++;
+						}
+					}
+				String password= x[0]+x[1]+x[2]+x[3]+x[4]+x[5]+x[6]+x[7];
+				System.out.println(password);
 				
+				
+				
+				dietsvc.update_demail(daccount,password);
+				
+				
+				String dmail=req.getParameter("demail");
+				LostPassWordMailService mailService = new LostPassWordMailService();
+				mailService.sendMail(dmail, "密碼通知", password );
+				req.setAttribute("seccessGetPassWord", 1);
+				String url = "/front_end/free/dietician/login_dietician.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+			}
+			
+		
+
+		//////////////////////// 世柏增加
+
+		if ("add_Dietician".equals(action)) {
+
+			List<String> errorMsgs = new ArrayList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			// =====================驗證資料格式=====================
+
+			try {
+
+				String dname = req.getParameter("dname");
+
+				if (dname == null || dname.trim().length() == 0) {
+					errorMsgs.add("請輸入姓名");
+				}
+
+				String daccount = req.getParameter("daccount");
+				if (daccount == null || daccount.trim().length() == 0) {
+					errorMsgs.add("請輸入帳號");
+				}
+
+				String dpasswordRegEx = "^(?=.*[0-9])(?=.*[a-z]).{6,15}$";
+
 				String dpassword = req.getParameter("dpassword");
-				if(dpassword ==null || dpassword.trim().length()==0) {
+				if (dpassword == null || dpassword.trim().length() == 0) {
 					errorMsgs.add("請輸入密碼");
-				} 
-				else if(!dpassword.matches(dpasswordRegEx)) {
+				} else if (!dpassword.matches(dpasswordRegEx)) {
 					errorMsgs.add("密碼請輸入混合英文及數字6-15碼");
 				}
-				
+
 				java.sql.Date dbirthDay = null;
 				try {
-				dbirthDay = java.sql.Date.valueOf(req.getParameter("dbirthDay"));
-					
-				} catch(IllegalArgumentException e) {
+					dbirthDay = java.sql.Date.valueOf(req.getParameter("dbirthDay"));
+
+				} catch (IllegalArgumentException e) {
 					errorMsgs.add("請輸入生日");
 				}
-				
+
 				String dphone = req.getParameter("dphone");
-				if(dphone ==null || dphone.trim().length()==0) {
+				if (dphone == null || dphone.trim().length() == 0) {
 					errorMsgs.add("請輸入電話");
 				}
-				
+
 				String daddress = req.getParameter("daddress");
-				if(dphone ==null || dphone.trim().length()==0) {
+				if (dphone == null || dphone.trim().length() == 0) {
 					errorMsgs.add("請輸入地址");
 				}
-				
+
 				String demail = req.getParameter("demail");
-				
-				
+
 				String intro = req.getParameter("intro");
-				if(intro ==null || intro.trim().length()==0) {
-					intro="";
+				if (intro == null || intro.trim().length() == 0) {
+					intro = "";
 				}
-				
+
 				String edu = req.getParameter("edu");
-				if(edu ==null || edu.trim().length()==0) {
-					edu="";
+				if (edu == null || edu.trim().length() == 0) {
+					edu = "";
 				}
 				String exp = req.getParameter("exp");
-				if(exp ==null || exp.trim().length()==0) {
-					exp="";
+				if (exp == null || exp.trim().length() == 0) {
+					exp = "";
 				}
 				String lic = req.getParameter("lic");
-				if(lic ==null || lic.trim().length()==0) {
-					lic="";
+				if (lic == null || lic.trim().length() == 0) {
+					lic = "";
 				}
 				String prof = req.getParameter("prof");
-				if(prof ==null || prof.trim().length()==0) {
-					prof="";
+				if (prof == null || prof.trim().length() == 0) {
+					prof = "";
 				}
-				
+
 				Integer clPrice = null;
-				if(req.getParameter("clPrice").trim().length()==0) {
+				if (req.getParameter("clPrice").trim().length() == 0) {
 					clPrice = 0;
-				}
-				else {
+				} else {
 					try {
 						clPrice = new Integer(req.getParameter("clPrice").trim());
-					}catch(NumberFormatException e) {
+					} catch (NumberFormatException e) {
 						errorMsgs.add("諮詢價格請輸入數字");
 					}
 				}
-				
-				
-				
-				if(intro ==null || intro.trim().length()==0) {
-					intro="";
+
+				if (intro == null || intro.trim().length() == 0) {
+					intro = "";
 				}
-				
-				
+
 				Integer mprice = null;
-				if(req.getParameter("mprice").trim().length()==0) {
+				if (req.getParameter("mprice").trim().length() == 0) {
 					mprice = 0;
 				} else {
 					try {
 						mprice = new Integer(req.getParameter("mprice").trim());
-					}catch(NumberFormatException e) {
+					} catch (NumberFormatException e) {
 						errorMsgs.add("營養師月費請輸入數字");
 					}
 				}
-				
 
-				String dpic= "";
-				
-				String directoryPath = getServletContext().getRealPath("/front_end/free/dietician/images") ;
-				
+				String dpic = "";
+
+				String directoryPath = getServletContext().getRealPath("/front_end/free/dietician/images");
+
 				File fsaveDirectory = new File(directoryPath);
 				if (!fsaveDirectory.exists()) {
-					 fsaveDirectory.mkdirs();
+					fsaveDirectory.mkdirs();
 				}
-				
+
 				Part part = req.getPart("dpic");
 				String filename = daccount + "_" + getFileNameFromPart(part);
-				
-				
-						
-				if(filename != null && part.getContentType()!=null ) {
-					
-					dpic="/front_end/free/dietician/images/" + filename;
+
+				if (filename != null && part.getContentType() != null) {
+
+					dpic = "/front_end/free/dietician/images/" + filename;
 					File f = new File(fsaveDirectory, filename);
 					part.write(f.getPath());
 				}
-				
+
 				Integer dstate = 0;
 				Integer totalScore = 0;
 				Integer totalReviewer = 0;
 				Integer donState = 0;
 				String offDay = "";
 				String optTime = "";
-				
+
 				DieticianVO dietician = new DieticianVO();
 
 				dietician.setDname(dname);
@@ -506,47 +585,44 @@ public class DieticianServlet extends HttpServlet{
 				dietician.setDonState(donState);
 				dietician.setOffDay(offDay);
 				dietician.setOptTime(optTime);
-				
-				
-				
-			if(!errorMsgs.isEmpty()) {
-				req.setAttribute("dieticianVO", dietician);
-				
-				String url = "/front_end/free/dietician/add_dietician_page.jsp";
-				RequestDispatcher failureView = req.getRequestDispatcher(url);
-				failureView.forward(req, res);
-				return;
-			}
-	
-			//=====================格式驗證完成, 開始建立VO==================
-			
-			DieticianService dieticianSvc = new DieticianService();
-				
-			dietician = dieticianSvc.addDietician(dname, daccount, dpassword, dbirthDay, dpic, dphone, daddress, demail, edu, exp, lic, prof, clPrice, mprice, intro, dstate, totalScore, totalReviewer, donState, offDay, optTime);
-			
-			String url ="/front_end/free/dietician/select_dietician.jsp";
-				
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
-			
 
-			} catch(Exception e) {
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("dieticianVO", dietician);
+
+					String url = "/front_end/free/dietician/add_dietician_page.jsp";
+					RequestDispatcher failureView = req.getRequestDispatcher(url);
+					failureView.forward(req, res);
+					return;
+				}
+
+				// =====================格式驗證完成, 開始建立VO==================
+
+				DieticianService dieticianSvc = new DieticianService();
+
+				dietician = dieticianSvc.addDietician(dname, daccount, dpassword, dbirthDay, dpic, dphone, daddress,
+						demail, edu, exp, lic, prof, clPrice, mprice, intro, dstate, totalScore, totalReviewer,
+						donState, offDay, optTime);
+
+				String url = "/front_end/free/dietician/select_dietician.jsp";
+
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+
+			} catch (Exception e) {
 				e.printStackTrace();
 				errorMsgs.add("新增資料發生錯誤");
 				String url = "/front_end/free/dietician/add_dietician_page.jsp";
 				RequestDispatcher failureView = req.getRequestDispatcher(url);
 				failureView.forward(req, res);
-				
-			}
-			
-			
 
+			}
 		}
+
 	}
-	
+
 	public String getFileNameFromPart(Part part) {
 		String header = part.getHeader("content-disposition");
-		
+
 		String filename = new File(header.substring(header.lastIndexOf("=") + 2, header.length() - 1)).getName();
 
 		if (filename.length() == 0) {

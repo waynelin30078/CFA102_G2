@@ -260,17 +260,12 @@ public class MealServlet extends HttpServlet {
 				
 				List<FoodRecordVO> foodRecords = (List<FoodRecordVO>)session.getAttribute("foodRecords");
 				
-				System.out.println(foodRecords);
 				try {	
-
-					
-					System.out.println(foodRecords);
 					
 					if(foodRecords == null) {
 						foodRecords = new ArrayList<FoodRecordVO>();
 					}
 					
-					System.out.println(foodRecords);
 					FoodRecordVO foodRecord = new FoodRecordVO();
 					
 					Integer fdNo = new Integer(req.getParameter("fdNo"));
@@ -343,10 +338,8 @@ public class MealServlet extends HttpServlet {
 					
 					
 					int fdIndex = new Integer((String)req.getParameter("fdIndex"));
-					System.out.println(foodRecords);
 					
 					foodRecords.remove(fdIndex);
-					System.out.println(foodRecords);
 					session.setAttribute("foodRecords", foodRecords);
 					
 					String url ="/front_end/protected/diary/add_meal_page.jsp";

@@ -474,13 +474,14 @@ cursor: pointer;
 	
 $(".record_row").css("visibility", "collapse");
 	
-$(".meal_row").click(function() {
+$(".meal_row").click(function(e) {
+	if (e.target instanceof HTMLInputElement) {return;}
 	
-	if($(".record_row").css('visibility') === 'collapse'){
+	if($(this).nextUntil(".meal_row").css('visibility') === 'collapse'){
 	
-		$(".record_row").css("visibility", "visible");
+		$(this).nextUntil(".meal_row").css("visibility", "visible");
 	}else {
-		$(".record_row").css("visibility", "collapse");
+		$(this).nextUntil(".meal_row").css("visibility", "collapse");
 		
 	}
 

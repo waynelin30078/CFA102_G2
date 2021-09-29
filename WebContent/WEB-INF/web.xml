@@ -1,61 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
-  <display-name>CFA102_G2</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
-  
-    <servlet>
-    <servlet-name>DieticianServlet</servlet-name>
-    <servlet-class>com.dietician.controller.DieticianServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DieticianServlet</servlet-name>
-    <url-pattern>/dietician/dietician.do</url-pattern>
-  </servlet-mapping>
-  
-      <servlet>
-    <servlet-name>DiaryServlet</servlet-name>
-    <servlet-class>com.diary.controller.DiaryServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DiaryServlet</servlet-name>
-    <url-pattern>/diary/diary.do</url-pattern>
-  </servlet-mapping>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	version="4.0">
+	<display-name>CFA102_G2</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
 
-   <servlet>
-    <servlet-name>MealServlet</servlet-name>
-    <servlet-class>com.meal.controller.MealServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>MealServlet</servlet-name>
-    <url-pattern>/meal/meal.do</url-pattern>
-  </servlet-mapping>
 
-   <servlet>
-    <servlet-name>MemberServlet</servlet-name>
-    <servlet-class>com.member.controller.MemberServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>MemberServlet</servlet-name>
-    <url-pattern>/member/member.do</url-pattern>
-  </servlet-mapping>
-  
-  
 
-  <servlet>
-  	<servlet-name>MemberLoginHandler</servlet-name>
-  	<servlet-class>com.member.controller.MemberLoginHandler</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>MemberLoginHandler</servlet-name>
-  	<url-pattern>/memberLoginHandler.do</url-pattern>
-  </servlet-mapping>
+
+	<!-- 營養師部分 -->
+
+	<servlet>
+		<servlet-name>DieticianLoginHandler</servlet-name>
+		<servlet-class>com.dietician.controller.DieticianLoginHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DieticianLoginHandler</servlet-name>
+		<url-pattern>/DieticianLoginHandler.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- 營養師部分 -->
+
+
+
+	<!-- 營養師登入濾器 -->
+	<filter>
+		<filter-name>DieticianLoginFilter</filter-name>
+		<filter-class>com.dietician.controller.DieticianLoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>DieticianLoginFilter</filter-name>
+		<url-pattern>/front_end/protected/dietician/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	<!-- 營養師登入濾器 -->
+
+
+	<servlet>
+		<servlet-name>DieticianServlet</servlet-name>
+		<servlet-class>com.dietician.controller.DieticianServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DieticianServlet</servlet-name>
+		<url-pattern>/dietician/dietician.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>DiaryServlet</servlet-name>
+		<servlet-class>com.diary.controller.DiaryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DiaryServlet</servlet-name>
+		<url-pattern>/diary/diary.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>MealServlet</servlet-name>
+		<servlet-class>com.meal.controller.MealServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MealServlet</servlet-name>
+		<url-pattern>/meal/meal.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>MemberServlet</servlet-name>
+		<servlet-class>com.member.controller.MemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MemberServlet</servlet-name>
+		<url-pattern>/member/member.do</url-pattern>
+	</servlet-mapping>
+
+
+
+	<servlet>
+		<servlet-name>MemberLoginHandler</servlet-name>
+		<servlet-class>com.member.controller.MemberLoginHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MemberLoginHandler</servlet-name>
+		<url-pattern>/memberLoginHandler.do</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>NameServlet</servlet-name>
@@ -68,19 +106,19 @@
 
 
 
-  <filter>
-  	<filter-name>MemberLoginFilter</filter-name>
-  	<filter-class>com.member.filter.MemberLoginFilter</filter-class>
-  </filter>
-  <filter-mapping>
-  	<filter-name>MemberLoginFilter</filter-name>
-  	<url-pattern>/front_end/protected/*</url-pattern>
- 		<dispatcher>REQUEST</dispatcher>
+	<filter>
+		<filter-name>MemberLoginFilter</filter-name>
+		<filter-class>com.member.filter.MemberLoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>MemberLoginFilter</filter-name>
+		<url-pattern>/front_end/protected/diary/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
 		<dispatcher>ERROR</dispatcher>
 		<dispatcher>ASYNC</dispatcher>
-  </filter-mapping>
+	</filter-mapping>
 
 
 </web-app>

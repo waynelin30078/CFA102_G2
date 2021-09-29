@@ -30,56 +30,63 @@
                                  <li>
                                  <a href="#">資訊</a>
                                    <ul class="sub-menu">
-                                        <li><a href="<%= request.getContextPath() %>/Nutras-template/courses.html">關於我們</a></li>
-                                        <li><a href="<%= request.getContextPath() %>/Nutras-template/-courses.html">最新消息</a></li>
-                                        <li><a href="#">常見問題</a>
-										<li><a href="#">健康專欄</a>
-										<li><a href="#">聯絡我們</a>
+                                        <li><a href="<%= request.getContextPath() %>/Nutras-template/courses.html">最新消息</a></li>
+                                        <li><a href="<%= request.getContextPath() %>/Nutras-template/-courses.html">健康專欄</a></li>
                                     </ul>
-                                </li>
-                                <li><a href="<%= request.getContextPath() %>/Nutras-template/about.html">專屬營養師</a></li>
+                                </li>	
+                                <li><a href="<%= request.getContextPath() %>/front_end/free/dietician/select_dietician01.jsp">專屬營養師</a></li>
                                 <li>
                                     <a href="#">營養課程</a>
                                     <ul class="sub-menu">
-                                        <li><a href="<%= request.getContextPath() %>/Nutras-template/courses.html">尋找課程</a></li>
-                                        <li><a href="<%= request.getContextPath() %>/Nutras-template/my-courses.html">我的課程</a></li>
-                                        <li><a href="#">課程頁面</a>
-                                            <ul class="sub-menu">
-                                                <li><a href="<%= request.getContextPath() %>/Nutras-template/courses-details-left-sidebar.html">課程頁面1</a></li>
-                                                <li><a href="<%= request.getContextPath() %>/Nutras-template/courses-details-right-sidebar.html">課程頁面2</a></li>
-                                            </ul>
-                                        </li>
+                                        <li><a href="<%= request.getContextPath() %>/front_end/free/course/course_front_page.jsp">尋找課程</a></li>
+                                        <li><a href="<%= request.getContextPath() %>/course/course.do?action=mycourse">我的課程</a></li>
+                                        
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="#">營養商城 </a>
-                                    <ul class="sub-menu">
-                                        <li><a href="<%= request.getContextPath() %>/Nutras-template/after-enroll.html">After Enroll</a></li>
-                                        <li><a href="<%= request.getContextPath() %>/Nutras-template/courses-admin.html">Instructor Dashboard (Course List)</a></li>
-
-                                    </ul>
+                                    <a href="<%= request.getContextPath() %>/front_end/free/product/listAllProduct.jsp">營養商城 </a>
+                                </li>
+                                <li>
+                                    <a href="<%= request.getContextPath() %>/front_end/protected/diary/diary_calendar_page.jsp">飲食日記 </a>
                                 </li>
                                 <li>
                                     <a href="#">一般會員專區</a>
                                     <ul class="sub-menu">
                                         <li>
-                                            <a href="#">一般會員</a>
-                                            <ul class="sub-menu">
-                                                <li><a href="<%= request.getContextPath() %>/Nutras-template/blog-grid.html">Blog Grid</a></li>
-                                                <li><a href="<%= request.getContextPath() %>/Nutras-template/blog-left-sidebar.html">Blog Left Sidebar</a></li>
-                                                <li><a href="<%= request.getContextPath() %>/Nutras-template/blog-right-sidebar.html">Blog Right Sidebar</a></li>
-                                            </ul>
+                                            <a href="<%= request.getContextPath() %>/front_end/protected/member/member_info.jsp">管理會員資料</a>
                                         </li>
                                         <li>
-                                            <a href="#">營養師會員</a>
-                                            <ul class="sub-menu">
-                                                <li><a href="<%= request.getContextPath() %>/Nutras-template/blog-details-left-sidebar.html">Blog Details Left Sidebar</a></li>
-                                                <li><a href="<%= request.getContextPath() %>/Nutras-template/blog-details-right-sidebar.html">Blog Details Right Sidebar</a></li>
-                                            </ul>
+                                            <a href="<%= request.getContextPath() %>/front_end/protected/appointment/search_appointment.jsp">查詢諮詢時間</a>
+                                        </li>
+                                        <li>
+                                            <a href="<%= request.getContextPath() %>/front_end/free/member/memberLogin.jsp">登入</a>
+                                        </li>
+                                        <li>
+                                            <a href="<%= request.getContextPath() %>/memberLoginHandler.do?action=signOut">登出</a>
                                         </li>
                                     </ul>
                                 </li>
-                                <li><a href="<%= request.getContextPath() %>/Nutras-template/contact.html">營養師會員專區</a></li>
+                                <li><a href="#">營養師會員專區</a></li>
+                                   <ul class="sub-menu">
+                                        <li>
+                                            <a href="<%= request.getContextPath() %>/front_end/protected/dietician/one_dietician_page01.jsp">管理營養師會員資料</a>
+                                        </li>
+                                        <li>
+                                            <a href="<%= request.getContextPath() %>/front_end/protected/chat/dietician_chat_page.jsp">線上諮詢室</a>
+                                        </li>
+                                        <li>
+                                            <a href="<%= request.getContextPath() %>/front_end/protected/course/addCourse.jsp">新增課程</a>
+                                        </li>
+                                        <li>
+                                            <a href="<%= request.getContextPath() %>/front_end/protected/course/listAllCourse.jsp ">管理課程</a>
+                                        </li>
+                                        <li>
+                                            <a href="<%= request.getContextPath() %>/front_end/free/dietician/login_dietician.jsp">登入</a>
+                                        </li>
+                                        <li>
+                                            <a href="<%= request.getContextPath() %>/DieticianLoginHandler.do?action=logout">登出</a>
+                                        </li>
+                                    </ul>
                             </ul>
 
 

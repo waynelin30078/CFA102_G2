@@ -1,5 +1,6 @@
 package com.dietician.model;
 
+import com.admin.model.AdminVO;
 import com.member.model.MemberVO;
 import java.util.List;
 
@@ -13,6 +14,12 @@ public interface DieticianDAO_interface {
 	List<DieticianVO> findByScore(double avgScore);   //找平均幾分以上的營養師
 	List<DieticianVO> findBySubscribeFee(int minPrice, int maxPrice);   //找訂閱價格區間的營養師
 	List<DieticianVO> findByDieticianState(int dstate); //依審核狀態找營養師
+	//世柏增加
+	void update_dstate(Integer dstate,Integer dno);
+	public DieticianVO findByAccount(String daccount);
+	void update_dpassword(String daccount, String dpassword);
 	
-	
+	//世柏增加
+
+	 
 }

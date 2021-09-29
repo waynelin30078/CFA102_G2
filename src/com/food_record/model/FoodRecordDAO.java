@@ -238,14 +238,14 @@ public class FoodRecordDAO implements FoodRecordDAO_interface{
 
 		public static void main(String[] args) {
 			
-			FoodRecordDAO dao = new FoodRecordDAO();
-			
-			List<FoodRecordVO> FoodRecords = dao.findByMealNo(1);
-			
-			for (FoodRecordVO FoodRecord : FoodRecords) {
-				System.out.println(FoodRecord.getFdNo());
-			}
-			
+//			FoodRecordDAO dao = new FoodRecordDAO();
+//			
+//			List<FoodRecordVO> FoodRecords = dao.findByMealNo(1);
+//			
+//			for (FoodRecordVO FoodRecord : FoodRecords) {
+//		
+//			}
+//			
 			
 			
 			

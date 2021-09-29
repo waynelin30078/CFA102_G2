@@ -10,12 +10,29 @@ public class State {
 	private String user;
 	// total users
 	private Set<String> users;  //在線使用者
+	private String daccount;
 
 	public State(String type, String user, Set<String> users) {
 		super();
 		this.type = type;
 		this.user = user;
 		this.users = users;
+	}
+
+	public State(String type, String user, String daccount) {
+		super();
+		this.type = type;
+		this.user = user;
+		this.daccount = daccount;
+	}
+	
+	
+	public String getDaccount() {
+		return daccount;
+	}
+
+	public void setDaccount(String daccount) {
+		this.daccount = daccount;
 	}
 
 	public String getType() {

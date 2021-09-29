@@ -8,6 +8,7 @@ public class ChatMessage {
 	private String time;
 	private String readState;
 	private String unreadCount;
+	private String isOnline;
 	
 	//可以增加時間的欄位, 時間建議private String time;
 	//因為Json轉日期很麻煩, 直接用string過去就好了
@@ -48,6 +49,10 @@ public class ChatMessage {
 		this.sender = sender;
 		this.receiver = receiver;
 		this.unreadCount = unreadCount;
+	}
+	
+	public ChatMessage() {
+		super();
 	}
 	
 	public String getSender() {
@@ -106,6 +111,16 @@ public class ChatMessage {
 
 	public void setUnreadCount(String unreadCount) {
 		this.unreadCount = unreadCount;
+	}
+
+
+	public String getIsOnline() {
+		return isOnline;
+	}
+
+
+	public void setIsOnline(String isOnline) {
+		this.isOnline = isOnline;
 	}
 	
 	
